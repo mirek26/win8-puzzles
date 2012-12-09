@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.Contract
+namespace Puzzles.API.Models
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -16,9 +16,6 @@ namespace Puzzles.Contract
     /// </summary>
     public class User
     {
-        /// <summary>
-        /// An enumeration representing the highest completed education.
-        /// </summary>
         public enum Education
         {
             Elementary,
@@ -26,19 +23,16 @@ namespace Puzzles.Contract
             Tertiary
         }
 
-        /// <summary>
-        /// Gets or sets the name of the user.
-        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the year of birth of the user.
-        /// </summary>
-        public int YearOfBirth { get; set; }
+        public string Info { get; set; }
 
-        /// <summary>
-        /// Gets or sets the highest completed education level of the user.
-        /// </summary>
-        public Education CompletedEducation { get; set; }
+        public int? YearOfBirth { get; set; }
+
+        public Education? CompletedEducation { get; set; }
     }
 }

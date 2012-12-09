@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Global.asax.cs" company="">
+//   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
+// </copyright>
+// <summary>
+//   Defines the WebApiApplication type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Puzzles.API
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Http;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Data.Entity;
 
-    public class WebApiApplication : System.Web.HttpApplication
+    using Puzzles.API.Models;
+
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -22,6 +31,8 @@ namespace Puzzles.API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Database.SetInitializer(new SampleData());
         }
     }
 }

@@ -1,8 +1,17 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BundleConfig.cs" company="">
+//   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
+// </copyright>
+// <summary>
+//   Defines the BundleConfig type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Puzzles.API
 {
+    using System.Web;
+    using System.Web.Optimization;
+
     public class BundleConfig
     {
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725

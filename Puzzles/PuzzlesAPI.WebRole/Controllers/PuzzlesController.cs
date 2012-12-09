@@ -1,4 +1,12 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PuzzlesController.cs" company="">
+//   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
+// </copyright>
+// <summary>
+//   Defines the PuzzlesController type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Puzzles.API.Controllers
 {
     using System;
@@ -9,14 +17,13 @@ namespace Puzzles.API.Controllers
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Web;
     using System.Web.Http;
-    using Puzzles.Contract;
+
     using Puzzles.API.Models;
 
     public class PuzzlesController : ApiController
     {
-        private PuzzleDbContext db = new PuzzleDbContext();
+        private PuzzlesDbContext db = new PuzzlesDbContext();
 
         // GET api/puzzles
         public IEnumerable<Puzzle> GetPuzzles(
@@ -24,13 +31,13 @@ namespace Puzzles.API.Controllers
             int top = 0,
             int skip = 0)
         {
-            var q = db.Puzzles.AsQueryable();
+            var q = this.db.Puzzles.AsQueryable();
             if (type != null)
             {
-                q = q.Where(puzzle => puzzle.Type == type);
+                q = q.Where(p => p.Type == type);
             }
 
-            q = q.Skip(skip);
+            q = q.OrderBy(p => p.Id).Skip(skip);
             if (top != 0)
             {
                 q = q.Take(top);
@@ -42,7 +49,7 @@ namespace Puzzles.API.Controllers
         // GET api/puzzles/1234
         public Puzzle GetPuzzle(int id)
         {
-            Puzzle puzzle = db.Puzzles.Find(id);
+            var puzzle = this.db.Puzzles.Find(id);
             if (puzzle == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -64,11 +71,11 @@ namespace Puzzles.API.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            db.Entry(puzzle).State = EntityState.Modified;
+            this.db.Entry(puzzle).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                this.db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -91,11 +98,10 @@ namespace Puzzles.API.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
+            this.db.Puzzles.Add(puzzle);
+            this.db.SaveChanges();
 
-            db.Puzzles.Add(puzzle);
-            db.SaveChanges();
-
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, puzzle);
+            var response = Request.CreateResponse(HttpStatusCode.Created, puzzle);
             response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = puzzle.Id }));
             return response;
         }
@@ -103,17 +109,17 @@ namespace Puzzles.API.Controllers
         // DELETE api/puzzles
         public HttpResponseMessage DeletePuzzle(int id)
         {
-            Puzzle puzzle = db.Puzzles.Find(id);
+            var puzzle = this.db.Puzzles.Find(id);
             if (puzzle == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            db.Puzzles.Remove(puzzle);
+            this.db.Puzzles.Remove(puzzle);
 
             try
             {
-                db.SaveChanges();
+                this.db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -125,7 +131,7 @@ namespace Puzzles.API.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            this.db.Dispose();
             base.Dispose(disposing);
         }
     }

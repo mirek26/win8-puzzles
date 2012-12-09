@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.Contract
+namespace Puzzles.API.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -17,34 +17,16 @@ namespace Puzzles.Contract
     /// </summary>
     public class UserAction
     {
-        /// <summary>
-        /// The string for the <see cref="Description"/> property that represents the action of pausing.
-        /// </summary>
         public const string Pause = "Pause";
-
-        /// <summary>
-        /// The string for the <see cref="Description"/> property that represents the action of opening a puzzle.
-        /// </summary>
         public const string Open = "Open";
-
-        /// <summary>
-        /// The string for the <see cref="Description"/> property that represents the action of closing a puzzle (without finishing it).
-        /// </summary>
         public const string Close = "Close";
-
-        /// <summary>
-        /// The string for the <see cref="Description"/> property that represents the action of finishing a puzzle.
-        /// </summary>
         public const string Finished = "Finished";
 
-        /// <summary>
-        /// Gets or sets the timestamp of the action.
-        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
         public DateTime Timestamp { get; set; }
 
-        /// <summary>
-        /// Gets or sets the description of the action. Every type of puzzle can use different strings.
-        /// </summary>
         public string Description { get; set; }
     }
 }

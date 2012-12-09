@@ -7,35 +7,28 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.Contract
+namespace Puzzles.API.Models
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Collected data about how a user tried to solve a puzzle.
     /// </summary>
     public class UserData
     {
-        /// <summary>
-        /// Gets or sets the Id of the user the data comes from.
-        /// </summary>
-        public int UserId { get; set; }
+        [Key]
+        public int Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Id of the puzzle.
-        /// </summary>
-        public int PuzzleId { get; set; }
+        public virtual User User { get; set; }
 
-        /// <summary>
-        /// Gets or sets the date and time receipt of the data.
-        /// </summary>
+        [Required]
+        public virtual Puzzle Puzzle { get; set; }
+
         public DateTime Received { get; set; }
 
-        /// <summary>
-        /// Gets or sets the actual data - list of user actions.
-        /// </summary>
         public List<UserAction> Actions { get; set; }
     }
 }
