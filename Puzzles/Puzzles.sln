@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.Contract", "Puzzles.Contract\Puzzles.Contract.csproj", "{AE03373E-0BCD-4FE9-B2C2-37618DC77861}"
 EndProject
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "PuzzlesAPI.AzureDeployment", "PuzzlesAPI\PuzzlesAPI.AzureDeployment.ccproj", "{2D1D863F-0488-4074-9970-59DD5A20D0B4}"
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "PuzzlesAPI.AzureDeployment", "PuzzlesAPI.AzureDeployment\PuzzlesAPI.AzureDeployment.ccproj", "{2D1D863F-0488-4074-9970-59DD5A20D0B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzlesAPI.WebRole", "MvcWebRole1\PuzzlesAPI.WebRole.csproj", "{D1AB0D7C-800F-4ACC-992C-9B36D3B0438E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzlesAPI.WebRole", "PuzzlesAPI.WebRole\PuzzlesAPI.WebRole.csproj", "{D1AB0D7C-800F-4ACC-992C-9B36D3B0438E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace MvcWebRole1
+namespace Puzzles.API
 {
     public class FilterConfig
     {

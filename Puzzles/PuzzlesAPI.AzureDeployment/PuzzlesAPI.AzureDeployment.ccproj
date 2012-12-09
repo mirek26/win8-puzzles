@@ -37,7 +37,7 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvcWebRole1\PuzzlesAPI.WebRole.csproj">
+    <ProjectReference Include="..\PuzzlesAPI.WebRole\PuzzlesAPI.WebRole.csproj">
       <Name>PuzzlesAPI.WebRole</Name>
       <Project>{d1ab0d7c-800f-4acc-992c-9b36d3b0438e}</Project>
       <Private>True</Private>
