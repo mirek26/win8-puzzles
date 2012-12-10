@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserData.cs" company="">
+// <copyright file="ActionLog.cs" company="">
 //   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
 // </copyright>
 // <summary>
@@ -17,7 +17,7 @@ namespace Puzzles.API.Models
     /// <summary>
     /// Collected data about how a user tried to solve a puzzle.
     /// </summary>
-    public class UserData
+    public class ActionLog
     {
         [Key]
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace Puzzles.API.Models
 
         public DateTime Received { get; set; }
 
-        public List<UserAction> Actions { get; set; }
+        public string Log { get; set; }
     }
 }

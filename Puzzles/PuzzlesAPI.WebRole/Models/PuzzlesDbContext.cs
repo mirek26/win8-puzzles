@@ -14,11 +14,15 @@ namespace Puzzles.API.Models
 
     public class PuzzlesDbContext : DbContext
     {
+        public DbSet<PuzzleType> PuzzleTypes { get; set; }
+
         public DbSet<Puzzle> Puzzles { get; set; }
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<UserData> Data { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+
+        public DbSet<ActionLog> ActionLogs { get; set; }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{

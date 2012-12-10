@@ -34,7 +34,7 @@ namespace Puzzles.API.Controllers
             var q = this.db.Puzzles.AsQueryable();
             if (type != null)
             {
-                q = q.Where(p => p.Type == type);
+                q = q.Where(p => p.Type.Id == type);
             }
 
             q = q.OrderBy(p => p.Id).Skip(skip);

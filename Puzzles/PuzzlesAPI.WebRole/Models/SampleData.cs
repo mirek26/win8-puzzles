@@ -11,6 +11,14 @@ namespace Puzzles.API.Models
     {
         protected override void Seed(PuzzlesDbContext context)
         {
+            var rushhour = context.PuzzleTypes.Add(new PuzzleType()
+                {
+                    Id = "RushHour",
+                    Name = "Rush Hour", 
+                    Details = "Hey, this is the great rush hour puzzle!", 
+                    Rules = "Move the red car to the exit!"
+                });
+
             var user1 = context.Users.Add(new User()
                 {
                     Name = "Mirek Klimoš",
@@ -30,7 +38,7 @@ namespace Puzzles.API.Models
                     Created = DateTime.UtcNow.AddHours(-1),
                     Name = "Uloha U", 
                     Definition = "12345",
-                    Type = "RushHour"
+                    Type = rushhour
                 });
             
             var puzzle2 = context.Puzzles.Add(new Puzzle()
@@ -39,19 +47,7 @@ namespace Puzzles.API.Models
                     Created = DateTime.UtcNow.AddHours(-2),
                     Name = "Uloha T",
                     Definition = "54321",
-                    Type = "RushHour"
-                });
-
-            var data1 = context.Data.Add(new UserData()
-                {
-                    Puzzle = puzzle1, 
-                    Received = DateTime.UtcNow.AddMinutes(-10),
-                    User = user2,
-                    Actions = new List<UserAction>()
-                        {
-                            new UserAction() { Description = "Open", Timestamp = DateTime.UtcNow.AddMinutes(-11) },
-                            new UserAction() { Description = "Finish", Timestamp = DateTime.UtcNow.AddMinutes(-10.5) }
-                        }
+                    Type = rushhour
                 });
 
             base.Seed(context);

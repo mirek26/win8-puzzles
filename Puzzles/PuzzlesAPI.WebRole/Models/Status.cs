@@ -1,43 +1,38 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Puzzle.cs" company="">
+// <copyright file="Status.cs" company="">
 //   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
 // </copyright>
 // <summary>
-//   A class representing an instance of a puzzle.
+//   Collected data about how a user tried to solve a puzzle.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Puzzles.API.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity;
 
     /// <summary>
-    /// A class representing an instance of a puzzle.
+    /// Collected data about how a user tried to solve a puzzle.
     /// </summary>
-    public class Puzzle
+    public class Status
     {
         [Key]
         public int Id { get; set; }
 
-        public int? TutorId { get; set; }
+        public virtual User User { get; set; }
 
-        [Required]
-        public virtual PuzzleType Type { get; set; }
+        public virtual Puzzle Puzzle { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        /// <summary>
+        /// JSON object in string.
+        /// </summary>
+        public string State { get; set; }
 
-        public string Details { get; set; }
+        public DateTime LastChange { get; set; }
 
-        [Required]
-        public virtual User Author { get; set; }
-
-        public DateTime Created { get; set; }
-
-        [Required]
-        public string Definition { get; set; }
+        public bool Solved { get; set; }
     }
 }

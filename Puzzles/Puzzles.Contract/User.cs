@@ -9,8 +9,6 @@
 
 namespace Puzzles.Contract
 {
-    using System.ComponentModel.DataAnnotations;
-
     /// <summary>
     /// Basic information about a user.
     /// </summary>

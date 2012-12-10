@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserAction.cs" company="">
+// <copyright file="Action.cs" company="">
 //   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
 // </copyright>
 // <summary>
@@ -7,26 +7,24 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.API.Models
+namespace Puzzles.Contract
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Represents a particular action of a user when solving a puzzle.
     /// </summary>
-    public class UserAction
+    public class Action
     {
         public const string Pause = "Pause";
         public const string Open = "Open";
         public const string Close = "Close";
-        public const string Finished = "Finished";
-
-        [Key]
-        public int Id { get; set; }
+        public const string Solved = "Solved";
 
         public DateTime Timestamp { get; set; }
 
-        public string Description { get; set; }
+        public string Type { get; set; }
+
+        public object Parameters { get; set; }
     }
 }

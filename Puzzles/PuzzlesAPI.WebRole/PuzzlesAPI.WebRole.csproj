@@ -141,12 +141,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\PuzzleType.cs" />
     <Compile Include="Models\Puzzle.cs" />
     <Compile Include="Models\PuzzlesDbContext.cs" />
     <Compile Include="Models\SampleData.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserAction.cs" />
-    <Compile Include="Models\UserData.cs" />
+    <Compile Include="Models\ActionLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
@@ -253,7 +254,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Controllers\App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
