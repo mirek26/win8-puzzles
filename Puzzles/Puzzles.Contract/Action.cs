@@ -17,9 +17,12 @@ namespace Puzzles.Contract
     public class Action
     {
         public const string Pause = "Pause";
+        public const string Pause = "Continue";
         public const string Open = "Open";
         public const string Close = "Close";
         public const string Solved = "Solved";
+        public const string Move = "Move";
+
 
         public DateTime Timestamp { get; set; }
 

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RushHour", "RushHour\RushHo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzles.Common", "Puzzles.Common\Puzzles.Common.csproj", "{578BE13E-5D7B-45F1-956D-3F2E05B215B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{8D242099-E224-428A-A756-F629C00E8157}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{578BE13E-5D7B-45F1-956D-3F2E05B215B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{578BE13E-5D7B-45F1-956D-3F2E05B215B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{578BE13E-5D7B-45F1-956D-3F2E05B215B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D242099-E224-428A-A756-F629C00E8157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D242099-E224-428A-A756-F629C00E8157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D242099-E224-428A-A756-F629C00E8157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D242099-E224-428A-A756-F629C00E8157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
