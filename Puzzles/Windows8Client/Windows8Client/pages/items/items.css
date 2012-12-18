@@ -1,0 +1,38 @@
+﻿.itemspage section[role=main] {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+}
+
+/* This selector is used to prevent ui-dark/light.css from overwriting changes
+   to .win-surface. */
+.itemspage .itemslist .win-horizontal.win-viewport .win-surface {
+    margin-bottom: 60px;
+    margin-left: 115px;
+    margin-right: 115px;
+    margin-top: 155px;
+}
+
+.itemspage .itemslist {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+}
+
+    .itemspage .itemslist .puzzle {
+        background-color: #ffd800;
+        position: relative;
+        display: inline-block;
+        width: 150px;
+        height: 200px;
+        margin: 15px;
+    }
+
+        .itemspage .itemslist .puzzle .overlay {
+            position: absolute;
+            bottom: 0px;
+            width: calc(100% - 2em);
+            padding: 1ex 1em;
+            background-color: rgba(0,0,0,0.4);
+            vertical-align: middle;
+        }

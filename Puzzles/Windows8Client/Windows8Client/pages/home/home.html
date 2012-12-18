@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>homePage</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/pages/home/home.css" rel="stylesheet" />
+    <script src="/js/data.js"></script>
+    <script src="/pages/home/home.js"></script>
+</head>
+<body>
+    <!-- The content that will be loaded and displayed. -->
+    <div class="homepage fragment">
+        <header aria-label="Header content" role="banner">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">Rush Hour</h1>
+        </header>
+        <section role="main">
+        <div class="rulessection" aria-label="Rules column">
+            <h2>Rules</h2>
+            <div class="rules">
+                <ul>
+                    <li>Your goal is to move the red car to the exit mark.</li>
+                    <li>Every car can be moved only either horizontally, or vertically.</li>
+                    <li>Cars can be moved by tapping or mouse dragging.</li>
+                    <li>Enjoy!</li>
+                </ul> 
+            </div>
+            <h2>Try it here</h2>
+        </div>
+        <div class="puzzlessection" aria-label="Puzzles column">
+            <h2>Recommended puzzles</h2>
+            <div class="recommended">
+                <div class="puzzle easy">
+                    <div class="difficulty">Easy</div>
+                    <div class="overlay">
+                        <h4></h4>
+                        <h6></h6>
+                    </div>
+                </div>
+                <div class="puzzle medium">
+                    <div class="difficulty">Medium</div>
+                    <div class="overlay">
+                        <h4></h4>
+                        <h6></h6>
+                    </div>
+                </div>
+                <div class="puzzle hard">
+                    <div class="difficulty">Hard</div>
+                    <div class="overlay">
+                        <h4></h4>
+                        <h6></h6>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button class="seeall">See all Rush Hour puzzles</button>
+        </div>
+        </section>
+    </div>
+</body>
+</html>

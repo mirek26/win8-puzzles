@@ -11,6 +11,37 @@ var Action = function (type) {
     this.parametres = null;
 }
 
+// returns the response and a returned object, if any
+var SendHttpRequest = function (verb, url, postdata) {
+
+}
+
+var Client = function (url) {
+    this.url = url;
+}
+
+Client.prototype.GetPuzzles = function (type, skip, top) {
+    url = this.url + "/puzzles?";
+    if (type != null) url += "type="+type+"&";
+    if (skip != null) url += "skip="+skip+"&";
+    if (top != null) url += "top="+top;
+    response = SendHttpRequest("GET", url, "");
+    if (response.code != 200)
+        return false;
+    else
+        return response.data;
+}
+
+Client.prototype.GetPuzzle = function (id) {
+    url = this.url + "/puzzle?id="+id;
+    response = SendHttpRequest("GET", url, "");
+    if (response.code != 200)
+        return false;
+    else
+        return response.data;
+}
+
+client = new Client("http://127.0.0.1/");
 
 
 var Controller = function (puzzleId) {

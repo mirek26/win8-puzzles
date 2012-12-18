@@ -1,0 +1,30 @@
+﻿section[role=main] {
+    text-align: center;
+}
+
+.map {
+    position: relative;
+    margin: 100px auto;
+}
+
+.map .car {
+    border-radius: 30px;
+    transform-origin: 0 0;
+}
+
+    .map table {
+        border-spacing: 0;
+    }
+
+    .map tr {
+        margin: 0;
+        padding: 0;
+    }
+
+    .map .grid td {
+        border: 1px solid #686868;
+        width: 98px;
+        height: 98px;
+        padding: 0;
+        margin: 0;
+    }
