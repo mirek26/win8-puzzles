@@ -14,6 +14,8 @@ namespace RushHour
     using System.Linq;
     using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    
+
 
     [TestClass]
     public class RushHourUnitTests
@@ -72,6 +74,9 @@ namespace RushHour
             Assert.AreEqual(Car.OrientationEnum.Vertical, puzzle.RedCar.Orientation);
             Assert.AreEqual(4, puzzle.RedCarGoal.X);
             Assert.AreEqual(4, puzzle.RedCarGoal.Y);
+            var jsonSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var str = jsonSerializer.Serialize(puzzle);
+            Assert.IsNotNull(str);
         }
 
         [TestMethod]

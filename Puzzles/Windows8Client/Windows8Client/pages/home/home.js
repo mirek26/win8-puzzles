@@ -13,9 +13,8 @@
         // populates the page elements with the app's data.
 
         ready: function (element, options) {
-
             var seeAllButton = element.querySelector(".seeall");
-            seeAllButton.onclick = function () { nav.navigate("pages/items/items.html", {}) };
+            seeAllButton.onclick = function () { nav.navigate("pages/items/items.html", {}); };
 
             function loadpuzzle(str, puzzle) {
                 var title = element.querySelector(".recommended ." + str + " .overlay h4");
@@ -25,13 +24,15 @@
                 var whole = element.querySelector(".recommended ." + str);
                 whole.onclick = function () {
                     nav.navigate("pages/puzzle/puzzle.html", { puzzle: puzzle });
-                }
+                };
             }
 
             var recommendations = Data.getRecommendations();
             loadpuzzle("easy", recommendations.easy);
             loadpuzzle("medium", recommendations.medium);
             loadpuzzle("hard", recommendations.hard);
+            
+            //nav.navigate("pages/puzzle/puzzle.html", { puzzle: recommendations.easy });
         },
 
         unload: function () {

@@ -25,7 +25,13 @@
             <div class="map">
                 <table class="grid"></table>
             </div>
+            <div id="clock"></div>
         </section>
+        <div id="solvedFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Congratulations! Puzzle solved in}">
+            <div>Congratulations! Puzzle solved in <span id="solvingTime"></span>!</div>
+            <button id="continueButton">Continue</button>
+        </div>
+
     </div>
 </body>
 </html>

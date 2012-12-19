@@ -1,30 +1,43 @@
-﻿section[role=main] {
+﻿.puzzlepage section[role=main] {
     text-align: center;
 }
 
-.map {
-    position: relative;
-    margin: 100px auto;
+.puzzlepage #clock {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
-.map .car {
+.puzzlepage .map {
+    position: relative;
+    margin: 50px auto;
+}
+
+.puzzlepage .map .car {
     border-radius: 30px;
     transform-origin: 0 0;
 }
 
-    .map table {
+    .puzzlepage .map table {
         border-spacing: 0;
     }
 
-    .map tr {
+    .puzzlepage .map tr {
         margin: 0;
         padding: 0;
     }
 
-    .map .grid td {
+    .puzzlepage .map .grid td {
         border: 1px solid #686868;
-        width: 98px;
-        height: 98px;
+        width: 78px;
+        height: 78px;
         padding: 0;
         margin: 0;
+    }
+
+    .puzzlepage .exit {
+        text-align: center;
+        color: green;
+        font-size: 200%;
+        line-height: 78px;
     }
