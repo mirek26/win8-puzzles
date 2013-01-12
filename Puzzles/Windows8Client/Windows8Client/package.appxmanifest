@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="Logic Puzzles" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="Rush Hour." ForegroundText="light" BackgroundColor="#464646">
+      <VisualElements DisplayName="Logic Puzzles" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="Vast collection of various logic puzzles." ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="allLogos" />
         <SplashScreen Image="images\splashscreen.png" />
         <InitialRotationPreference>

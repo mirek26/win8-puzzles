@@ -63,16 +63,19 @@
     <Content Include="js\default.js" />
     <Content Include="js\navigator.js" />
     <Content Include="js\puzzles\rushhour.js" />
-    <Content Include="pages\items\items.css" />
-    <Content Include="pages\items\items.html" />
-    <Content Include="pages\items\items.js" />
     <Content Include="pages\home\home.css" />
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
+    <Content Include="pages\puzzleList\puzzleList.css" />
+    <Content Include="pages\puzzleList\puzzleList.html" />
+    <Content Include="pages\puzzleList\puzzleList.js" />
+    <Content Include="pages\puzzleType\puzzleType.css" />
+    <Content Include="pages\puzzleType\puzzleType.html" />
+    <Content Include="pages\puzzleType\puzzleType.js" />
     <Content Include="default.html" />
-    <Content Include="pages\puzzle\puzzle.css" />
-    <Content Include="pages\puzzle\puzzle.html" />
-    <Content Include="pages\puzzle\puzzle.js" />
+    <Content Include="pages\puzzleInstance\puzzleInstance.css" />
+    <Content Include="pages\puzzleInstance\puzzleInstance.html" />
+    <Content Include="pages\puzzleInstance\puzzleInstance.js" />
     <None Include="Windows8Client_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

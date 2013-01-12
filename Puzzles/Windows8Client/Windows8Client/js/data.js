@@ -1,8 +1,15 @@
-﻿(function () {
+﻿(function() {
     "use strict";
 
     var list = new WinJS.Binding.List();
 
+    var puzzleTypes = [
+        { id: "RushHour", title: "Rush Hour", subtitle: "Move the red car to the exit!" },
+        { id: "Sokoban", title: "Sokoban", subtitle: "Move all the boxes to their places!" },
+        { id: "Fences", title: "Fences", subtitle: "Blah blah blah!" },
+        { id: "Polyominoes", title: "Polyominoes", subtitle: "Put all the pieces in the mold!" }
+    ];
+    
     var sampleData = [
         { type: "RushHour", id: 101, title: "Rush hour 1", prediction: "0:32" },
         { type: "RushHour", id: 102, title: "Rush hour 2", prediction: "0:54" },
@@ -57,7 +64,8 @@
         list.push(item);
     });
 
-    WinJS.Namespace.define("Data", {
+    WinJS.Namespace.define("DAL", {
+        puzzleTypes: puzzleTypes,
         puzzles: list,
         getPuzzle: getPuzzle,
         getRecommendations: getRecommendations
