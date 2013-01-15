@@ -62,7 +62,6 @@
     <Content Include="js\data.js" />
     <Content Include="js\default.js" />
     <Content Include="js\navigator.js" />
-    <Content Include="js\puzzles\rushhour.js" />
     <Content Include="pages\home\home.css" />
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
@@ -76,6 +75,12 @@
     <Content Include="pages\puzzleInstance\puzzleInstance.css" />
     <Content Include="pages\puzzleInstance\puzzleInstance.html" />
     <Content Include="pages\puzzleInstance\puzzleInstance.js" />
+    <Content Include="puzzles\LoopFinder\images\logo.png" />
+    <Content Include="puzzles\Nurikabe\images\logo.png" />
+    <Content Include="puzzles\Polyominoes\images\logo.png" />
+    <Content Include="puzzles\RushHour\images\logo.png" />
+    <Content Include="puzzles\RushHour\puzzle.js" />
+    <Content Include="puzzles\Sokoban\images\logo.png" />
     <None Include="Windows8Client_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

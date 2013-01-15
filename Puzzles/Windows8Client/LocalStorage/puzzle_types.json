@@ -1,0 +1,7 @@
+[
+{ "id": "RushHour", "title": "Rush Hour", "subtitle": "Move the red car to the exit!" },
+{ "id": "Sokoban", "title": "Sokoban", "subtitle": "Move all the boxes to their places!" },
+{ "id": "LoopFinder", "title": "Loop Finder", "subtitle": "Build the fence!" },
+{ "id": "Polyominoes", "title": "Polyominoes", "subtitle": "Put all the pieces in the mold!" },
+{ "id": "Nurikabe", "title": "Nurikabe", "subtitle": "Build the river!" }
+]

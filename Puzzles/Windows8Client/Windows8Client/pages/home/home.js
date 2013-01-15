@@ -13,9 +13,9 @@
         // populates the page elements with the app's data.
 
         menu: [
-            { title: "About puzzle solving", subtitle: "Regular training has positive impact on your brain.", action: "puzzlesolving" },
-            { title: "Your statistics", subtitle: "How are you doing compared to others.", action: "statistics" },
-            { title: "About the puzzles", subtitle: "Authors, history, and more.", action: "aboutpuzzles" },
+            { title: "About puzzle solving", subtitle: "Train your brain every day!", action: "puzzlesolving" },
+            { title: "Your statistics", subtitle: "How you are doing compared to others.", action: "statistics" },
+            { title: "About the puzzles", subtitle: "Credits for the puzzles goes to...", action: "aboutpuzzles" },
             { title: "Settings", subtitle: "Change the look and feel here.", action: "settings" }
         ],
 

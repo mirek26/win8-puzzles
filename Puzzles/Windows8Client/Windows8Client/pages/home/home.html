@@ -20,14 +20,14 @@
         <div class="menuitemtemplate" data-win-control="WinJS.Binding.Template">
             <div class="menuitem">
                 <h4 data-win-bind="textContent: title"></h4>
-                <h6 data-win-bind="textContent: subtitle"></h6>
+                <p data-win-bind="textContent: subtitle"></p>
             </div>
         </div>  
         
         <!-- This template is used to display all the puzzle types in the ListView (GridLayout). -->
         <div class="puzzletypetemplate" data-win-control="WinJS.Binding.Template">
             <div class="puzzletype">
-                <img data-win-bind="src: puzzleLogo"/>
+                <img data-win-bind="src: logosrc; alt: id"/>
                 <div class="overlay">
                     <h4 data-win-bind="textContent: title"></h4>
                     <h6 data-win-bind="textContent: subtitle"></h6>
@@ -45,6 +45,10 @@
                 <div class="menu win-selectionstylefilled" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
                 <div class="grid win-selectionstylefilled" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
             </section>
+        </div>
+
+        <div id="appbar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmd', label:'Refresh', icon:'refresh'}" type="button"></button>
         </div>
     </body>
 </html>
