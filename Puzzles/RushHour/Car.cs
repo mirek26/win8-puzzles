@@ -13,6 +13,7 @@ namespace RushHour
     using System.Collections.Generic;
     using System.Linq;
 
+    using Newtonsoft.Json;
     using Puzzles.Common;
 
     public class Car
@@ -28,31 +29,28 @@ namespace RushHour
 
             if (minX == maxX)
             {
-                this.Orientation = OrientationEnum.Vertical;
+                this.Orientation = CarOrientation.Vertical;
                 this.Length = maxY - minY + 1;
                 return;
             }
 
             if (minY == maxY)
             {
-                this.Orientation = OrientationEnum.Horizontal;
+                this.Orientation = CarOrientation.Horizontal;
                 this.Length = maxX - minX + 1;
                 return;
             }
 
-            throw new ArgumentException("One dimension must be 1!");
+            throw new ArgumentException("Exactly one dimension must be 1!");
         }
 
-        public enum OrientationEnum
-        {
-            Horizontal,
-            Vertical
-        }
-
+        [JsonProperty(PropertyName = "puzzle")] 
         public Coordinates Coordinates { get; set; }
 
-        public OrientationEnum Orientation { get; set; }
+        [JsonProperty(PropertyName = "orientation")] 
+        public CarOrientation Orientation { get; set; }
 
+        [JsonProperty(PropertyName = "length")] 
         public int Length { get; set; }
 
         public override bool Equals(object obj)

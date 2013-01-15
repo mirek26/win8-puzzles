@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace Puzzles.API.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+
+    using System.IO;
     using System.Data.Entity;
 
     public class SampleData : DropCreateDatabaseIfModelChanges<PuzzlesDbContext>
@@ -31,6 +33,10 @@ namespace Puzzles.API.Models
                     Name = "Tutor", 
                     Info = "Data associated with this account are imported from tutor.fi.muni.cz."
                 });
+
+            var rushhourDefinitions = System.IO.File.ReadAllLines(@"E:\Projects\Puzzles\RushHour\tutorDefinitions.txt");
+            
+
 
             var puzzle1 = context.Puzzles.Add(new Puzzle()
                 {

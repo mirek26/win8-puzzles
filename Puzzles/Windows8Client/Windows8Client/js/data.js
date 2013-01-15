@@ -17,19 +17,22 @@
     }
 
     function getPuzzle(puzzleId) {
-        return {
-            id: puzzleId,
-            name: "Rush Hour " + puzzleId,
-            definition: (puzzleId <= 104) ? sampleDefinitions[0]:
-                        (puzzleId <= 107 ? sampleDefinitions[2] : sampleDefinitions[1])
-        };
+        var filename = "puzzle_" + puzzleId + ".json";
+        return storage.exists(filename).done(function (exits) {
+            if (exits) {
+                return storage.readText(puzzleType + "_list.json", "").done(JSON.parse);
+            } else {
+                console.log("Puzzle not found.")
+                return null;
+            }
+        });
     }
 
     function getRecommendations() {
         return {
-            easy: sampleData[Math.floor(Math.random() * 4)],
-            medium: sampleData[4 + Math.floor(Math.random() * 3)],
-            hard: sampleData[7 + Math.floor(Math.random() * 2)]
+            easy: getPuzzle("101"),
+            medium: getPuzzle("104"),
+            hard: getPuzzle("105")
         };
     }
 

@@ -13,6 +13,7 @@ namespace RushHour
     using System.Collections.Generic;
     using System.Linq;
 
+    using Newtonsoft.Json;
     using Puzzles.Common;
 
     public class RushHourDefinition
@@ -37,7 +38,6 @@ namespace RushHour
             Func<int, int, int[], int[]> update = (i, j, act) => new int[] { min(i, act[0]), min(j, act[1]), max(i, act[2]), max(j, act[3]) };
 
             var cars = new int[256][];
-            Coordinates exit = null;
             for (var i = 0; i < this.Size.Y + 2; i++)
             {
                 for (var j = 0; j < this.Size.X + 2; j++)
@@ -46,7 +46,7 @@ namespace RushHour
                     switch (c)
                     {
                         case 'E':
-                            exit = new Coordinates() { X = j - 1, Y = i - 1 };
+                            this.Exit = (j==0 || i==0) ? ExitPosition.LeftOrUp: ExitPosition.RightOrDown;
                             break;
                         case '-': 
                         case '#':
@@ -59,29 +59,20 @@ namespace RushHour
             }
 
             // set RedCar and Cars
-            this.RedCar = new Car(cars['x']);
+            var redCar = new Car(cars['x']);
             cars['x'] = null;
 
             this.Cars = cars.Where(car => car != null).Select(data => new Car(data)).ToList();
-
-            // set RedCarGoal
-            if (exit == null)
-            {
-                throw new ArgumentException("No exit found in the plan.");
-            }
-
-            this.RedCarGoal = this.RedCar.Orientation == Car.OrientationEnum.Horizontal ?
-                new Coordinates() { X = exit.X == -1 ? 0 : exit.X - this.RedCar.Length, Y = exit.Y } :
-                new Coordinates() { X = exit.X, Y = exit.Y == -1 ? 0 : exit.Y - this.RedCar.Length };
+            this.Cars.Insert(0, redCar);
         }
 
+        [JsonProperty(PropertyName = "size")] 
         public Coordinates Size { get; set; }
 
-        public Car RedCar { get; set; }
-
+        [JsonProperty(PropertyName = "cars")] 
         public List<Car> Cars { get; set; }
 
-        public Coordinates RedCarGoal { get; set; }
-
+        [JsonProperty(PropertyName = "exit")] 
+        public ExitPosition Exit { get; set; }
     }
 }

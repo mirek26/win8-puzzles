@@ -1,18 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RushHourState.cs" company="">
+// <copyright file="CarOrientation.cs" company="">
 //   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
 // </copyright>
 // <summary>
-//   Represents a particular action of a user when solving a puzzle.
+//   Defines the orientation of a car.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace RushHour
 {
-    using System.Collections.Generic;
-
-    public class RushHourState
+    public enum CarOrientation
     {
-        public List<Car> Cars { get; set; }
+        Horizontal = 0,
+        Vertical = 1
     }
 }

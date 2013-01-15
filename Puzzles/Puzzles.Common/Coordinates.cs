@@ -16,10 +16,14 @@ namespace Puzzles.Common
     using System.Text;
     using System.Threading.Tasks;
 
+    using Newtonsoft.Json;
+
     public class Coordinates
     {
+        [JsonProperty(PropertyName = "x")] 
         public int X { get; set; }
 
+        [JsonProperty(PropertyName = "y")] 
         public int Y { get; set; }
 
         public override bool Equals(object obj)

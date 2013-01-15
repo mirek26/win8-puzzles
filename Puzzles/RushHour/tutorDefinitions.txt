@@ -1,0 +1,603 @@
+﻿Rušná hodinka - seznam zadání 
+
+id: 379;Rush 1
+--------
+-aab#cd-
+-##b#cd-
+-##bxxdE
+-###eff-
+-ghhe##-
+-g##eii-
+--------
+
+id: 365;Rush 121
+--------
+-a##jjj-
+-abbi##-
+-xxci#gE
+-##chhg-
+-##deeg-
+-##dfff-
+--------
+
+id: 19;Rush 152
+--------
+-a##c##-
+-a##cee-
+-bxxc##E
+-b#gddf-
+-hhg##f-
+-iii##f-
+--------
+
+id: 376;Rush 19
+--------
+-a#efff-
+-a#ed##-
+-axxd##E
+-bbcc#g-
+-#####g-
+-hhii#g-
+--------
+
+id: 386;Rush 197
+--------
+-aae#ff-
+-bbe#g#-
+-c#xxg#E
+-ciiigh-
+-c##j#h-
+-dd#jkk-
+--------
+
+id: 17;Rush 202
+--------
+-a###cc-
+-abbbd#-
+-xxfgd#E
+-jjfgd#-
+-###hee-
+-#iih##-
+--------
+
+id: 371;Rush 221
+--------
+-#ab#cc-
+-#ab###-
+-xxb###E
+-deekkj-
+-dffhij-
+-ggghij-
+--------
+
+id: 28;Rush 246
+--------
+-#abccc-
+-#ab###-
+-xxb###E
+-deehhi-
+-dffj#i-
+-gg#j#i-
+--------
+
+id: 4;Rush 248
+--------
+-a##bbb-
+-acccde-
+-xx#gdeE
+-hh#gde-
+-###jkk-
+-#iij##-
+--------
+
+id: 108;Rush 253
+--------
+-cc##x#-
+-####x#-
+-#baaa#-
+-#b####-
+-#b####-
+-ddd###-
+-----E--
+
+id: 363;Rush 254
+--------
+-abccde-
+-abf#de-
+-a#fxxgE
+-hhij#g-
+-##ijkk-
+-#llmm#-
+--------
+
+id: 11;Rush 260
+--------
+-###baa-
+-#ccbd#-
+-xxfed#E
+-ggfehh-
+-l#jjji-
+-l##kki-
+--------
+
+id: 370;Rush 266
+--------
+-a##f##-
+-a##f##-
+-axxf##E
+-##beee-
+-##b##d-
+-##cccd-
+--------
+
+id: 7;Rush 27
+--------
+-a##bbb-
+-a#cccd-
+-xxgfedE
+-hhgfed-
+-###jkk-
+-#iij##-
+--------
+
+id: 362;Rush 32
+--------
+-aa#j##-
+-bb#jgh-
+-#xxfghE
+-ccefgh-
+-d#ef##-
+-d##iii-
+--------
+
+id: 367;Rush 326
+--------
+-abb#e#-
+-acd#ef-
+-acdxxfE
+-jjji#f-
+-##kigg-
+-llkhh#-
+--------
+
+id: 107;Rush 342
+--------
+-##deee-
+-##d###-
+-#xxa##E
+-c##a##-
+-c##bbb-
+-######-
+--------
+
+id: 384;Rush 355
+--------
+-aac#ll-
+-bbc##k-
+-dxx#jkE
+-deeejk-
+-df#ghh-
+-#f#gii-
+--------
+
+id: 377;Rush 357
+--------
+-a##lll-
+-a##k#j-
+-xx#kijE
+-ccchij-
+-##dhgg-
+-eedff#-
+--------
+
+id: 25;Rush 36
+--------
+-aaa#cc-
+-###bdd-
+-xx#befE
+-iijjef-
+-k###gg-
+-k###hh-
+--------
+
+id: 382;Rush 37
+--------
+-###aab-
+-##ddcb-
+-xxgecbE
+-mmgeff-
+-llhiii-
+-kkhjjj-
+--------
+
+id: 381;Rush 377
+--------
+-#abbcc-
+-#a#edd-
+-xx#efgE
+-jkkkfg-
+-j#i#fh-
+-j#i##h-
+--------
+
+id: 8;Rush 391
+--------
+-a##bbb-
+-a#cccd-
+-xxgfedE
+-##gfed-
+-###jkk-
+-#iij##-
+--------
+
+id: 13;Rush 393
+--------
+-##baaa-
+-##bc##-
+-xxdc##E
+-eedffg-
+-hijj#g-
+-hikk#g-
+--------
+
+id: 383;Rush 441
+--------
+-##afff-
+-##ac##-
+-xxbc#eE
+-ggbdde-
+-hijj#e-
+-hikk##-
+--------
+
+id: 373;Rush 468
+--------
+-aab###-
+-##b#kk-
+-cdxxfgE
+-cdeefg-
+-##i#hh-
+-jji###-
+--------
+
+id: 6;Rush 470
+--------
+-aaa#c#-
+-dee#c#-
+-d#xxc#E
+-ffg###-
+-#hg#jj-
+-#hiikk-
+--------
+
+id: 359;Rush 5
+--------
+-##bccc-
+-a#bedd-
+-axxe##E
+-#k#eff-
+-jkhh#g-
+-jiii#g-
+--------
+
+id: 366;Rush 513
+--------
+-#aggfe-
+-#a#bfe-
+-#xxb#dE
+-##cc#d-
+-###h##-
+-###h##-
+--------
+
+id: 5;Rush 521
+--------
+-aaabc#-
+-deebc#-
+-d#xxc#E
+-ffg###-
+-#hg#jj-
+-#hiikk-
+--------
+
+id: 20;Rush 551
+--------
+-###c##-
+-###cee-
+-bxxc##E
+-b#gddf-
+-hhg##f-
+-iii##f-
+--------
+
+id: 18;Rush 559
+--------
+-####cc-
+-#bbbd#-
+-xxfgd#E
+-jjfgd#-
+-###hee-
+-#iih##-
+--------
+
+id: 364;Rush 561
+--------
+-a##eee-
+-abbd##-
+-xxcd#fE
+-##c##f-
+-##ihhf-
+-##iggg-
+--------
+
+id: 15;Rush 566
+--------
+-a###cc-
+-abbbed-
+-xxgfedE
+-hhgfed-
+-###jkk-
+-#iij##-
+--------
+
+id: 21;Rush 578
+--------
+-##abbc-
+-##a##c-
+-##axxcE
+-###edd-
+-gffe##-
+-g##e##-
+--------
+
+id: 29;Rush 579
+--------
+-aab##d-
+-ccb##d-
+-#fexxdE
+-#fejkk-
+-ghhj##-
+-giilll-
+--------
+
+id: 378;Rush 600
+--------
+-abbcdd-
+-aeec##-
+-xxfg##E
+-##fghh-
+-##fiij-
+-##kk#j-
+--------
+
+id: 387;Rush 625
+--------
+-#b#ccc-
+-ab#de#-
+-axxdefE
+-kjjjef-
+-k#i##g-
+-##ihhg-
+--------
+
+id: 27;Rush 64
+--------
+-#bccde-
+-#bf#de-
+-j#fxxgE
+-jkki#g-
+-j#li#g-
+-##lhhh-
+--------
+
+id: 368;Rush 655
+--------
+-aa###f-
+-b##g#f-
+-bxxg#fE
+-b##g##-
+-c###ee-
+-c#ddd#-
+--------
+
+id: 3;Rush 674
+--------
+-a##bbb-
+-acccde-
+-xxfgdeE
+-hhfgde-
+-###jkk-
+-#iij##-
+--------
+
+id: 1;Rush 692
+--------
+-###baa-
+-#ddbc#-
+-xxefc#E
+-jjefgg-
+-k#iiih-
+-k####h-
+--------
+
+id: 22;Rush 722
+--------
+-##baaa-
+-##bc##-
+-xxdc##E
+-eedffg-
+-#jhh#g-
+-#jii#g-
+--------
+
+id: 361;Rush 723
+--------
+-######-
+-######-
+-#xxa##E
+-#bba#e-
+-#c#a#e-
+-#cdd#e-
+--------
+
+id: 372;Rush 727
+--------
+-aa#b#e-
+-i##bce-
+-ixxbcdE
+-ijjjcd-
+-h###ff-
+-h###gg-
+--------
+
+id: 30;Rush 756
+--------
+-aab##d-
+-ccb##d-
+-#fexxdE
+-#fejkk-
+-ghhj##-
+-g##lll-
+--------
+
+id: 12;Rush 765
+--------
+-###baa-
+-#ccbd#-
+-xxfed#E
+-ggfehh-
+-l#jjj#-
+-l##kk#-
+--------
+
+id: 24;Rush 776
+--------
+-aaabcc-
+-###bdd-
+-xx#befE
+-iijjef-
+-k###gg-
+-k###hh-
+--------
+
+
+id: 374;Rush 779
+--------
+-aaab##-
+-##dbcc-
+-xxd###E
+-efdhhi-
+-efgggi-
+-jjkk#i-
+--------
+
+id: 16;Rush 820
+--------
+-a###cc-
+-abbb#d-
+-xxgf#dE
+-hhgf#d-
+-###jkk-
+-#iij##-
+--------
+
+id: 9;Rush 837
+--------
+-###baa-
+-#ddbc#-
+-xxefc#E
+-##efgg-
+-k#iiih-
+-k#jjjh-
+--------
+
+id: 26;Rush 841
+--------
+-abccde-
+-abf#de-
+-j#fxxgE
+-jkki#g-
+-j#li#g-
+-##lhhh-
+--------
+
+id: 360;Rush 862
+--------
+-##hii#-
+-#ch###-
+-acxxd#E
+-abb#d#-
+-fff#e#-
+-gg##e#-
+--------
+
+id: 375;Rush 878
+--------
+-aabbcd-
+-f#eecd-
+-fghxxdE
+-#ghiii-
+-##h###-
+-jj####-
+--------
+
+id: 10;Rush 89
+--------
+-###baa-
+-#ddbc#-
+-xxefc#E
+-##ef##-
+-k#iiih-
+-k#jjjh-
+--------
+
+id: 369;Rush 906
+--------
+-abbc##-
+-a##c##-
+-axxc##E
+-##gddd-
+-##g##e-
+-##fffe-
+--------
+
+id: 380;Rush 935
+--------
+-aaabcd-
+-ellbcd-
+-e#xxcdE
+-ffj###-
+-#gj#kk-
+-#ghhii-
+--------
+
+id: 14;Rush 939
+--------
+-##baaa-
+-##bc##-
+-xxdc##E
+-eedffg-
+-i#jj#g-
+-i#kk#g-
+--------
+
+
+id: 2;Rush 96
+--------
+-###b##-
+-#ddbc#-
+-xxefc#E
+-jjefgg-
+-k#iiih-
+-k####h-
+--------
+
+id: 23;Rush 981
+--------
+-##baaa-
+-##bc##-
+-xxdc##E
+-eedff#-
+-#jhh#g-
+-#jii#g-
+--------

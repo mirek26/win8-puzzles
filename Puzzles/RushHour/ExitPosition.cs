@@ -1,18 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RushHourState.cs" company="">
+// <copyright file="ExitPosition.cs" company="">
 //   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
 // </copyright>
 // <summary>
-//   Represents a particular action of a user when solving a puzzle.
+//   Represents the possible positions of an exit in a Rush Hour puzzle.  
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace RushHour
 {
-    using System.Collections.Generic;
-
-    public class RushHourState
+    public enum ExitPosition
     {
-        public List<Car> Cars { get; set; }
+        LeftOrUp = 0,
+        RightOrDown = 1,
     }
 }
