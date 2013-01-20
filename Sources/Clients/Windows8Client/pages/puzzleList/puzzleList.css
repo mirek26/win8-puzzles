@@ -14,25 +14,23 @@
 
 .itemspage .itemslist {
     height: 100%;
-    position: relative;
-    width: 100%;
-    z-index: 0;
 }
 
     .itemspage .itemslist .puzzle {
-        background-color: #ffd800;
-        position: relative;
-        display: inline-block;
-        width: 150px;
-        height: 200px;
-        margin: 15px;
+        display: -ms-grid;
+        -ms-grid-columns: 2;
+        -ms-grid-rows: 1;
+        width: 200px;
     }
 
-        .itemspage .itemslist .puzzle .overlay {
-            position: absolute;
-            bottom: 0px;
-            width: calc(100% - 2em);
-            padding: 1ex 1em;
-            background-color: rgba(0,0,0,0.4);
-            vertical-align: middle;
+        .itemspage .itemslist .puzzle .state {
+            width: 40px;
+            background-color: #ffd800;
+            -ms-grid-column: 1;
+        }
+
+
+        .itemspage .itemslist .puzzle .title {
+            padding: 5px;
+            -ms-grid-column: 2;
         }

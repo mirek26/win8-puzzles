@@ -14,28 +14,13 @@
             };
         },
         {
-            load: function(puzzleMeta) {
-                this.loadPuzzleJS(puzzleMeta.type, function(evt) {
-                    this.loadPuzzle(puzzleMeta.id);
-                }.bind(this));
-            },
-
-            loadPuzzle: function (puzzleId){
-                // get the puzzle
-                this.puzzle = new Puzzle.Puzzle(Data.getPuzzle(puzzleId), this);
-                // initialize the puzzle and load the UI into the page
+            loadPuzzle: function (puzzle){
+                this.puzzle = new Puzzle.Puzzle(puzzle, this);
                 this.puzzle.initializeUI(this.rootElement.querySelector("section[role=main] .map"));
                 this.solved = false;
                 this.startClock();
             },
 
-            loadPuzzleJS: function (puzzleType, callback) {
-                var script = document.createElement("script");
-                this.rootElement.appendChild(script);
-                script.onload = callback;
-                script.setAttribute("src", "js/puzzles/" + puzzleType + ".js");
-            },
-            
             startClock: function () {
                 this.startTime = Date.now();
                 this.refreshClock();
@@ -77,16 +62,49 @@
 
 
 
-    ui.Pages.define("/pages/puzzle/puzzle.html", {
+    ui.Pages.define("/pages/puzzleInstance/puzzleInstance.html", {
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function(element, options) {
-            // extract puzzle metadata from options
-            var puzzleMeta = (options && options.puzzle) ? options.puzzle : Data.puzzles.getAt(0);
-            element.querySelector("header[role=banner] .pagetitle").textContent = puzzleMeta.title;
+            this.controller = new Controller(element);
+            this.rootElement = element;
+            this.loaded = { "js": false, "css": false, "puzzle": false };
+            if (options.puzzle) {
+                this.puzzle = options.puzzle;
+                this.loaded.puzzle = true;
+            } else if (options.puzzleMeta) {
+                this.puzzle = options.puzzleMeta;
+                DAL.whenPuzzleLoaded(puzzle.id).then(function(puzzle) {
+                    this.puzzle = puzzle;
+                    this.loadedEvent("puzzle");
+                }.bind(this));
+            }
+            element.querySelector("header[role=banner] .pagetitle").textContent = this.puzzle.name;
+            this.loadJS(this.puzzle.type);
+            this.loadCSS(this.puzzle.type);
+        },
 
-            controller = new Controller(element);
-            controller.load(puzzleMeta);
+        loadJS: function (puzzleType) {
+            var script = document.createElement("script");
+            this.rootElement.appendChild(script);
+            script.onload = function() { this.loadedEvent("js"); }.bind(this);
+            script.setAttribute("src", "puzzles/" + puzzleType + "/script.js");
+        },
+
+        loadCSS: function (puzzleType) {
+            var stylesheet = document.createElement("link");
+            document.getElementsByTagName("head")[0].appendChild(stylesheet);
+            stylesheet.onload = function () { this.loadedEvent("css"); }.bind(this);
+            stylesheet.setAttribute("rel", "stylesheet");
+            stylesheet.setAttribute("type", "text/css");
+            stylesheet.setAttribute("href", 'puzzles/' + puzzleType + '/style.css');
+        },
+
+        loadedEvent: function(what) {
+            this.loaded[what] = true;
+            if (this.loaded["js"] == this.loaded["css"] == this.loaded["puzzle"] == true) {
+                this.controller.loadPuzzle(this.puzzle);
+            }
         },
 
         // This function updates the page layout in response to viewState changes.

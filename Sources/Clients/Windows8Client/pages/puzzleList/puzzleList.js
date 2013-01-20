@@ -9,10 +9,14 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             var listView = element.querySelector(".itemslist").winControl;
-            listView.itemDataSource = Data.puzzles.dataSource;
-            listView.itemTemplate = element.querySelector(".itemtemplate");
-            listView.oniteminvoked = this._itemInvoked.bind(this);
 
+            DAL.whenPuzzleListLoaded(options.type).then(function (list) {
+                this.list = list;
+                listView.itemDataSource = (new WinJS.Binding.List(list)).dataSource;
+                listView.itemTemplate = element.querySelector(".itemtemplate");
+                listView.oniteminvoked = this._itemInvoked.bind(this);
+            }.bind(this));
+            
             this._initializeLayout(listView, Windows.UI.ViewManagement.ApplicationView.value);
             listView.element.focus();
         },
@@ -35,8 +39,8 @@
         },
 
         _itemInvoked: function (args) {
-            var puzzle = Data.puzzles.getAt(args.detail.itemIndex);
-            WinJS.Navigation.navigate("/pages/puzzleInstance/puzzleInstance.html", { puzzle: puzzle });
+            var puzzle = this.list[args.detail.itemIndex];
+            WinJS.Navigation.navigate("/pages/puzzleInstance/puzzleInstance.html", { puzzleMeta: puzzle });
         }
     });
 })();

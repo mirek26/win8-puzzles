@@ -12,10 +12,10 @@
             var cars = this.cars;
             puzzle.definition.cars.forEach(function (cardef, index) {
                 cars.push({
-                    position: { x: cardef.coordinates.x, y: cardef.coordinates.y },
+                    position: { x: cardef.position.x, y: cardef.position.y },
                     length: cardef.length, 
                     orientation: cardef.orientation,
-                    originalPosition: cardef.coordinates,
+                    originalPosition: cardef.position,
                     index: index
                 });
             });

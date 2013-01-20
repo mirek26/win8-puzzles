@@ -79,7 +79,8 @@
     <Content Include="puzzles\Nurikabe\images\logo.png" />
     <Content Include="puzzles\Polyominoes\images\logo.png" />
     <Content Include="puzzles\RushHour\images\logo.png" />
-    <Content Include="puzzles\RushHour\puzzle.js" />
+    <Content Include="puzzles\RushHour\script.js" />
+    <Content Include="puzzles\RushHour\style.css" />
     <Content Include="puzzles\Sokoban\images\logo.png" />
     <None Include="Windows8Client_TemporaryKey.pfx" />
   </ItemGroup>

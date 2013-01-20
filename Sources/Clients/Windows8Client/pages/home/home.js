@@ -22,7 +22,9 @@
         menuAction: function() {
         },
 
-        puzzleSelected: function() {
+        puzzleSelected: function (args) {
+            var type = this.puzzleTypes[args.detail.itemIndex].id;
+            nav.navigate("/pages/puzzleType/puzzleType.html", type );
         },
 
         ready: function (element, options) {
@@ -35,9 +37,13 @@
             
             // list of puzzles
             var grid = element.querySelector(".grid").winControl;
-            grid.itemDataSource = (new WinJS.Binding.List(DAL.puzzleTypes)).dataSource;
-            grid.itemTemplate = element.querySelector(".puzzletypetemplate");
-            grid.oniteminvoked = this.puzzleSelected.bind(this);
+
+            DAL.whenPuzzleTypesLoaded().done(function (types) {
+                this.puzzleTypes = types;
+                grid.itemDataSource = (new WinJS.Binding.List(types)).dataSource;
+                grid.itemTemplate = element.querySelector(".puzzletypetemplate");
+                grid.oniteminvoked = this.puzzleSelected.bind(this);
+            }.bind(this));
 
             this.initializeLayout(grid, Windows.UI.ViewManagement.ApplicationView.value);
             grid.element.focus();
