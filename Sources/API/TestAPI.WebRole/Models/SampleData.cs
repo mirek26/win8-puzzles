@@ -11,10 +11,10 @@ namespace TestAPI.WebRole.Models
     using Newtonsoft.Json;
     using Puzzles.RushHour;
 
-    ////public class SampleData : DropCreateDatabaseIfModelChanges<PuzzlesDbContext>
-    public class SampleData : DropCreateDatabaseIfModelChanges<PuzzlesDbContext>
+    public class SampleData : DropCreateDatabaseIfModelChanges<PuzzlesDb>
+    ////public class SampleData : DropCreateDatabaseAlways<PuzzlesDb>
     {
-        protected override void Seed(PuzzlesDbContext context)
+        protected override void Seed(PuzzlesDb context)
         {
             var rushhour = context.PuzzleTypes.Add(new PuzzleType()
                 {
@@ -37,12 +37,13 @@ namespace TestAPI.WebRole.Models
                     Info = "Data associated with this account are imported from tutor.fi.muni.cz."
                 });
 
-            /*
+            
             var buffer = new List<string>();
             Puzzle puzzle = null;
             var idline = new Regex(@"id: (\d*);(.*)");
 
-            foreach (var line in File.ReadAllLines(@"c:\Users\t-mirok\Documents\GitHub\Puzzles\Sources\Puzzles\RushHour\tutorDefinitions.txt"))
+            var filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "tutor_rushHour.txt");
+            foreach (var line in File.ReadAllLines(filepath))
             {
                 var match = idline.Match(line, 0);
                 if (match.Success)
@@ -76,7 +77,7 @@ namespace TestAPI.WebRole.Models
             {
                 puzzle.Definition = JsonConvert.SerializeObject(new RushHourDefinition(buffer.ToArray()));
                 context.Puzzles.Add(puzzle);
-            }*/
+            }
 
             base.Seed(context);
         }

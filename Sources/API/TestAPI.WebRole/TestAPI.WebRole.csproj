@@ -132,7 +132,7 @@
     </Compile>
     <Compile Include="Models\ActionLog.cs" />
     <Compile Include="Models\Puzzle.cs" />
-    <Compile Include="Models\PuzzlesDbContext.cs" />
+    <Compile Include="Models\PuzzlesDb.cs" />
     <Compile Include="Models\PuzzleType.cs" />
     <Compile Include="Models\SampleData.cs" />
     <Compile Include="Models\Status.cs" />
@@ -198,6 +198,8 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\myreg - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\myreg - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\puzzles - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\puzzles - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

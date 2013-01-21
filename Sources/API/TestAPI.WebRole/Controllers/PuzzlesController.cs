@@ -27,7 +27,7 @@ namespace TestAPI.WebRole.Controllers
 
     public class PuzzlesController : ApiController
     {
-        private PuzzlesDbContext db = new PuzzlesDbContext();
+        private PuzzlesDb db = new PuzzlesDb();
 
         // GET api/puzzles
         public IEnumerable<Contract.Puzzle> GetPuzzles(

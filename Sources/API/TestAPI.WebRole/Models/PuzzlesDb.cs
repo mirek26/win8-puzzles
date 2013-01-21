@@ -12,7 +12,7 @@ namespace TestAPI.WebRole.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
 
-    public class PuzzlesDbContext : DbContext
+    public class PuzzlesDb : DbContext
     {
         public DbSet<PuzzleType> PuzzleTypes { get; set; }
 
