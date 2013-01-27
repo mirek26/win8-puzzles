@@ -12,9 +12,25 @@
 }
     
     .homepage .menu div {
-        padding: 10px 5px 10px 60px;
-        font-size: 140%
+        font-size: 130%;
+        padding: 15px 5px 15px 60px;
+        background-size: 32px;
+        background-repeat: no-repeat;
+        background-position: 10px 15px;
     }
+
+        .homepage .menu div.user {
+            background-image: url("///images/icons/user_male.png");
+        }
+        .homepage .menu div.statistics {
+            background-image: url("///images/icons/statistics.png");
+        }
+        .homepage .menu div.settings {
+            background-image: url("///images/icons/settings.png");
+        }
+        .homepage .menu div.about {
+            background-image: url("///images/icons/info.png");
+        }
 
 
 .homepage .grid {

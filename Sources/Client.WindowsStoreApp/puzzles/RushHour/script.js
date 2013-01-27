@@ -6,7 +6,8 @@
         function (puzzle, controller) {
             this.controller = controller;
             this.size = puzzle.definition.size;
-            this.exit = puzzle.exit;
+            //this.exit = puzzle.definition.exit;
+            this.exit = puzzle.definition.cars[0].orientation == 0 ? (puzzle.definition.exit*2+3)%4 : puzzle.definition.exit*2;
             // init car array
             this.cars = new Array();
             var cars = this.cars;
@@ -27,8 +28,6 @@
                 map[i] = new Array(this.size.y);
             }
             this.cars.forEach(this.updateMapUnderCar, this);
-
-            this.gridSize = 80;
         },
         {
             //
@@ -36,89 +35,135 @@
             //
 
             initializeUI: function (element) {
-                var grid = element.querySelector(".grid");
-                element.style['width'] = this.size.x * this.gridSize + "px";
-                element.style['height'] = this.size.y * this.gridSize + "px";
-
-                function genTr(len) {
+                function generateTr(len) {
                     var tr = document.createElement("tr");
-                    for (var i = 0; i < len; i++)
-                        tr.appendChild(document.createElement("td"));
+                    for (var i = 0; i < len; i++) {
+                        var td = document.createElement("td");
+                        var cell = document.createElement("div");
+                        cell.className = "cell";
+                        td.appendChild(cell);
+                        tr.appendChild(td);
+                    }
                     return tr;
                 }
 
-                for (var i = 0; i < this.size.y; i++) {
-                    grid.appendChild(genTr(this.size.x));
+                function generateGrid(size) {
+                    var grid = document.createElement("table");
+                    grid.setAttribute("id", "grid");
+                    for (var i = 0; i < size.y; i++) {
+                        grid.appendChild(generateTr(size.x));
+                    }
+                    return grid;
                 }
 
+                this.canvas = document.getElementById("canvas");
+                this.mapEl = document.createElement("div");
+                this.mapEl.className = "map " + (new Array("exit-up", "exit-right", "exit-down", "exit-left"))[this.exit];
+                this.mapEl.appendChild(generateGrid(this.size));
+                this.canvas.appendChild(this.mapEl);
+                               
                 this.cars.forEach(function (car) {
                     car.element = this.createCarElement(car);
-                    element.appendChild(car.element);
+                    this.mapEl.appendChild(car.element);
                 }, this);
                 
                 // red car
                 var redcar = this.cars[0];
-                redcar.element.style['background-color'] = "#b11d01";
-                redcar.element.exitposition = this.exit == 0 ? 0 :
-                    this.gridSize * ((redcar.orientation == 0 ? this.size.x : this.size.y) - redcar.length);
+                redcar.element.className += " redcar";
+                
+                var exitEl = document.createElement('div');
+                exitEl.className = "exit";
+                var cell = document.createElement('div');
+                cell.className = "cell";
+                exitEl.appendChild(cell);
+                this.canvas.appendChild(exitEl);
+
+                var grid = document.getElementById('grid');
+                var exitquery;
+                switch (this.exit) {
+                    case 0:
+                        exitquery = "tr:first-child td:nth-child(" + (redcar.position.x+1) + ")";
+                        break;
+                    case 1:
+                        exitquery = "tr:nth-child(" + (redcar.position.y+1) + ") td:last-child";
+                        break;
+                    case 2:
+                        exitquery = "tr:last-child td:nth-child(" + (redcar.position.x+1) + ")";
+                        break;
+                    case 3:
+                        exitquery = "tr:nth-child(" + (redcar.position.y+1) + ") td:first-child";
+                        break;
+                }
+                grid.querySelector(exitquery).className += " exit";
+                this.updateUI();
+            },
+            
+            updateUI: function (element) {
+                var sizespace = Math.floor(Math.min(canvas.offsetWidth / (this.size.x + 2), canvas.offsetHeight / (this.size.y + 2)));
+                this.gridSpacing = 4;
+                var space = this.gridSpacing;
+                this.gridSize = sizespace - space;
+                var size = this.gridSize;
+
+                this.mapEl.style.width = this.size.x * sizespace - space + "px";
+                this.mapEl.style.height = this.size.y * sizespace - space + "px";
+
+                var cells = document.getElementById("grid").querySelectorAll(".cell");
+                for (var i = 0; i < cells.length; ++i) {
+                    cells[i].style.width = size + "px";
+                    cells[i].style.height = size + "px";
+                };
+
+                var car = this.cars[0];
+                car.element.exitposition = (this.exit == 0 || this.exit == 3) ? 0 :
+                    sizespace * ((car.orientation == 0 ? this.size.x : this.size.y) - car.length);
+
+                this.cars.forEach(function (car) {
+                    var el = car.element;
+                    var border = 2;
+                    var length = sizespace * car.length - space - border + "px";
+                    var width = size - border + "px";
+                    if (car.orientation == 0) {
+                        el.style['width'] = length;
+                        el.style['height'] = width;
+                    } else {
+                        el.style['width'] = width;
+                        el.style['height'] = length;
+                    }
+                });
 
                 this.updateCarPositions();
                 this.updateCarsMinMax();
-                
-                // exit
-                var d = document.createElement('div');
-                d.className += "exit";
-                d.style.width = this.gridSize + "px"; 
-                d.style.height = this.gridSize + "px";
-                d.textContent = "EXIT";
-                d.style.position = "absolute";
-                if (redcar.orientation == 0) {
-                    d.style.left = (this.exit == 0 ? -this.gridSize : this.size.x * this.gridSize) + "px";
-                    d.style.top = redcar.position.y * this.gridSize + "px";
-                } else {
-                    d.style.top = (this.exit == 0 ? -this.gridSize : this.size.y * this.gridSize) + "px";
-                    d.style.left = redcar.position.x * this.gridSize + "px";
-                }
-                element.appendChild(d);
             },
-            
-            createCarElement: function(car) {
-                var d = document.createElement('div');
-                d.style['position'] = "absolute";
-                d.className += "car";
-                d.car = car;
-                d.puzzle = this;
 
-                var colors = ["7200ad", "4617b5", "00485e", "004900", "d39d09", "632f00", "c1004f", "f4b300", "78ba00", "2773ed"];
-                d.style['background-color'] = "#" + colors[car.index];
-                if (car.orientation == 0) {
-                    d.style['width'] = this.gridSize * car.length + "px";
-                    d.style['height'] = this.gridSize + "px";
-                } else {
-                    d.style['width'] = this.gridSize + "px";
-                    d.style['height'] = this.gridSize * car.length + "px";
-                }
-                d.setAttribute('id', 'car' + car.index);
-
-                d.gesture = new MSGesture();
-                d.gesture.target = d;
-                d.addEventListener("MSGestureStart", this.gestureStart, false);
-                d.addEventListener("MSGestureEnd", this.gestureEnd, false);
-                d.addEventListener("MSGestureChange", car.orientation == 0 ? this.gestureChangeH : this.gestureChangeV, false);
-                d.addEventListener("MSPointerDown", this.pointerDown, false);
-                return d;
-            },
-            
             updateCarPositions: function () {
-                var size = this.gridSize;
-                this.cars.forEach(function(car) {
-                    car.element.style['left'] = car.position.x * size + "px";
-                    car.element.style['top'] = car.position.y * size + "px";
+                var sizespace = this.gridSize + this.gridSpacing;
+                this.cars.forEach(function (car) {
+                    car.element.style['left'] = car.position.x * sizespace + "px";
+                    car.element.style['top'] = car.position.y * sizespace + "px";
                 });
             },
+
+            createCarElement: function(car) {
+                var el = document.createElement('div');
+                el.className += "car";
+                el.car = car;
+                el.puzzle = this;
+                el.setAttribute('id', 'car' + car.index);
+
+                el.gesture = new MSGesture();
+                el.gesture.target = el;
+                el.addEventListener("MSGestureStart", this.gestureStart, false);
+                el.addEventListener("MSGestureEnd", this.gestureEnd, false);
+                el.addEventListener("MSGestureChange", car.orientation == 0 ? this.gestureChangeH : this.gestureChangeV, false);
+                el.addEventListener("MSPointerDown", this.pointerDown, false);
+                return el;
+            },
+            
+           
             
             updateCarsMinMax: function () {
-                var size = this.gridSize;
+                var size = this.gridSize + this.gridSpacing;
                 this.cars.forEach(function (car) {
                     if (car.orientation == 0) {
                         var x = car.position.x - 1;
@@ -153,7 +198,7 @@
                 var carEl = evt.currentTarget;
                 var car = carEl.car;
                 var puzzle = carEl.puzzle;
-                var size = puzzle.gridSize;
+                var size = puzzle.gridSize + puzzle.gridSpacing;
                 var newx = Math.round(carEl.offsetLeft / size);
                 var newy = Math.round(carEl.offsetTop / size);
                 if (newx != car.position.x || newy != car.position.y) {

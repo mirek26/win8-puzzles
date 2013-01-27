@@ -57,6 +57,11 @@
     </AppxManifest>
     <None Include="Client.WindowsStoreApp_StoreKey.pfx" />
     <Content Include="css\default.css" />
+    <Content Include="images\icons\info.png" />
+    <Content Include="images\icons\settings.png" />
+    <Content Include="images\icons\statistics.png" />
+    <Content Include="images\icons\user_female.png" />
+    <Content Include="images\icons\user_male.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />

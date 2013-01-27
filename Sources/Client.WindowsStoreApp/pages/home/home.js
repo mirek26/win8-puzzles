@@ -64,12 +64,12 @@
         refreshUser: function () {
             if (!app.user || app.user == {}) {
                 app.getUserData(this.loadUserInfo, function() {
-                    var el = document.getElementById("infoArea");
+                    var el = document.getElementById("user");
                     el.innerText = "Sign in here.";
                     el.addEventListener("click", app.login.bind(this, function() {
                         this.refreshUser();
                     }, function() {
-                        el.innerText = "Sign in failed, try again.";
+                        el.innerText = "Sign in failed.";
                     }));
                 });
             } else {
@@ -78,7 +78,7 @@
         },
         
         loadUserInfo: function() {
-            document.getElementById("infoArea").innerText = "Signed in as " + app.user.name;
+            document.getElementById("user").innerText = app.user.name;
             this.removeEventListener("click");
         }
     });

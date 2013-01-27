@@ -1,13 +1,15 @@
-﻿.puzzlepage section[role=main] {
+﻿body{
     text-align: center;
+    background: #333333;
 }
 
 .map {
     position: relative;
-    margin: auto;
+    margin: 50px auto;
 }
 
 .map .car {
+    display: none;
     position: absolute;
     background: #c17d11;
     border: #333333 2px solid;
@@ -21,10 +23,6 @@
 
     .map table {
         border-spacing: 0;
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        border-spacing: 0;
         border: 10px black solid;
         margin: 0px;
         padding: 0px;
@@ -37,8 +35,7 @@
 
     /* cell style */
     div.cell {
-        opacity: 0.5;
-        background: #999;
+        background: #444444;
         width: 75px;
         height: 75px;
         padding: 0;
@@ -76,7 +73,7 @@
     }
 
     .exit-down tr:last-child td{
-        border-bottom: 10px black solid;   
+        border-top: 10px black solid;   
     }
 
     td.exit {
