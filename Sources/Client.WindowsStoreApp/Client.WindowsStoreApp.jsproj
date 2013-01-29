@@ -86,6 +86,7 @@
     <Content Include="puzzles\LoopFinder\images\logo.png" />
     <Content Include="puzzles\Nurikabe\images\logo.png" />
     <Content Include="puzzles\Polyominoes\images\logo.png" />
+    <Content Include="puzzles\RushHour\images\arrow.png" />
     <Content Include="puzzles\RushHour\images\logo.png" />
     <Content Include="puzzles\RushHour\script.js" />
     <Content Include="puzzles\RushHour\style.css" />

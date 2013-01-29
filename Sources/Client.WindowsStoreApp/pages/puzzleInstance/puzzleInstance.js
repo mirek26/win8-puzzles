@@ -15,7 +15,7 @@
         },
         {
             loadPuzzle: function (puzzle){
-                this.puzzle = new Puzzle.Puzzle(puzzle, this);
+                this.puzzle = new Puzzle(puzzle, this);
                 this.puzzle.initializeUI(this.rootElement.querySelector("section[role=main] .map"));
                 this.solved = false;
                 this.startClock();

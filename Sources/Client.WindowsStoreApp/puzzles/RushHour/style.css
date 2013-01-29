@@ -2,24 +2,24 @@
     text-align: center;
 }
 
-.map {
+.box {
     position: relative;
     margin: auto;
 }
 
-.map .car {
+.box .car {
     position: absolute;
     background: #c17d11;
-    border: #333333 2px solid;
+    border: #333 2px solid;
     border-radius: 30%;
 }
 
-.map .redcar{
+.box .redcar{
     background-color: #cc0000 !important;
 }
 
 
-    .map table {
+    .box table {
         border-spacing: 0;
         position: absolute;
         top: -10px;
@@ -30,19 +30,19 @@
         padding: 0px;
     }
 
-    .map tr {
+    .box tr {
         margin: 0;
         padding: 0;
     }
 
     /* cell style */
     div.cell {
-        opacity: 0.5;
-        background: #999;
-        width: 75px;
-        height: 75px;
+        opacity: 0.05;
+        background: #fff;
+        width: 90px;
+        height: 90px;
         padding: 0;
-        margin: 2px;
+        margin: 4px;
     }
 
     tr:first-child td div.cell{
@@ -102,28 +102,31 @@
     /* exit */
     
     div.exit {
+        position: absolute;
         padding-left: 5px;    
         border-top: 10px black solid;
         border-bottom: 10px black solid;      
     }
 
     div.exit div.cell {
-        width: 50px;
+        width: 60px;
         margin: 0;
-        background: url("./images/arrow.png") 50% 50% no-repeat #444444;
-        background-size: 32px;
+        background: url("///puzzles/RushHour/images/arrow.png") 100% 50% no-repeat;
+        opacity: 1;
+        background-size: 46px;
     }
 
     .exit-left div.exit{
         -ms-transform: rotate(180deg);
+        -ms-transform-origin: 50% 50%;
     }
 
     .exit-up div.exit{
         -ms-transform: rotate(-90deg);
+        -ms-transform-origin: 0 0;
     }
 
     .exit-down div.exit{
         -ms-transform: rotate(90deg);
+        -ms-transform-origin: 0 0;   
     }
-
-
