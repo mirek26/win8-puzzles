@@ -16,7 +16,7 @@
         {
             loadPuzzle: function (puzzle){
                 this.puzzle = new Puzzle(puzzle, this);
-                this.puzzle.initializeUI(this.rootElement.querySelector("section[role=main] .map"));
+                this.puzzle.initializeUi(this.rootElement.querySelector("#canvas"));
                 this.solved = false;
                 this.startClock();
             },
@@ -38,6 +38,10 @@
                 var minutes = Math.floor(seconds / 60);
                 seconds = seconds % 60;
                 return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+            },
+
+            action: function(obj){
+                console.log(obj);
             },
 
             action_solved: function () {
