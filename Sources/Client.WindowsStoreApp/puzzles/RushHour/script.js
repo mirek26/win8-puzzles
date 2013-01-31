@@ -165,8 +165,8 @@ function Puzzle(puzzle, controller) {
 
     function gestureStart(evt) {
         var carEl = evt.currentTarget;
-        carEl.startX = evt.clientX - evt.offsetX;
-        carEl.startY = evt.clientY - evt.offsetY;
+        carEl.startX = evt.clientX - carEl.offsetLeft;
+        carEl.startY = evt.clientY - carEl.offsetTop;
     }
 
     function gestureEnd(evt) {
@@ -178,17 +178,25 @@ function Puzzle(puzzle, controller) {
             controller.action("posun vole");
             car.position.x = newx;
             car.position.y = newy;
-            puzzle.updateMapUnderCar(car, car.index);
         }
         //var anim = WinJS.UI.Animation.createRepositionAnimation(carEl);
-        carEl.style.left = newx * constants.gridsize + "px";
-        carEl.style.top = newy * constants.gridsize + "px";
+        var position;
+        if (car.orientation == 0) {
+            position = newx * constants.gridsize;
+            carEl.style.left = position + "px";
+            updateMapH(carEl, position);
+        } else {
+            position = newy * constants.gridsize;
+            carEl.style.top = position + "px";
+            updateMapH(carEl, position);
+        }
         //anim.execute();
     }
 
-    function moveCarH(carEl, position){
+    function updateMapH(carEl, position){
         carEl.posL = Math.floor( (position + constants.gridspace) / constants.gridsize);
         carEl.posR = Math.floor( (position + carEl.offsetWidth) / constants.gridsize);
+        console.log(carEl.car.index, "-", carEl.posL, " - " ,carEl.posR);
         var y = carEl.car.position.y;
         var i;
         var unset = function(){ if (map[i][y] == carEl.car.index) map[i][y] = null; }
@@ -196,43 +204,29 @@ function Puzzle(puzzle, controller) {
         for (i = 0; i < carEl.posL; i++) unset();
         for (; i <= carEl.posR; i++) set();
         for (; i < size.x; i++) set();
-        carEl.style.left = position + "px";
     }
 
     // gesture change for horizontal cars
     function gestureChangeH (evt) {
         var carEl = evt.currentTarget;
-        var req = evt.clientY - carEl.startY;
-        console.log(req);
+        var req = evt.clientX - carEl.startX;
         if (evt.translationX > 0) {
             var pos = Math.floor( (req + carEl.offsetWidth) / constants.gridsize );
             if (carEl.posR < pos) {
                 var y = carEl.car.position.y;
                 var ok = carEl.posR + 1;
-                while (ok < pos && ok < size.x && map[ok][y] === null) ok++;
-                if (ok == size.x){
+                while (ok <= pos && ok < size.x && map[ok][y] === null) ok++;
+                if (ok == size.x && ok <= pos){
                     if (carEl.car.index == 0 && exit == 1) controller.action_solved();
-                    else req = ok * constants.gridsize - carEl.offsetWidth;
-                } else if (map[ok][y] !== null){
-                    req = ok * constants.gridsize - carEl.offsetWidth;
+                    else req = ok * constants.gridsize - carEl.offsetWidth - constants.gridspace;
+                } else if (ok < size.x && map[ok][y] !== null){
+                    req = ok * constants.gridsize - carEl.offsetWidth - 1;
                 }   
-                moveCarH(carEl, req);
+                updateMapH(carEl, req);
             } 
         } else {
-            var pos = Math.floor( (req + carEl.offsetWidth) / constants.gridsize );
-            if (pos < carEl.posL) {
-                var y = carEl.car.position.y;
-                var ok = carEl.posL - 1;
-                while (pos < ok && 0 <= ok && map[ok][y] === null) ok--;
-                if (ok == -1){
-                    if (carEl.car.index == 0 && exit == 3) controller.action_solved();
-                    else req = 0;
-                } else if (map[ok][y] !== null){
-                    req = (ok + 1) * constants.gridsize - constants.gridspace;
-                }   
-                moveCarH(carEl, req);
-            }
         }
+        carEl.style.left = req + "px";
     }
 
     // gesture change for vertical cars

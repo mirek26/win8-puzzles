@@ -21,7 +21,10 @@ body{
 <script type="text/javascript">
 function go(){
 	var puzzle = JSON.parse('{"id":10,"type":"RushHour","name":"Rush 253","author":1,"definition":{"size":{"x":6,"y":6},"cars":[{"position":{"x":4,"y":0},"orientation":1,"length":2},{"position":{"x":2,"y":2},"orientation":0,"length":3},{"position":{"x":1,"y":2},"orientation":1,"length":3},{"position":{"x":0,"y":0},"orientation":0,"length":2},{"position":{"x":0,"y":5},"orientation":0,"length":3}],"exit":1},"state":null,"solved":false,"spendTime":null,"expectedTime":"00:02:03"}');
-	var controller = { };
+	var controller = { 
+		action: function(){}, 
+		action_solve: function(){ alert("solve"); }
+	};
 	var p = new Puzzle(puzzle, controller);
 	p.initializeUi(document.getElementById("canvas"));
 	//p.updateUi();
