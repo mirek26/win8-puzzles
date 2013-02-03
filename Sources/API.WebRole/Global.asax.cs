@@ -7,9 +7,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using API.Webrole.WebRole.Models;
+using Puzzles.API.Webrole.WebRole.Models;
 
-namespace API.Webrole.WebRole
+namespace Puzzles.API.Webrole.WebRole
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -25,7 +25,7 @@ namespace API.Webrole.WebRole
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Database.SetInitializer(new SampleData());
+            Database.SetInitializer(new SampleData());
         }
     }
 }

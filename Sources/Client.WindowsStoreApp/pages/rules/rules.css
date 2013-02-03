@@ -8,7 +8,17 @@
     -ms-grid-column: 1;
     margin-left: 128px;
 }
-    
+ 
+    .homepage .rulessection ul{
+        margin: 20px 0px;
+    }
+
+    .homepage .rulessection li{
+        font-size: 130%;
+        margin: 10px 0px;
+    }
+
+   
 .homepage .puzzlessection {
     -ms-grid-column: 2;
     margin-left: 50px;

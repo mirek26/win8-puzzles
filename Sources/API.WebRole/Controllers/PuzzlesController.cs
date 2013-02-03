@@ -9,7 +9,7 @@
 
 using System.Configuration;
 
-namespace API.Webrole.WebRole.Controllers
+namespace Puzzles.API.Webrole.WebRole.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -60,7 +60,7 @@ namespace API.Webrole.WebRole.Controllers
                     {
                             Id = puzzle.Id, 
                             Type = puzzle.TypeId, 
-                            Name = puzzle.Name, 
+                            Title = puzzle.Title, 
                             Solved = false, 
                             ExpectedTime = TimeSpan.FromSeconds(123),
                             SpendTime = null, 

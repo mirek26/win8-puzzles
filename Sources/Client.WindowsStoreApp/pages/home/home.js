@@ -14,7 +14,7 @@
 
         puzzleSelected: function (args) {
             var type = this.puzzleTypes[args.detail.itemIndex];
-            nav.navigate("/pages/puzzleType/puzzleType.html", type );
+            nav.navigate("/pages/rules/rules.html", type );
         },
 
         ready: function (element, options) {

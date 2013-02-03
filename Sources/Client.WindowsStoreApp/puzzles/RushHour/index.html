@@ -1,0 +1,38 @@
+<html>
+<head>
+<link href="style.css" rel="stylesheet" />
+
+<style type="text/css">
+body{
+	margin: 0px;
+}
+
+#canvas{
+	text-align: center;
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%);
+	height: 800px;
+	width: 700px;
+}
+
+.box{
+
+}
+</style>
+<script type="text/javascript">
+function go(){
+	var puzzle = JSON.parse('{"author":1,"def":{"size":[6,6],"cars":[{"p":0,"s":4,"o":1,"l":2},{"p":2,"s":2,"o":0,"l":3},{"p":2,"s":1,"o":1,"l":3},{"p":0,"s":0,"o":0,"l":2},{"p":0,"s":5,"o":0,"l":3}],"exit":2},"state":null,"id":10,"type":"RushHour","name":"Rush 253","solved":false,"spend":null,"expected":"00:02:03"}');
+	var controller = { 
+		action: function(){}, 
+		action_solve: function(){ log("SOLVED!"); }
+	};
+	var p = new Puzzle(puzzle, controller);
+	p.initializeUi(document.getElementById("canvas"));
+	p.updateUi();
+}
+</script>
+<script type="text/javascript" src="script.js"></script>
+</head>
+<body onload="go()">
+<div id="canvas">
+</div>
+</body>

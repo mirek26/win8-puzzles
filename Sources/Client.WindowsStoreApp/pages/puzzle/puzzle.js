@@ -66,7 +66,7 @@
 
 
 
-    ui.Pages.define("/pages/puzzleInstance/puzzleInstance.html", {
+    ui.Pages.define("/pages/puzzle/puzzle.html", {
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function(element, options) {
@@ -83,7 +83,7 @@
                     this.loadedEvent("puzzle");
                 }.bind(this));
             }
-            element.querySelector("header[role=banner] .pagetitle").textContent = this.puzzle.name;
+            element.querySelector("header[role=banner] .pagetitle").textContent = this.puzzle.title;
             this.loadJS(this.puzzle.type);
             this.loadCSS(this.puzzle.type);
         },

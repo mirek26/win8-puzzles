@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace API.Webrole.WebRole.Controllers
+namespace Puzzles.API.Webrole.WebRole.Controllers
 {
     public class HomeController : Controller
     {

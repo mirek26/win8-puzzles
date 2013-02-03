@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace API.Webrole.WebRole.Models
+namespace Puzzles.API.Webrole.WebRole.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -28,7 +28,7 @@ namespace API.Webrole.WebRole.Models
  
         public virtual PuzzleType Type { get; set; }
 
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         public string Details { get; set; }
 

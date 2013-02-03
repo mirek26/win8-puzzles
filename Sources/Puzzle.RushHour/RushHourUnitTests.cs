@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.RushHour
+namespace Puzzles.Puzzle.RushHour
 {
     using System;
     using System.Collections.Generic;
@@ -35,15 +35,15 @@ namespace Puzzles.RushHour
                 "--------",
             };
 
-            var puzzle = new RushHourDefinition(tutorData);
-            Assert.AreEqual(6, puzzle.Size.X);
-            Assert.AreEqual(6, puzzle.Size.Y);
+            var puzzle = RushHourDefinition.FromTutor(tutorData);
+            Assert.AreEqual(6, puzzle.Size[1]);
+            Assert.AreEqual(6, puzzle.Size[0]);
             Assert.AreEqual(10, puzzle.Cars.Count);
-            Assert.AreEqual(3, puzzle.Cars[0].Position.X);
-            Assert.AreEqual(2, puzzle.Cars[0].Position.Y);
+            Assert.AreEqual(3, puzzle.Cars[0].Position);
+            Assert.AreEqual(2, puzzle.Cars[0].Street);
             Assert.AreEqual(2, puzzle.Cars[0].Length);
             Assert.AreEqual(CarOrientation.Horizontal, puzzle.Cars[0].Orientation);
-            Assert.AreEqual(ExitPosition.RightOrDown, puzzle.Exit);
+            Assert.AreEqual(ExitPosition.Right, puzzle.Exit);
         }
 
         [TestMethod]
@@ -61,15 +61,15 @@ namespace Puzzles.RushHour
                 "-----E--",
             };
 
-            var puzzle = new RushHourDefinition(tutorData);
-            Assert.AreEqual(6, puzzle.Size.X);
-            Assert.AreEqual(6, puzzle.Size.Y);
+            var puzzle = RushHourDefinition.FromTutor(tutorData);
+            Assert.AreEqual(6, puzzle.Size[1]);
+            Assert.AreEqual(6, puzzle.Size[0]);
             Assert.AreEqual(5, puzzle.Cars.Count);
-            Assert.AreEqual(4, puzzle.Cars[0].Position.X);
-            Assert.AreEqual(0, puzzle.Cars[0].Position.Y);
+            Assert.AreEqual(4, puzzle.Cars[0].Street);
+            Assert.AreEqual(0, puzzle.Cars[0].Position);
             Assert.AreEqual(2, puzzle.Cars[0].Length);
             Assert.AreEqual(CarOrientation.Vertical, puzzle.Cars[0].Orientation);
-            Assert.AreEqual(ExitPosition.RightOrDown, puzzle.Exit);
+            Assert.AreEqual(ExitPosition.Down, puzzle.Exit);
         }
 
         [TestMethod]
@@ -87,15 +87,15 @@ namespace Puzzles.RushHour
                 "--------",
             };
 
-            var puzzle = new RushHourDefinition(tutorData);
-            Assert.AreEqual(6, puzzle.Size.X);
-            Assert.AreEqual(6, puzzle.Size.Y);
+            var puzzle = RushHourDefinition.FromTutor(tutorData);
+            Assert.AreEqual(6, puzzle.Size[1]);
+            Assert.AreEqual(6, puzzle.Size[0]);
             Assert.AreEqual(5, puzzle.Cars.Count);
-            Assert.AreEqual(4, puzzle.Cars[0].Position.X);
-            Assert.AreEqual(4, puzzle.Cars[0].Position.Y);
+            Assert.AreEqual(4, puzzle.Cars[0].Position);
+            Assert.AreEqual(4, puzzle.Cars[0].Street);
             Assert.AreEqual(2, puzzle.Cars[0].Length);
             Assert.AreEqual(CarOrientation.Vertical, puzzle.Cars[0].Orientation);
-            Assert.AreEqual(ExitPosition.LeftOrUp, puzzle.Exit);
+            Assert.AreEqual(ExitPosition.Up, puzzle.Exit);
         }
 
         [TestMethod]
@@ -113,15 +113,15 @@ namespace Puzzles.RushHour
                 "--------",
             };
 
-            var puzzle = new RushHourDefinition(tutorData);
-            Assert.AreEqual(6, puzzle.Size.X);
-            Assert.AreEqual(6, puzzle.Size.Y);
+            var puzzle = RushHourDefinition.FromTutor(tutorData);
+            Assert.AreEqual(6, puzzle.Size[1]);
+            Assert.AreEqual(6, puzzle.Size[0]);
             Assert.AreEqual(10, puzzle.Cars.Count);
-            Assert.AreEqual(1, puzzle.Cars[0].Position.X);
-            Assert.AreEqual(2, puzzle.Cars[0].Position.Y);
+            Assert.AreEqual(1, puzzle.Cars[0].Position);
+            Assert.AreEqual(2, puzzle.Cars[0].Street);
             Assert.AreEqual(2, puzzle.Cars[0].Length);
             Assert.AreEqual(CarOrientation.Horizontal, puzzle.Cars[0].Orientation);
-            Assert.AreEqual(ExitPosition.LeftOrUp, puzzle.Exit);
+            Assert.AreEqual(ExitPosition.Left, puzzle.Exit);
         }
 
         #endregion
@@ -132,8 +132,8 @@ namespace Puzzles.RushHour
         {
             var c = new Car(3, 5, 3, 8);
             Assert.IsTrue(c.Equals(new Car(new int[] { 3, 5, 3, 8 })));
-            Assert.AreEqual(c.Position.X, 3);
-            Assert.AreEqual(c.Position.Y, 5);
+            Assert.AreEqual(c.Street, 3);
+            Assert.AreEqual(c.Position, 5);
             Assert.AreEqual(c.Length, 4);
             Assert.AreEqual(c.Orientation, CarOrientation.Vertical);
         }
@@ -143,8 +143,8 @@ namespace Puzzles.RushHour
         {
             var c = new Car(3, 2, 4, 2);
             Assert.IsTrue(c.Equals(new Car(new int[] { 3, 2, 4, 2 })));
-            Assert.AreEqual(c.Position.X, 3);
-            Assert.AreEqual(c.Position.Y, 2);
+            Assert.AreEqual(c.Position, 3);
+            Assert.AreEqual(c.Street, 2);
             Assert.AreEqual(c.Length, 2);
             Assert.AreEqual(c.Orientation, CarOrientation.Horizontal);
         }

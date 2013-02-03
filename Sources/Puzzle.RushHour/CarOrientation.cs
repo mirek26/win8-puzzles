@@ -7,8 +7,10 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.RushHour
+namespace Puzzles.Puzzle.RushHour
 {
+    using Newtonsoft.Json;
+
     public enum CarOrientation
     {
         Horizontal = 0,

@@ -2,8 +2,8 @@
 
 function Puzzle(puzzle, controller) {
     // PRIVATE FIELDS
-    // basic definition
-    var size, exit, cars, redcar;
+    // basic def
+    var def, cars, redcar;
 
     // html elements
     var canvas, box; 
@@ -14,37 +14,18 @@ function Puzzle(puzzle, controller) {
     };
 
     // helper structures
-    var map;
+    var map, solved = false;
     
     function init() {
-        size = puzzle.definition.size;
-        //exit = puzzle.definition.exit;
-        exit = puzzle.definition.cars[0].orientation === 0 ? (puzzle.definition.exit * 2 + 3) % 4 : puzzle.definition.exit * 2;
+        def = puzzle.def;
 
-        cars = [];
-        puzzle.definition.cars.forEach(function (cardef, index) {
-            cars.push({
-                position: { x: cardef.position.x, y: cardef.position.y },
-                length: cardef.length, 
-                orientation: cardef.orientation,
-                originalPosition: cardef.position,
-                index: index
-            });
-        });
-        redcar = cars[0];
-
-        map = new Array(size.x);
-        for (var i = 0; i < size.x; i++) {
-            map[i] = new Array(size.y);
-            for (var j = 0; j < size.y; j++) {
+        map = new Array(def.size[0]);
+        for (var i = 0; i < def.size[0]; i++) {
+            map[i] = new Array(def.size[1]);
+            for (var j = 0; j < def.size[1]; j++) {
                 map[i][j] = null;
             }
         }
-        cars.forEach(function(car){
-            for (var i = 0; i < car.length; i++) {
-                map[car.position.x + (car.orientation === 0) * i][car.position.y + (car.orientation === 1) * i] = car.index;
-            }
-        });
     }
 
     function initializeUi (element) {
@@ -52,16 +33,22 @@ function Puzzle(puzzle, controller) {
 
         // box
         box = document.createElement("div");
-        box.className = "box " + ["exit-up", "exit-right", "exit-down", "exit-left"][exit];
+        box.className = "box " + ["exit-up", "exit-right", "exit-down", "exit-left"][def.exit];
         canvas.appendChild(box);
         
-        // grid and exit
+        // grid, cars, exit
         generateGrid();
-        generateExit();                       
 
-        // all cars
-        cars.forEach(generateCar);
-        redcar.element.className += " redcar";
+        cars = [];
+        def.cars.forEach(function(cardef, index){
+            var el = generateCar(cardef, index); 
+            box.appendChild(el);
+            cars.push(el);
+        });
+        redcar = cars[0];
+        redcar.className += " redcar";
+
+        generateExit();                       
 
         // update box dimensions
         var grid = box.querySelector(".grid");
@@ -74,30 +61,34 @@ function Puzzle(puzzle, controller) {
     }
 
     function generateExit() {
-        box.innerHTML += '<div class="exit"><div class="cell"></div></div>';
-        var exitEl = box.querySelector('div.exit');
+        var exit = document.createElement("div");
+        exit.className = "exit";
+        var cell = document.createElement("div");
+        cell.className = "cell";
+        exit.appendChild(cell);
+        box.appendChild(exit);
         var grid = box.querySelector('.grid');
         var exitquery;
-        switch (exit) {
+        switch (def.exit) {
             case 0:
-                exitquery = "tr:first-child td:nth-child(" + (redcar.position.x+1) + ")";
-                exitEl.style.left = redcar.position.x * constants.gridsize - constants.gridspace + "px";
-                exitEl.style.top = "0px";
+                exitquery = "tr:first-child td:nth-child(" + (redcar.def.s + 1) + ")";
+                exit.style.left = redcar.position.x * constants.gridsize - constants.gridspace + "px";
+                exit.style.top = "0px";
                 break;
             case 1:
-                exitquery = "tr:nth-child(" + (redcar.position.y+1) + ") td:last-child";
-                exitEl.style.left = size.x * constants.gridsize - constants.gridspace + "px";
-                exitEl.style.top = redcar.position.y * constants.gridsize - constants.gridspace + "px";
+                exitquery = "tr:nth-child(" + (redcar.def.s + 1) + ") td:last-child";
+                exit.style.left = def.size[1] * constants.gridsize - constants.gridspace + "px";
+                exit.style.top = redcar.def.s * constants.gridsize - constants.gridspace + "px";
                 break;
             case 2:
-                exitquery = "tr:last-child td:nth-child(" + (redcar.position.x+1) + ")";
-                exitEl.style.left = (redcar.position.x+1) * constants.gridsize + "px";
-                exitEl.style.top = size.y * constants.gridsize - constants.gridspace + "px";
+                exitquery = "tr:last-child td:nth-child(" + (redcar.def.s + 1) + ")";
+                exit.style.left = (redcar.def.s + 1) * constants.gridsize + "px";
+                exit.style.top = def.size[0] * constants.gridsize - constants.gridspace + "px";
                 break;
             case 3:
-                exitquery = "tr:nth-child(" + (redcar.position.y+1) + ") td:first-child";
-                exitEl.style.right = 0 + "px";
-                exitEl.style.top = redcar.position.y * constants.gridsize - constants.gridspace + "px";
+                exitquery = "tr:nth-child(" + (redcar.def.s + 1) + ") td:first-child";
+                exit.style.right = 0 + "px";
+                exit.style.top = redcar.def.s * constants.gridsize - constants.gridspace + "px";
                 break;
         }
         grid.querySelector(exitquery).className += " exit";
@@ -107,9 +98,9 @@ function Puzzle(puzzle, controller) {
     function generateGrid() {
         var grid = document.createElement("table");
         grid.className = "grid";
-        for (var i = 0; i < size.y; i++) {
+        for (var i = 0; i < def.size[0]; i++) {
             var tr = document.createElement("tr");
-            for (var j = 0; j < size.x; j++) {
+            for (var j = 0; j < def.size[1]; j++) {
                 var td = document.createElement("td");
                 var cell = document.createElement("div");
                 cell.className = "cell";
@@ -122,121 +113,172 @@ function Puzzle(puzzle, controller) {
     }
 
     // generates car dom element corresponding to given car object, appends to box 
-    function generateCar(car) {
+    function generateCar(cardef, index) {
         var el = document.createElement('div');
         el.className += "car";
-        el.car = car;
-        car.element = el;
-        el.puzzle = this;
-        el.setAttribute('id', 'car' + car.index);
+        el.def = cardef;
+        el.position = cardef.p;
+        el.maxpos = (cardef.o === 0 ? def.size[1] : def.size[0]);
+        el.index = index;
+        el.setAttribute('id', 'car' + index);
 
-        var length = constants.gridsize * car.length - constants.gridspace - constants.carborder + "px";
+        if (index === 0) {
+            el.exit = (def.exit == 1 || def.exit == 2) ? el.maxpos : -1;
+        }
+
+        el.car_position_px = 0;
+        Object.defineProperty(el, "car_position", { 
+            //get: cardef.o === 0 ? function(){ return el.offsetLeft; } : function(){ return el.offsetTop; },
+            get: function(){ return el.car_position_px },
+            set: cardef.o === 0 ? 
+                function(value) { el.car_position_px = value; el.style.left = value + "px"; } :
+                function(value) { el.car_position_px = value; el.style.top = value + "px"; } 
+            });
+
+        el.car_length = constants.gridsize * cardef.l - constants.gridspace;
+        var length = el.car_length - constants.carborder + "px";
         var width = constants.gridsize - constants.gridspace - constants.carborder + "px";
-        if (car.orientation === 0) {
-            el.style['width'] = length;
-            el.style['height'] = width;
+        var street = constants.gridsize * cardef.s + "px";
+        if (cardef.o === 0) {
+            el.style.width = length;
+            el.style.height = width;
+            el.style.top = street;
         } else {
-            el.style['width'] = width;
-            el.style['height'] = length;
+            el.style.width = width;
+            el.style.height = length;
+            el.style.left = street;
         }
 
         el.gesture = new MSGesture();
         el.gesture.target = el;
         el.addEventListener("MSGestureStart", gestureStart, false);
         el.addEventListener("MSGestureEnd", gestureEnd, false);
-        el.addEventListener("MSGestureChange", car.orientation === 0 ? gestureChangeH : gestureChangeV, false);
+        el.addEventListener("MSGestureChange", gestureChange, false);
         el.addEventListener("MSPointerDown", pointerDown, false);
-        box.appendChild(el);
+        return el;
     }
             
     function updateUi() {
         // compute coef and scale box
-        updateCarPositions();
+        cars.forEach(updateCarPosition);
     }
 
-    function updateCarPositions() {
-        cars.forEach(function (car) {
-            car.element.style['left'] = car.position.x * constants.gridsize + "px";
-            car.element.style['top'] = car.position.y * constants.gridsize + "px";
-            car.element.posL = car.orientation == 0 ? car.position.x : car.position.y;
-            car.element.posR = car.element.posL + car.length - 1;
-        });
+    function updateCarPosition(car) {
+        car.car_position = car.position * constants.gridsize;
+        updateMap(car, car.car_position);
     }
 
     function gestureStart(evt) {
-        var carEl = evt.currentTarget;
-        carEl.startX = evt.clientX - carEl.offsetLeft;
-        carEl.startY = evt.clientY - carEl.offsetTop;
+        var car = evt.currentTarget;
+        car.startX = evt.clientX - car.offsetLeft;
+        car.startY = evt.clientY - car.offsetTop;
     }
 
     function gestureEnd(evt) {
-        var carEl = evt.currentTarget;
-        var car = carEl.car;
-        var newx = Math.round(carEl.offsetLeft / constants.gridsize);
-        var newy = Math.round(carEl.offsetTop / constants.gridsize);
-        if (newx != car.position.x || newy != car.position.y) {
+        if (solved) return;
+        var car = evt.currentTarget;
+        var newpos = Math.round(car.car_position / constants.gridsize);
+        if (newpos != car.position) {
             controller.action("posun vole");
-            car.position.x = newx;
-            car.position.y = newy;
+            car.position = newpos;
         }
-        //var anim = WinJS.UI.Animation.createRepositionAnimation(carEl);
-        var position;
-        if (car.orientation == 0) {
-            position = newx * constants.gridsize;
-            carEl.style.left = position + "px";
-            updateMapH(carEl, position);
-        } else {
-            position = newy * constants.gridsize;
-            carEl.style.top = position + "px";
-            updateMapH(carEl, position);
-        }
-        //anim.execute();
+        var anim = WinJS.UI.Animation.createRepositionAnimation(car);
+        updateCarPosition(car);
+        anim.execute();
     }
 
-    function updateMapH(carEl, position){
-        carEl.posL = Math.floor( (position + constants.gridspace) / constants.gridsize);
-        carEl.posR = Math.floor( (position + carEl.offsetWidth) / constants.gridsize);
-        console.log(carEl.car.index, "-", carEl.posL, " - " ,carEl.posR);
-        var y = carEl.car.position.y;
+    function getMap(orientation, street, position){
+        return orientation === 0 ? map[street][position] : map[position][street];
+    }
+
+    function updateMapUnset(orientation, street, position, value){
+        var x = orientation === 0 ? position : street, y = street + position - x;
+        if (map[y][x] === value){
+            map[y][x] = null;
+        }
+    }
+
+    function updateMapSet(orientation, street, position, value){
+        var x = orientation === 0 ? position : street, y = street + position - x;
+        if (map[y][x] !== null && map[y][x] !== value) {
+            console.log("Map overwriting!");
+        }
+        map[y][x] = value;
+    }
+
+    function updateMap(car, position){
+        car.posL = Math.floor( position / constants.gridsize);
+        car.posR = Math.floor( (position + car.car_length + constants.gridspace - 1) / constants.gridsize);
+        var unset = updateMapUnset.bind(this, car.def.o, car.def.s);
+        var set = updateMapSet.bind(this, car.def.o, car.def.s);
         var i;
-        var unset = function(){ if (map[i][y] == carEl.car.index) map[i][y] = null; }
-        var set = function(){ map[i][y] = carEl.car.index; }
-        for (i = 0; i < carEl.posL; i++) unset();
-        for (; i <= carEl.posR; i++) set();
-        for (; i < size.x; i++) set();
+        for (i = 0; i < car.posL; i++) unset(i, car.index);
+        for (; i <= car.posR; i++) set(i, car.index);
+        for (; i < car.maxpos; i++) unset(i, car.index);
+        logMap();
+    }
+
+    function logMap(){
+        console.log("");
+        var s;
+        for (var j = 0; j < def.size[0]; j++) {
+            s = "";
+            for (var i = 0; i < def.size[1]; i++) s+= map[j][i] == null ? "-" : map[j][i];
+            console.log(s);
+        }
     }
 
     // gesture change for horizontal cars
-    function gestureChangeH (evt) {
-        var carEl = evt.currentTarget;
-        var req = evt.clientX - carEl.startX;
-        if (evt.translationX > 0) {
-            var pos = Math.floor( (req + carEl.offsetWidth) / constants.gridsize );
-            if (carEl.posR < pos) {
-                var y = carEl.car.position.y;
-                var ok = carEl.posR + 1;
-                while (ok <= pos && ok < size.x && map[ok][y] === null) ok++;
-                if (ok == size.x && ok <= pos){
-                    if (carEl.car.index == 0 && exit == 1) controller.action_solved();
-                    else req = ok * constants.gridsize - carEl.offsetWidth - constants.gridspace;
-                } else if (ok < size.x && map[ok][y] !== null){
-                    req = ok * constants.gridsize - carEl.offsetWidth - 1;
+    function gestureChange(evt) {
+        if (solved) return;
+        var car = evt.currentTarget;
+        var req = car.def.o == 0 ? (evt.clientX - car.startX) : (evt.clientY - car.startY);
+        var posL = Math.floor( req / constants.gridsize);
+        var posR = Math.floor( (req + car.car_length + constants.gridspace - 1) / constants.gridsize);
+        var m = getMap.bind(this, car.def.o, car.def.s);
+        if (car.posR < posR) {
+            var test = car.posR + 1;
+            while (test <= posR && test < car.maxpos && m(test) === null) test++;
+            if (test <= posR){
+                if (test == car.maxpos){
+                    if (car.exit === car.maxpos) {
+                        finished(car, req);
+                        return;
+                    } else {
+                        req = car.maxpos * constants.gridsize - car.car_length - constants.gridspace;
+                    }
+                } else {   // m(test) !== null
+                    req = test * constants.gridsize - car.car_length - constants.gridspace;
                 }   
-                updateMapH(carEl, req);
-            } 
-        } else {
+            }
+        } else if (car.posL > posL) {
+            var test = car.posL - 1;
+            while (test >= posL && test >=0 && m(test) === null) test--;
+            if (test >= posL){
+                if (test === -1){
+                    if (car.exit === -1) {
+                        finished(car, req);
+                        return;
+                    } else { 
+                        req = 0;
+                    }
+                } else { // m(test) !== null
+                    req = (test + 1) * constants.gridsize;
+                }   
+            }
+        } 
+
+        if ((car.posL != posL || car.posR != posR) && req != car.car_position) {
+            updateMap(car, req);
         }
-        carEl.style.left = req + "px";
+        car.car_position = req;
     }
 
-    // gesture change for vertical cars
-    function gestureChangeV (evt) {
-        var carEl = evt.currentTarget;
-        var newposition = Math.min(carEl.maxposition, Math.max(carEl.minposition, evt.clientY - carEl.startY));
-        if (carEl.car.index === 0 && newposition === carEl.exitposition) {
-            carEl.puzzle.controller.action_solved();
-        }
-        carEl.style.top = newposition + "px";
+    function finished(car, pos) {
+        solved = true;
+        car.car_position = pos;
+        controller.action("posun");
+        controller.action_solved("jop");
     }
 
     function pointerDown (evt) {
@@ -244,11 +286,14 @@ function Puzzle(puzzle, controller) {
     }
 
     function getState () {
-        return { };
+        return cars.map(function(car) { return car.position });
     }
 
-    function setState () {
-
+    function setState (state) {
+        cars.forEach(function (car, index){
+            car.position = state[index];
+            updateCarPosition(car);
+        });
     }
 
     // PUBLIC FIELDS

@@ -4,7 +4,7 @@
     var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
     var ui = WinJS.UI;
 
-    ui.Pages.define("/pages/puzzleList/puzzleList.html", {
+    ui.Pages.define("/pages/list/list.html", {
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
@@ -42,7 +42,7 @@
 
         _itemInvoked: function (args) {
             var puzzle = this.list[args.detail.itemIndex];
-            WinJS.Navigation.navigate("/pages/puzzleInstance/puzzleInstance.html", { puzzleMeta: puzzle });
+            WinJS.Navigation.navigate("/pages/puzzle/puzzle.html", { puzzleMeta: puzzle });
         },
         
         refresh: function(){

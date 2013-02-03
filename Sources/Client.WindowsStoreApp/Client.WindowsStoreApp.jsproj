@@ -36,6 +36,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>09481fff-8bf3-431f-826c-d1418ec55207</ProjectGuid>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0'">
     <VisualStudioVersion>11.0</VisualStudioVersion>
@@ -55,6 +56,10 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="js\jquery-1.8.2.intellisense.js" />
+    <Content Include="js\jquery-1.8.2.js" />
+    <Content Include="js\jquery-1.8.2.min.js" />
+    <Content Include="packages.config" />
     <None Include="Client.WindowsStoreApp_StoreKey.pfx" />
     <Content Include="css\default.css" />
     <Content Include="images\icons\info.png" />
@@ -73,17 +78,19 @@
     <Content Include="pages\home\home.css" />
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
-    <Content Include="pages\puzzleList\puzzleList.css" />
-    <Content Include="pages\puzzleList\puzzleList.html" />
-    <Content Include="pages\puzzleList\puzzleList.js" />
-    <Content Include="pages\puzzleType\puzzleType.css" />
-    <Content Include="pages\puzzleType\puzzleType.html" />
-    <Content Include="pages\puzzleType\puzzleType.js" />
+    <Content Include="pages\list\list.css" />
+    <Content Include="pages\list\list.html" />
+    <Content Include="pages\list\list.js" />
+    <Content Include="pages\rules\rules.css" />
+    <Content Include="pages\rules\rules.html" />
+    <Content Include="pages\rules\rules.js" />
     <Content Include="default.html" />
-    <Content Include="pages\puzzleInstance\puzzleInstance.css" />
-    <Content Include="pages\puzzleInstance\puzzleInstance.html" />
-    <Content Include="pages\puzzleInstance\puzzleInstance.js" />
+    <Content Include="pages\puzzle\puzzle.css" />
+    <Content Include="pages\puzzle\puzzle.html" />
+    <Content Include="pages\puzzle\puzzle.js" />
     <Content Include="puzzles\LoopFinder\images\logo.png" />
+    <Content Include="puzzles\LoopFinder\script.js" />
+    <Content Include="puzzles\LoopFinder\style.css" />
     <Content Include="puzzles\Nurikabe\images\logo.png" />
     <Content Include="puzzles\Polyominoes\images\logo.png" />
     <Content Include="puzzles\RushHour\images\arrow.png" />
@@ -98,6 +105,7 @@
     <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment
        that target and the DisableFastUpToDateCheck PropertyGroup. 
        Other similar extension points exist, see Microsoft.Common.targets.

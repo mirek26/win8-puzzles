@@ -7,46 +7,45 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.RushHour
+namespace Puzzles.Puzzle.RushHour
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
     using Newtonsoft.Json;
-    using Puzzles.Common;
 
     public class RushHourDefinition
     {
         public const int MaximalSize = 10;
 
-        public RushHourDefinition()
+        public static RushHourDefinition FromTutor(IList<string> definition)
         {
-        }
+            var result = new RushHourDefinition();
 
-        public RushHourDefinition(string[] tutorDefinition)
-        {
-            if (tutorDefinition == null || tutorDefinition.Length < 1 || tutorDefinition.Length > MaximalSize)
+            if (definition == null || definition.Count < 1 || definition.Count > MaximalSize)
             {
                 throw new ArgumentException("Invalid input format. Argument is null or the number of lines is invalid.");
             }
 
-            this.Size = new Coordinates() { Y = tutorDefinition.Length - 2, X = tutorDefinition[0].Length - 2 };
+            result.Size = new[] { definition.Count - 2, definition[0].Length - 2 };
 
             Func<int, int, int> min = (i, j) => i > j ? j : i;
             Func<int, int, int> max = (i, j) => i > j ? i : j;
             Func<int, int, int[], int[]> update = (i, j, act) => new int[] { min(i, act[0]), min(j, act[1]), max(i, act[2]), max(j, act[3]) };
 
             var cars = new int[256][];
-            for (var i = 0; i < this.Size.Y + 2; i++)
+            for (var i = 0; i < result.Size[0] + 2; i++)
             {
-                for (var j = 0; j < this.Size.X + 2; j++)
+                for (var j = 0; j < result.Size[1] + 2; j++)
                 {
-                    var c = tutorDefinition[i][j];
+                    var c = definition[i][j];
                     switch (c)
                     {
                         case 'E':
-                            this.Exit = (j==0 || i==0) ? ExitPosition.LeftOrUp: ExitPosition.RightOrDown;
+                            result.Exit = (i == 0) ? ExitPosition.Up :
+                                (i == result.Size[0] + 1) ? ExitPosition.Down :
+                                (j == 0) ? ExitPosition.Left : ExitPosition.Right;
                             break;
                         case '-': 
                         case '#':
@@ -62,12 +61,13 @@ namespace Puzzles.RushHour
             var redCar = new Car(cars['x']);
             cars['x'] = null;
 
-            this.Cars = cars.Where(car => car != null).Select(data => new Car(data)).ToList();
-            this.Cars.Insert(0, redCar);
+            result.Cars = cars.Where(car => car != null).Select(data => new Car(data)).ToList();
+            result.Cars.Insert(0, redCar);
+            return result;
         }
 
-        [JsonProperty(PropertyName = "size")] 
-        public Coordinates Size { get; set; }
+        [JsonProperty(PropertyName = "size")]
+        public int[] Size { get; set; }
 
         [JsonProperty(PropertyName = "cars")] 
         public List<Car> Cars { get; set; }

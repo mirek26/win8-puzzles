@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace API.Webrole.WebRole.Models
+namespace Puzzles.API.Webrole.WebRole.Models
 {
     using System.ComponentModel.DataAnnotations;
 

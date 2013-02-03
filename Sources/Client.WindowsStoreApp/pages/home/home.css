@@ -41,13 +41,13 @@
 
 
 .homepage .puzzletype {
-    width: 200px;
+    width: 300px;
     height: 200px;
     padding: 20px 20px 10px 20px;
 }
 
     .homepage .puzzletype img {
-        margin-left:30px;
+        margin-left: 80px;
         width: 140px;
         height: 140px;
     }

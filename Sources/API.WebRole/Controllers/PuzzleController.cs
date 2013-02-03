@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace API.Webrole.WebRole.Controllers
+namespace Puzzles.API.Webrole.WebRole.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -41,7 +41,7 @@ namespace API.Webrole.WebRole.Controllers
                     {
                             Id = puzzle.Id, 
                             Type = puzzle.TypeId, 
-                            Name = puzzle.Name,
+                            Title = puzzle.Title,
                             AuthorId = puzzle.AuthorId,
                             Solved = false, 
                             Definition = JsonConvert.DeserializeObject(puzzle.Definition),

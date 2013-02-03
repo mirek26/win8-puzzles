@@ -7,12 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.RushHour
+namespace Puzzles.Puzzle.RushHour
 {
     using System.Collections.Generic;
 
-    public class RushHourState
+    public class RushHourState: List<int>
     {
-        public List<Car> Cars { get; set; }
     }
 }

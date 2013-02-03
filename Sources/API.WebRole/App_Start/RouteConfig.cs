@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace API.Webrole.WebRole
+namespace Puzzles.API.Webrole.WebRole
 {
     public class RouteConfig
     {

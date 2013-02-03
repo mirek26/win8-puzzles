@@ -24,14 +24,14 @@ namespace Puzzles.API.Contract
         public const string Close = "Close";
         public const string Solved = "Solved";
         public const string Move = "Move";
-
+        
         [JsonProperty(PropertyName = "timestamp")] 
         public DateTime Timestamp { get; set; }
 
         [JsonProperty(PropertyName = "type")] 
         public string Type { get; set; }
 
-        [JsonProperty(PropertyName = "parameters")] 
+        [JsonProperty(PropertyName = "params")] 
         public object Parameters { get; set; }
     }
 }

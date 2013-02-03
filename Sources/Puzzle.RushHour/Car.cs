@@ -7,14 +7,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.RushHour
+namespace Puzzles.Puzzle.RushHour
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
     using Newtonsoft.Json;
-    using Puzzles.Common;
 
     public class Car
     {
@@ -25,32 +24,36 @@ namespace Puzzles.RushHour
 
         public Car(int minX, int minY, int maxX, int maxY)
         {
-            this.Position = new Coordinates() { X = minX, Y = minY };
-
             if (minX == maxX)
             {
                 this.Orientation = CarOrientation.Vertical;
                 this.Length = maxY - minY + 1;
-                return;
+                this.Position = minY;
+                this.Street = minX;
             }
-
-            if (minY == maxY)
+            else if (minY == maxY)
             {
                 this.Orientation = CarOrientation.Horizontal;
                 this.Length = maxX - minX + 1;
-                return;
+                this.Position = minX;
+                this.Street = minY;
             }
-
-            throw new ArgumentException("Exactly one dimension must be 1!");
+            else
+            {
+                throw new ArgumentException("Exactly one dimension must be 1!");
+            }
         }
 
-        [JsonProperty(PropertyName = "position")] 
-        public Coordinates Position { get; set; }
+        [JsonProperty(PropertyName = "p")] 
+        public int Position { get; set; }
 
-        [JsonProperty(PropertyName = "orientation")] 
+        [JsonProperty(PropertyName = "s")]
+        public int Street { get; set; }
+
+        [JsonProperty(PropertyName = "o")] 
         public CarOrientation Orientation { get; set; }
 
-        [JsonProperty(PropertyName = "length")] 
+        [JsonProperty(PropertyName = "l")] 
         public int Length { get; set; }
 
         public override bool Equals(object obj)
@@ -61,7 +64,7 @@ namespace Puzzles.RushHour
                 return false;
             }
             return other.Length == this.Length && other.Orientation == this.Orientation
-               && other.Position.Equals(this.Position);
+               && other.Position == this.Position && other.Street == this.Street;
         }
 
         public override int GetHashCode()

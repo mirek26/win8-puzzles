@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace API.Webrole.WebRole
+namespace Puzzles.API.Webrole.WebRole
 {
     public static class WebApiConfig
     {

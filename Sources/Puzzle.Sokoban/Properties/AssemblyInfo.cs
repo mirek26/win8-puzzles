@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Puzzles.Common")]
+[assembly: AssemblyTitle("Puzzle.Sokoban")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("MSIT")]
-[assembly: AssemblyProduct("Puzzles.Common")]
-[assembly: AssemblyCopyright("Copyright © MSIT 2012")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Puzzle.Sokoban")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9bdcb652-4658-4a38-831f-fa268bd33a89")]
+[assembly: Guid("69082d15-d597-4c8c-919b-c02a8296f4f5")]
 
 // Version information for an assembly consists of the following four values:
 //

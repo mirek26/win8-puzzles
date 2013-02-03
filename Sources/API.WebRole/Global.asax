@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="API.Webrole.WebRole.WebApiApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Puzzles.API.Webrole.WebRole.WebApiApplication" Language="C#" %>

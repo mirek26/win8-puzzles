@@ -23,16 +23,16 @@ namespace Puzzles.API.Contract
         [JsonProperty(PropertyName = "type")] 
         public string Type { get; set; }
 
-        [JsonProperty(PropertyName = "name")] 
-        public string Name { get; set; }
+        [JsonProperty(PropertyName = "title")] 
+        public string Title { get; set; }
 
         [JsonProperty(PropertyName = "solved")] 
         public bool Solved { get; set; }
 
-        [JsonProperty(PropertyName = "spendTime")] 
+        [JsonProperty(PropertyName = "spend")] 
         public TimeSpan? SpendTime { get; set; }
 
-        [JsonProperty(PropertyName = "expectedTime")] 
+        [JsonProperty(PropertyName = "expected")] 
         public TimeSpan? ExpectedTime { get; set; }
     }
 }
