@@ -5,7 +5,7 @@
 
 .fragment {
     /* Define a grid with rows for a banner and a body */
-    background: -ms-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%);
+    background: -ms-linear-gradient(top, #7d7e7d 0%,#2e2e2e 100%);
     -ms-grid-columns: 1fr;
     -ms-grid-rows: 128px 1fr;
     display: -ms-grid;

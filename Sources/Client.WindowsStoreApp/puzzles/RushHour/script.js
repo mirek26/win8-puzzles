@@ -51,10 +51,8 @@ function Puzzle(puzzle, controller) {
         generateExit();                       
 
         // update box dimensions
-        var grid = box.querySelector(".grid");
-        box.style.width = grid.clientWidth + "px";
-        box.style.height = grid.clientHeight + "px";
-        box.style.top = (canvas.clientHeight - grid.clientHeight)/3 + "px";
+        canvas.style.width = (def.size[1] + 1) * constants.gridsize + "px";
+        canvas.style.height = (def.size[1] + 1) * constants.gridsize + "px";
         
         // update positions and scaling
         updateUi();

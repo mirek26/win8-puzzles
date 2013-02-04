@@ -8,7 +8,13 @@
     right: 5px;
 }
 
-.puzzlepage #canvas {
+#scalebox {
     width: 100%;
     height: 100%;
+    position: relative;
+}
+
+#canvas {
+    transform-origin: 0 0;
+    position: absolute;
 }

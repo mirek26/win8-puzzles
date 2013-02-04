@@ -3,68 +3,76 @@
 
     var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
     var ui = WinJS.UI;
-    var controller;
 
-    var Controller = WinJS.Class.define(
-        function(root) {
-            this.rootElement = root;
-            this.clockElement = document.getElementById("clock");
-            document.getElementById("continueButton").onclick = function(evt) {
-                WinJS.Navigation.navigate("pages/home/home.html");
-            };
-        },
-        {
-            loadPuzzle: function (puzzle){
-                this.puzzle = new Puzzle(puzzle, this);
-                this.puzzle.initializeUi(this.rootElement.querySelector("#canvas"));
-                this.solved = false;
-                this.startClock();
-            },
+    function Controller(element) {
+        var puzzle, solved = false;
+        var startTime;
+        
+        var rootElement = element; 
+        var clockElement = document.getElementById("clock");
+        
+        // buttons of the dialog - put into method and change
+        document.getElementById("continueButton").onclick = function(evt) {
+            WinJS.Navigation.navigate("pages/home/home.html");
+        };
 
-            startClock: function () {
-                this.startTime = Date.now();
-                this.refreshClock();
-            },
+        function formatTimeDiff(timediff) {
+            var seconds = Math.floor(timediff / 1000);
+            var minutes = Math.floor(seconds / 60);
+            seconds = seconds % 60;
+            return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }
 
-            refreshClock: function () {
-                if (!this.solved) {
-                    this.clockElement.textContent = this.formatTimeDiff(Date.now() - this.startTime);
-                    window.setTimeout(this.refreshClock.bind(this), 1000);
-                }
-            },
+        function loadPuzzle(puzzledef) {
+            var canvas = rootElement.querySelector("#canvas");
+            puzzle = new Puzzle(puzzledef, this);
+            puzzle.initializeUi(canvas);
 
-            formatTimeDiff: function(timediff) {
-                var seconds = Math.floor(timediff / 1000);
-                var minutes = Math.floor(seconds / 60);
-                seconds = seconds % 60;
-                return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-            },
+            var scalebox = rootElement.querySelector("#scalebox");
+            var scale = Math.min((scalebox.clientHeight * 0.9) / canvas.clientHeight, (scalebox.clientWidth * 0.9) / canvas.clientWidth, 1.5);
+            scale = Math.round(100 * scale) / 100;
+            canvas.style["-ms-transform"] = "scale("+scale+")";
+            canvas.style.left = (scalebox.clientWidth - scale*canvas.clientWidth) / 2 + "px";
 
-            action: function(obj){
-                console.log(obj);
-            },
+            solved = false;
+            startClock();
+        }
 
-            action_solved: function () {
-                if (this.solved) return;
-                this.solved = true;
-                this.endTime = Date.now();
-                //document.getElementById("solvingTime").textContent = this.formatTimeDiff(this.endTime - this.startTime);
-                var dialog = new Windows.UI.Popups.MessageDialog("Congratulations! Puzzle solved in " + this.formatTimeDiff(this.endTime - this.startTime), "Finished!");
-                dialog.commands.append(new Windows.UI.Popups.UICommand("Continue", function() {
-                    WinJS.Navigation.navigate("pages/home/home.html");
-                }));
-                dialog.showAsync().done(function() {
-                });
-                
-                //a.operation.start();
-                //document.getElementById("solvedFlyout").winControl.show(
-                //    this.rootElement, "top");
+        function startClock() {
+            startTime = Date.now();
+            refreshClock();
+        }
+
+        function refreshClock() {
+            if (!solved) {
+                clockElement.textContent = formatTimeDiff(Date.now() - startTime);
+                window.setTimeout(refreshClock, 1000);
             }
-        }, {
-           // static elements 
-        });
+        };
 
+        this.action = function(obj) {
+            console.log(obj);
+        };
 
+        this.action_solved = function() {
+            if (this.solved) return;
+            this.solved = true;
+            this.endTime = Date.now();
+            //document.getElementById("solvingTime").textContent = this.formatTimeDiff(this.endTime - this.startTime);
+            var dialog = new Windows.UI.Popups.MessageDialog("Congratulations! Puzzle solved in " + this.formatTimeDiff(this.endTime - this.startTime), "Finished!");
+            dialog.commands.append(new Windows.UI.Popups.UICommand("Continue", function() {
+                WinJS.Navigation.navigate("pages/home/home.html");
+            }));
+            dialog.showAsync().done(function() {
+            });
+
+            //a.operation.start();
+            //document.getElementById("solvedFlyout").winControl.show(
+            //    this.rootElement, "top");
+        };
+
+        this.loadPuzzle = loadPuzzle;
+    }
 
     ui.Pages.define("/pages/puzzle/puzzle.html", {
         // This function is called whenever a user navigates to this page. It

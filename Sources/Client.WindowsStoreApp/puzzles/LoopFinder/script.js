@@ -43,8 +43,8 @@ function Puzzle(puzzle, controller) {
         document.body.onmouseup = mouseup;
 
         // update canvas dimensions
-        canvas.style.width = (size[1]+2) * constants.gridsize + "px";
-        canvas.style.height = (size[0]+2) * constants.gridsize + "px";
+        canvas.style.width = (size[1]+1) * constants.gridsize + "px";
+        canvas.style.height = (size[0]+1) * constants.gridsize + "px";
         
         // update positions and scaling
         updateUi();
@@ -63,7 +63,8 @@ function Puzzle(puzzle, controller) {
         function segment(type){ 
             var el = element("td", type);
             el.appendChild(element("div", "maybe"));
-            var touch = element("div", "touch")
+            var touch = element("div", "touch");
+            touch.addEventListener("MSPointerDown", segmentmousedown, true);
             touch.addEventListener("MSPointerOver", segmentmouseover, true);
             el.appendChild(touch);
             return el;
@@ -92,11 +93,8 @@ function Puzzle(puzzle, controller) {
     function changeState(segm, state){
         if (segm.state === state) return;
         segm.state = state;
-        if (state === 0){
-            segm.className = segm.className.replace(/\b on\b/,'');
-        } else {    
-            segm.className += " on";
-        }
+        var classNames = { "-1": "nofence", "0": "maybe", "1": "fence" };
+        $(segm).removeClass("nofence").removeClass("maybe").removeClass("fence").addClass(classNames[state]);
     }
 
     function mousedown(evt) {
@@ -112,7 +110,7 @@ function Puzzle(puzzle, controller) {
 
     function segmentmousedown (evt) {
         if (mode !== "") return;
-        var segm = evt.currentTarget;
+        var segm = evt.currentTarget.parentNode;
         if (segm.state == 1){
             mode = "-";
             changeState(segm, 0);
