@@ -88,7 +88,10 @@
     <Content Include="pages\puzzle\puzzle.css" />
     <Content Include="pages\puzzle\puzzle.html" />
     <Content Include="pages\puzzle\puzzle.js" />
+    <Content Include="puzzles\common.js" />
+    <Content Include="puzzles\LoopFinder\images\background.png" />
     <Content Include="puzzles\LoopFinder\images\logo.png" />
+    <Content Include="puzzles\LoopFinder\images\no.png" />
     <Content Include="puzzles\LoopFinder\script.js" />
     <Content Include="puzzles\LoopFinder\style.css" />
     <Content Include="puzzles\Nurikabe\images\logo.png" />
