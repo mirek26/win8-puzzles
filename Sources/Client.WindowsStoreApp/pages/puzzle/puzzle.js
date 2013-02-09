@@ -25,6 +25,7 @@
 
         function loadPuzzle(puzzledef) {
             var canvas = rootElement.querySelector("#canvas");
+            canvas.className = puzzledef.type.toLowerCase();
             puzzle = new Puzzle(puzzledef, this);
             puzzle.initializeUi(canvas);
 
@@ -55,11 +56,10 @@
         };
 
         this.action_solved = function() {
-            if (this.solved) return;
-            this.solved = true;
-            this.endTime = Date.now();
-            //document.getElementById("solvingTime").textContent = this.formatTimeDiff(this.endTime - this.startTime);
-            var dialog = new Windows.UI.Popups.MessageDialog("Congratulations! Puzzle solved in " + this.formatTimeDiff(this.endTime - this.startTime), "Finished!");
+            if (solved) return;
+            solved = true;
+            var endTime = Date.now();
+            var dialog = new Windows.UI.Popups.MessageDialog("Congratulations! Puzzle solved in " + formatTimeDiff(endTime - startTime), "Finished!");
             dialog.commands.append(new Windows.UI.Popups.UICommand("Continue", function() {
                 WinJS.Navigation.navigate("pages/home/home.html");
             }));

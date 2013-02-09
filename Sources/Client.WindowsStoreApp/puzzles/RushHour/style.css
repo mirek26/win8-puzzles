@@ -1,41 +1,41 @@
-﻿.box {
+﻿.rushhour .box {
     position: absolute;
     top: 100px;
     left: 100px;
 }
 
-.exit-down {
+.rushhour .exit-down {
     left: 50px;
     top: 10px;
 }
 
-.exit-up {
+.rushhour .exit-up {
     left: 50px;
     top: 90px;
 }
 
-.exit-right {
+.rushhour .exit-right {
     top: 50px;
     left: 10px;
 }
 
-.exit-left {
+.rushhour .exit-left {
     top: 50px;
     left: 90px;
 }
 
-.box .car {
+.rushhour .box .car {
     position: absolute;
     background: #c17d11;
     border: #333 2px solid;
     border-radius: 25px;
 }
 
-.box .redcar{
+.rushhour .box .redcar{
     background-color: #cc0000 !important;
 }
 
-    .box table {
+    .rushhour .box table {
         border-spacing: 0;
         position: absolute;
         top: -10px;
@@ -46,13 +46,13 @@
         padding: 0px;
     }
 
-    .box tr {
+    .rushhour .box tr {
         margin: 0;
         padding: 0;
     }
 
     /* cell style */
-    div.cell {
+    .rushhour div.cell {
         opacity: 0.05;
         background: #fff;
         width: 90px;
@@ -61,70 +61,70 @@
         margin: 4px;
     }
 
-    tr:first-child td div.cell{
+    .rushhour tr:first-child td div.cell{
         margin-top: 0px;
     }
 
-    tr:last-child td div.cell{
+    .rushhour tr:last-child td div.cell{
         margin-bottom: 0px;
     }
 
-    td:first-child div.cell{
+    .rushhour td:first-child div.cell{
         margin-left: 0px;
     }
 
-    td:last-child div.cell{
+    .rushhour td:last-child div.cell{
         margin-right: 0px;
     }
 
     /* borders */
 
-    .exit-right td:last-child {
+    .rushhour .exit-right td:last-child {
         border-right: 10px black solid;
     }
 
-    .exit-left td:first-child {
+    .rushhour .exit-left td:first-child {
         border-left: 10px black solid;   
     }
 
-    .exit-up tr:first-child td{
+    .rushhour .exit-up tr:first-child td{
         border-top: 10px black solid;   
     }
 
-    .exit-down tr:last-child td{
+    .rushhour .exit-down tr:last-child td{
         border-bottom: 10px black solid;   
     }
 
-    td.exit {
+    .rushhour td.exit {
         border-color: transparent !important; 
     }
 
-    .exit-up table{
+    .rushhour .exit-up table{
         border-top: none;
     }
 
-    .exit-down table{
+    .rushhour .exit-down table{
         border-bottom: none;
     }
 
-    .exit-left table{
+    .rushhour .exit-left table{
         border-left: none;
     }
 
-    .exit-right table{
+    .rushhour .exit-right table{
         border-right: none;
     }
 
     /* exit */
     
-    div.exit {
+    .rushhour div.exit {
         position: absolute;
         padding-left: 5px;    
         border-top: 10px black solid;
         border-bottom: 10px black solid;      
     }
 
-    div.exit div.cell {
+    .rushhour div.exit div.cell {
         width: 60px;
         margin: 0;
         background: url("///puzzles/RushHour/images/arrow.png") 100% 50% no-repeat;
@@ -132,17 +132,17 @@
         background-size: 46px;
     }
 
-    .exit-left div.exit{
+    .rushhour .exit-left div.exit{
         -ms-transform: rotate(180deg);
         -ms-transform-origin: 50% 50%;
     }
 
-    .exit-up div.exit{
+    .rushhour .exit-up div.exit{
         -ms-transform: rotate(-90deg);
         -ms-transform-origin: 0 0;
     }
 
-    .exit-down div.exit{
+    .rushhour .exit-down div.exit{
         -ms-transform: rotate(90deg);
         -ms-transform-origin: 0 0;   
     }

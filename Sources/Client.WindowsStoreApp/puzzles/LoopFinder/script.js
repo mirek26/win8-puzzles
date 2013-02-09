@@ -12,7 +12,7 @@ function Puzzle(puzzle, controller) {
     };
 
     // helper structures
-    var map;
+    var lastclickTime, lastclickSegm;
     var mode = null, startSegment = null, stack = [];
     var unfulfilled  = 0;
     var solved = false;
@@ -29,84 +29,98 @@ function Puzzle(puzzle, controller) {
         box = document.createElement("div");
         box.className = "box";
         canvas.appendChild(box);
-      
+
+        // generate grid
         var grid = generateGrid();
-        for (var i = 0; i < 2*size[0]+1; i++){
-            for (var j = 0; j < 2*size[1]+1; j++){
-                var el = map[i][j];
-                el.mapy = i;
-                el.mapx = j;
-                if (el.celltype === "cell")
-                    el.fullfilled = true;
-                    el.goal = null;
-                    if (def[(i-1)/2][(j-1)/2] !== "."){
-                        var k = (int)def[(i-1)/2][(j-1)/2];
-                        el.goal = k;
-                        if (k != 0){
-                            unfulfilled++;
-                            el.fullfilled = false;
-                        } 
-                        el.textContent = k;
-                    }
-                } else if (el.celltype === "hsegment" || el.celltype === "vsegment"){
-                    el.state = 0;
-                }
-            }
-        }
 
         document.body.addEventListener("MSPointerUp", pointerUpOutBody, false);
 
         // update canvas dimensions
-        canvas.style.width = (size[1]+1) * constants.gridsize + "px";
-        canvas.style.height = (size[0]+1) * constants.gridsize + "px";
+        //canvas.style.width = (size[1]+2) * constants.gridsize + "px";
+        //canvas.style.height = (size[0]+2) * constants.gridsize + "px";
         
         // update positions and scaling
         updateUi();
     }
 
-    // generates grid (table) and appends to box
-    function generateGrid() {
-        function element(name, celltype){
-            var el = document.createElement(name);
-            el.celltype = celltype;
-            el.className = celltyp;
-            return el;
-        }
-
-        var vertex = element.bind(this, "td", "vertex");
-        var cell = element.bind(this, "td", "cell");
-        
-        function segment(type){ 
-            var el = element("td", type);
-            el.appendChild(element("div", "maybe"));
+    function generateCell(type, left, up) {
+        var el = document.createElement("td");
+        el.celltype = type;
+        el.className = type;
+        el.neighbour = { left: null, right: null, up: null, down: null };
+        if (type == "hsegment" || type == "vsegment") {
+            var maybe = document.createElement("div");
+            maybe.className = "maybe";
+            el.appendChild(maybe);
             el.state = 0;
-            return el;
+        } else if (type === "cell") {
+            el.fullfilled = true;
+            el.goal = null;
+        }
+
+        if (left !== null && left !== undefined) {
+            el.neighbour.left = left;
+            left.neighbour.right = el;
+        }
+
+        if (up !== null && up !== undefined) {
+            el.neighbour.up = up;
+            up.neighbour.down = el;
+        }
+
+        return el;
+    }
+
+    function generateRow(typeb, typee, typec, prev){
+        var tr = document.createElement("tr");
+        // border
+        var border = tr.appendChild(generateCell(typeb, null, prev[0]));
+        // first typea
+        var cell = tr.appendChild(generateCell(typee, border, prev[1]));
+        border.link = cell;
+        for (var i = 0; i < size[1]; i++) {
+            // typeb and typea
+            cell = tr.appendChild(generateCell(typec, cell, prev[2*i+2]));
+            cell = tr.appendChild(generateCell(typee, cell, prev[2*i+3]));
+        }
+        var border = tr.appendChild(generateCell(typeb, cell, prev[2*size[1]+2]));
+        border.link = cell;
+        return tr;
+    }
+
+    function generateGrid() {        
+        var grid = document.createElement("table");
+        var border = grid.appendChild(generateRow("bborder", "vhborder", "shborder", new Array(2*size[1]+3)));
+        var tr = grid.appendChild(generateRow("vvborder", "vertex", "hsegment", border.childNodes));
+        for (var i = 0; i < border.childNodes.length; i++){
+           border.childNodes[i].link = tr.childNodes[i];
+        }
+        for (var i = 0; i < size[0]; i++) {
+            tr = grid.appendChild(generateRow("svborder", "vsegment", "cell", tr.childNodes));
+            for (var j = 0; j < size[1]; j++){
+                if (def[i][j] !== ".") {
+                    var k = parseInt(def[i][j]);
+                    var el = tr.childNodes[j*2+2];
+                    el.goal = k;
+                    if (k === 0){
+                        el.className += " fullfilled";
+                    } else {
+                        unfulfilled++;
+                        el.fullfilled = false;
+                    }
+                    el.textContent = k;
+                }
+            }
+            tr = grid.appendChild(generateRow("vvborder", "vertex", "hsegment", tr.childNodes));
+        }
+        border = grid.appendChild(generateRow("bborder", "vhborder", "shborder", tr.childNodes));
+        for (var i = 0; i < border.childNodes.length; i++){
+           border.childNodes[i].link = tr.childNodes[i];
         }
         
-        function alternate(name, a, b, length, callback){
-            var el = document.createElement(name); 
-            callback(el.appendChild(a()));
-            for (var i = 0; i < length; i++) {
-                callback(el.appendChild(b()));
-                callback(el.appendChild(a()));
-            }
-            return el;
-        }
-
-        // helper to add elements to map
-        var appendToLastRow = function(el) { map[map.length-1].push(el); }
-        var addRowToMap = function() { map.push([]); }
-        // generates "segment row": vertex - hsegment - vertex ... - vertex
-        var segments = alternate.bind(this, "tr", vertex, segment.bind(this, "hsegment"), size[1], appendToLastRow);
-        // generates "cell row": vsegment, 
-        var cells = alternate.bind(this, "tr", segment.bind(this, "vsegment"), cell, size[1], appendToLastRow);
-
-
-        map = [[]];
-        var grid = alternate("table", segments, cells, size[0], addRowToMap);
-        map.pop();
         grid.addEventListener("MSPointerDown", pointerDown, true);
         grid.addEventListener("MSPointerMove", pointerMove, true);
+        grid.addEventListener("contextmenu", function(e){ e.preventDefault(); }, true);
         grid.className = "grid";
         return box.appendChild(grid);
     }
@@ -115,78 +129,123 @@ function Puzzle(puzzle, controller) {
         //
     }
 
-    function startPathInSegment(y, x, button){
-        emptyStack();
-        if (x < 0 || y < 0 || y > size[0]*2 || x > size[1]*2) {
-            mode = null;
-            startSegment = null;    
-            return;
-        }
-
-        startSegment = map[y][x];
-        mode = button === 1 ? (startSegment.state === 0 ? 1 : 0) : -1;
-        changeState(startSegment, mode);
-        //
-        console.log("starting in segment " + y + " " + x + ", mode " + mode);
-    }
-
     function changeState(segm, state){
         segm.prevstate = segm.state;
         if (segm.state === state) return;
         //console.log("change to "+ state);
         segm.state = state;
+        if (segm.celltype == "hsegment") {
+            updateCellState(segm.neighbour.up);
+            updateCellState(segm.neighbour.down);
+        } else {
+            updateCellState(segm.neighbour.left);
+            updateCellState(segm.neighbour.right);
+        }
+
+        if (unfulfilled == 0){
+            checkSolved();
+        }
+        //
         var classNames = { "-1": "nofence", "0": "maybe", "1": "fence" };
-        $(segm.firstChild).removeClass("nofence").removeClass("maybe").removeClass("fence").addClass(classNames[state]);
+        segm.firstChild.className = classNames[state];
     }
 
     function updateCellState(cell){
-        if (cell.goal == null) return;
-        var x = cell.mapx, y = cell.mapy;
-        var num = (map[y][x-1].state == 1 ? 1 : 0) +
-                  (map[y][x+1].state == 1 ? 1 : 0) +
-                  (map[y-1][x].state == 1 ? 1 : 0) +
-                  (map[y+1][x].state == 1 ? 1 : 0);
+        if (cell === null || cell.celltype !== "cell" || cell.goal == null) return;
+        var num = (cell.neighbour.left.state === 1 ? 1 : 0) +
+                  (cell.neighbour.up.state === 1 ? 1 : 0) +
+                  (cell.neighbour.right.state === 1 ? 1 : 0) +
+                  (cell.neighbour.down.state == 1 ? 1 : 0);
         unfulfilled += (num == cell.goal ? -1 : 0) + (cell.fullfilled ? 1 : 0);
         cell.fullfilled = num == cell.goal;
-        if (unfulfilled == 0){
-            testSolved();
+        if (cell.fullfilled) {
+            $(cell).addClass("fullfilled");
+        } else {
+            $(cell).removeClass("fullfilled");
         }
     }
 
-    function testSolved(){
+    function checkSolved(){
         var fences = 0, first;
-        for (var i = 0; i < 2*size[0]+1; i++){
-            for (var j = 0; j < 2*size[1]+1; j++){
-                if (map[i][j].celltype == "hsegment" || map[i][j].celltype == "vsegment"){
-                    fences += (map[i][j].state == 1 ? 1 : 0);
-                    first = map[i][j];
-                }
+        // check all segments
+        var all = document.querySelectorAll("td");
+        for (var i = 0; i < all.length; i++){
+            var el = all[i];
+            if (el.celltype === "hsegment" || el.celltype === "vsegment") { 
+                el.nextOnPath = [];
+                fences += (el.state === 1 ? 1 : 0);
+                first = el;
             }
         }
-
-        first = map[i][j];
-        var dx, dy;
-        while ()
-
+        // check all vertices
+        for (var i = 0; i < all.length; i++) {
+            var el = all[i];
+            if (el.celltype !== "vertex") continue;
+            var segments = [];
+            if (el.neighbour.left.state === 1) segments.push(el.neighbour.left);
+            if (el.neighbour.right.state === 1) segments.push(el.neighbour.right);
+            if (el.neighbour.up.state === 1) segments.push(el.neighbour.up);
+            if (el.neighbour.down.state === 1) segments.push(el.neighbour.down);
+            if (segments.length == 0) continue;
+            if (segments.length !== 2) return;
+            segments[0].nextOnPath.push(segments[1]);
+            segments[1].nextOnPath.push(segments[0]);
+        }
+        var prev = first;
+        var segm = first.nextOnPath[0];
+        var count = 1;
+        while (segm !== first && count <= fences){
+            var next = segm.nextOnPath[0] === prev ? segm.nextOnPath[1] : segm.nextOnPath[0];
+            prev = segm;
+            segm = next;
+            count++;
+        }
         
+        if (count === fences){
+            controller.action_solved();
+        }
     }
 
     function pointerDown(evt){
-        console.log("click on "+ evt.offsetX + " " + evt.offsetY);
-        var el = evt.target, x = evt.offsetX, y = evt.offsetY;
-        if (el.tagName != "TD") {
-            el = el.parentNode; 
+        var el = evt.target.tagName === "TD" ? evt.target : evt.target.parentNode;
+        var x = evt.offsetX, y = evt.offsetY;
+        
+        switch (el.celltype) {
+            case "hsegment": case "vsegment":
+                startSegment = el;
+                break;
+            case "cell": case "vertex": 
+                var leftup = x <= (el.offsetWidth - y), leftdown = x < y;
+                startSegment = leftup ? (leftdown ? el.neighbour.left : el.neighbour.up) : 
+                                        (leftdown ? el.neighbour.down : el.neighbour.right)
+                break;
+            case "vvborder":
+                startSegment = (y < el.offsetHeight/2) ? el.neighbour.up.link : el.neighbour.down.link;
+                break;
+            case "vhborder":
+                startSegment = (x < el.offsetWidth/2) ? el.neighbour.left.link : el.neighbour.right.link;
+                break;
+            case "svborder": case "shborder":
+                startSegment = el.link;
+                break;
+            default:
+                return false;
         }
-        if (el.className == "hsegment" || el.className == "vsegment") {
-            startPathInSegment(el.mapy, el.mapx, evt.which);
-        } else {
-            var leftup = x <= (el.offsetWidth - y), leftdown = x < y;
-            console.log(leftup +" "+ leftdown)
-            var dx = ((leftup ? -1 : 1) + (leftdown ? -1 : 1)) / 2;
-            var dy = ((leftup ? -1 : 1) + (leftdown ? 1 : -1)) / 2;
-            startPathInSegment(el.mapy + dy, el.mapx + dx, evt.which);
+
+        if (startSegment.celltype == "hsegment" || startSegment.celltype == "vsegment"){
+            emptyStack();
+            mode = evt.which === 1 ? (startSegment.state === 0 ? 1 : 0) : -1;
+            // check for double click
+            var now = (new Date()).getTime();
+            if (lastclickTime && now - lastclickTime < 500 && lastclickSegm === startSegment){
+                mode = -1;
+            }
+            lastclickTime = now;
+            lastclickSegm = startSegment;
+
+            changeState(startSegment, mode);   
         }
-        evt.stopPropagation()
+        evt.stopPropagation();
     }
 
     // function pointerHold(evt){
@@ -195,9 +254,7 @@ function Puzzle(puzzle, controller) {
     // }
 
     function emptyStack(){
-        stack.forEach(function(vert){
-            map[vert.mapy][vert.mapx].inpath = false;
-        });
+        stack.forEach(function(vert){ vert.inpath = false; });
         stack = [];
     }
 
@@ -211,7 +268,8 @@ function Puzzle(puzzle, controller) {
         if (vert === last) return;
 
         // handle first vertex
-        if (stack.length <= 1 && (Math.abs(vert.mapx - startSegment.mapx) + Math.abs(vert.mapy - startSegment.mapy) == 1)){
+        if (stack.length <= 1 && (startSegment.neighbour.up === vert || startSegment.neighbour.left === vert || 
+                                  startSegment.neighbour.down === vert || startSegment.neighbour.right === vert)) {
             stack[0].inpath = false;
             vert.inpath = true;
             stack = [vert];
@@ -219,56 +277,69 @@ function Puzzle(puzzle, controller) {
         }
 
         // verify connection
-        var dx = Math.abs(vert.mapx - last.mapx), dy = Math.abs(vert.mapy - last.mapy);
-        if (!((dx == 0 && dy == 2) || (dx == 2 && dy == 0))) return;
-
+        var segm = vert === last.neighbour.up.neighbour.up ? last.neighbour.up :
+                   vert === last.neighbour.down.neighbour.down ? last.neighbour.down : 
+                   vert === last.neighbour.left.neighbour.left ? last.neighbour.left : 
+                   vert === last.neighbour.right.neighbour.right ? last.neighbour.right : null;
+        if (segm === null) return;
         if (vert.inpath == true){
             // delete path to vert
             while (stack.last() != vert){
                 var a = stack.pop();
                 var b = stack.last();
                 a.inpath = false;
-                var segm = map[(a.mapy + b.mapy)/2][(a.mapx + b.mapx)/2];
-                changeState(segm, segm.prevstate);    
+                changeState(a.segmPath, a.segmPath.prevstate);    
             }
         } else {
             // add vert to path
-            var segm = map[(last.mapy + vert.mapy)/2][(last.mapx + vert.mapx)/2];
             changeState(segm, mode);
             vert.inpath = true;
+            vert.segmPath = segm;
             stack.push(vert);
         }
     }
 
     function pointerMove(evt){
         if (mode == null) return;
-        var el = evt.target;
-        var vert;
-        if (el.tagName != "TD"){
-            el = el.parentNode;
-        }
+        var el = evt.target.tagName === "TD" ? evt.target : evt.target.parentNode;
         if (el.tagName != "TD") return;
         // find vertex            
-        if (el.className == "vertex"){
-            vert = el;
-        } else {
-            if (el.className == "hsegment"){
-                vert = map[el.mapy][el.mapx + (evt.offsetX > el.offsetWidth/2 ? 1 : -1)];
-            } else if (el.className == "vsegment") {
-                vert = map[el.mapy + (evt.offsetY > el.offsetHeight/2 ? 1 : -1)][el.mapx];
-            } else if (el.className == "cell") {
-                var left = evt.offsetX < el.offsetWidth / 2, up = evt.offsetY < el.offsetHeight / 2;
-                vert = map[el.mapy + (up ? -1 : 1)][el.mapx + (left ? -1 : 1)];
-            }
-            console.log("vert: "+ vert.mapy + " " + vert.mapx);
+        var vert = null;
+        switch (el.celltype) {
+            case "vertex":
+                vert = el;
+                break;
+            case "vvborder": case "vhborder": 
+                vert = el.link;
+                break;
+            case "hsegment":
+                vert = evt.offsetX > el.offsetWidth/2 ? el.neighbour.right : el.neighbour.left;
+                break;
+            case "vsegment":
+                vert = evt.offsetY > el.offsetHeight/2 ? el.neighbour.down : el.neighbour.up;
+                break;
+            case "cell":
+                vert = el;
+                vert = evt.offsetX < el.offsetWidth / 2 ? vert.neighbour.left : vert.neighbour.right;
+                vert = evt.offsetY < el.offsetHeight / 2 ? vert.neighbour.up : vert.neighbour.down;
+                break;
+            case "shborder":
+                vert = evt.offsetX > el.offsetWidth/2 ? el.link.neighbour.right : el.link.neighbour.left;
+                break;
+            case "svborder":
+                vert = evt.offsetY > el.offsetHeight/2 ? el.link.neighbour.down : el.link.neighbour.up;
+                break;
+        }
+
+        if (vert !== null && vert.celltype === "vertex") {
             addVertexToPath(vert);
-        };
+        }
     }
 
     function pointerUpOutBody(evt){
         //console.log("Body: mouse up or out");
         mode = null;
-        console.log(mode);
+        //console.log(mode);
     }
 
     function getState () {
