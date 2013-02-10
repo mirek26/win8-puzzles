@@ -1,0 +1,44 @@
+<html>
+<head>
+<link href="style.css" rel="stylesheet" />
+
+<style type="text/css">
+body{
+	margin: 0px;
+}
+
+.wrapper{
+	left: 100px;
+	top: 100px;
+}
+
+#canvas{
+	height: 900px;
+	width: 800px;
+	display: inline-block;
+	text-align: center;
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#2e2e2e 100%);
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#2e2e2e 100%);
+}
+
+</style>
+<script type="text/javascript">
+function go(){
+	var puzzle = JSON.parse('{"author":1,"def":{"map":["####--","# .#--","#  ###","#.   #","#    #","#  ###","####--"],"position":[3,2],"boxes":[[3,1],[4,3]]},"state":null,"id":153,"type":"Sokoban","title":"Store 2a","solved":false,"spend":null,"expected":"00:02:03"}');
+	var controller = { 
+		action: function(){}, 
+		action_solved: function(){ console.log("SOLVED!"); }
+	};
+	var p = new Puzzle(puzzle, controller);
+	p.initializeUi(document.getElementById("canvas"));
+	p.updateUi();
+}
+</script>
+<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="../common.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.8.2.js"></script>
+</head>
+<body onload="go()">
+<div id="canvas" class="sokoban">
+</div>
+</body>

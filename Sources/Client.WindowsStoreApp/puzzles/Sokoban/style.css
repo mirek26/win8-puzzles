@@ -1,0 +1,49 @@
+.sokoban div.wrapper {
+	position: relative;
+}
+
+.sokoban table{
+	border-spacing: 0px;
+}
+
+.sokoban td {
+	width: 100px;
+	height: 100px;	
+	margin: 0;
+	padding: 0;
+}
+
+.sokoban div.man {
+	position: absolute;
+	width: 100px;
+	height: 100px;	
+	background: url('images/man.png') no-repeat 50% 50%;
+}
+
+.sokoban div.box {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background: url('images/box.png') no-repeat;
+	background-size: 100% 100%;
+}
+
+.sokoban div.boxonpost{
+	background: url('images/boxonpost.png') no-repeat;
+	background-size: 100% 100%;
+}
+
+.sokoban td.wall{
+	background: url('images/wall.png') no-repeat; 
+	background-size: 100% 100%;
+}
+
+.sokoban td.empty{
+	opacity: 0.8;
+	background: white;
+}
+
+.sokoban td.post{
+	opacity: 0.8;
+	background: url('images/post.png') no-repeat 50% 50% white;
+}
