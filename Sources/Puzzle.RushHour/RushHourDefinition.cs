@@ -11,6 +11,7 @@ namespace Puzzles.Puzzle.RushHour
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
 
     using Newtonsoft.Json;
@@ -56,13 +57,13 @@ namespace Puzzles.Puzzle.RushHour
                     }
                 }
             }
-
             // set RedCar and Cars
             var redCar = new Car(cars['x']);
             cars['x'] = null;
 
             result.Cars = cars.Where(car => car != null).Select(data => new Car(data)).ToList();
             result.Cars.Insert(0, redCar);
+            result.InitialState = new RushHourState(result.Cars.Select(c => c.Position).ToList());
             return result;
         }
 
@@ -71,6 +72,9 @@ namespace Puzzles.Puzzle.RushHour
 
         [JsonProperty(PropertyName = "cars")] 
         public List<Car> Cars { get; set; }
+
+        [JsonIgnore]
+        public RushHourState InitialState { get; set; }
 
         [JsonProperty(PropertyName = "exit")] 
         public ExitPosition Exit { get; set; }

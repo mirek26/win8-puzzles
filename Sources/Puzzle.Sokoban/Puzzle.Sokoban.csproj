@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Orientation.cs" />
+    <Compile Include="SokobanState.cs" />
     <Compile Include="SokobanDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

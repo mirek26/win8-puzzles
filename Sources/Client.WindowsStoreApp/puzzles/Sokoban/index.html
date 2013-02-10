@@ -21,17 +21,37 @@ body{
 	background: -webkit-linear-gradient(top, #7d7e7d 0%,#2e2e2e 100%);
 }
 
+textarea {
+	height: 100px;
+	width: 300px;
+}
+
 </style>
 <script type="text/javascript">
+var p, inout;
+var puzzledef = JSON.parse('{"author":1,"def":["####--","# .#--","#  ###","#.   #","#    #","#  ###","####--"],"istate":{"man":[3,2],"boxes":[[3,1],[4,3]]},"state":null,"id":153,"type":"Sokoban","title":"Store 2a","solved":false,"spend":null,"expected":"00:02:03"}');
+
 function go(){
-	var puzzle = JSON.parse('{"author":1,"def":{"map":["####--","# .#--","#  ###","#.   #","#    #","#  ###","####--"],"position":[3,2],"boxes":[[3,1],[4,3]]},"state":null,"id":153,"type":"Sokoban","title":"Store 2a","solved":false,"spend":null,"expected":"00:02:03"}');
 	var controller = { 
 		action: function(){}, 
 		action_solved: function(){ console.log("SOLVED!"); }
 	};
-	var p = new Puzzle(puzzle, controller);
+	p = new Puzzle(puzzledef, controller);
 	p.initializeUi(document.getElementById("canvas"));
 	p.updateUi();
+	inout = document.getElementById("state");
+}
+
+function get(){
+	inout.value = JSON.stringify(p.getState());
+}
+
+function set(){
+	p.setState(JSON.parse(inout.value));
+}
+
+function reset(){
+	p.setState(puzzledef.istate);
 }
 </script>
 <script type="text/javascript" src="script.js"></script>
@@ -40,5 +60,11 @@ function go(){
 </head>
 <body onload="go()">
 <div id="canvas" class="sokoban">
+</div>
+<div style="position: absolute; top:0px; right:0px; text-align:left;">
+<textarea id="state"></textarea><br/>
+<button onclick="reset()">RESET</button>
+<button onclick="set()">SET</button>
+<button onclick="get()">GET</button>
 </div>
 </body>

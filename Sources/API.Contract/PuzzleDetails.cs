@@ -23,6 +23,9 @@ namespace Puzzles.API.Contract
         [JsonProperty(PropertyName = "def")] 
         public object Definition { get; set; }
 
+        [JsonProperty(PropertyName = "istate")]
+        public object InitialState { get; set; }
+
         [JsonProperty(PropertyName = "state")] 
         public object State { get; set; }
     }

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RushHourState.cs" company="">
+// <copyright file="LoopFinderState.cs" company="">
 //   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
 // </copyright>
 // <summary>
@@ -7,15 +7,14 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.Puzzle.RushHour
+namespace Puzzles.Puzzle.LoopFinder
 {
     using System.Collections.Generic;
+    using Newtonsoft.Json;
 
-    public class RushHourState: List<int>
+    public class LoopFinderState
     {
-        public RushHourState(List<int> list)
-            : base(list)
-        {
-        }
+        [JsonProperty("segm")]
+        string Segments { get; set; }
     }
 }

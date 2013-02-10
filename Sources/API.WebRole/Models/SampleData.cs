@@ -51,10 +51,10 @@ namespace Puzzles.API.Webrole.WebRole.Models
                     "<li>Fences never cross or branch out.</li></ul>" +
                     "<li>Click or touch to build a fence.</li>" +
                     "<li>Click or touch again to pull it down.</li>" + 
-                    "<li>Right-click, double-click or hold to mark a place as free (just for your convenience). </li></ul>"
+                    "<li>Right-click or double-click to mark a place as free (just for your convenience). </li></ul>"
             };
 
-        private static List<Puzzle> LoadPuzzles(PuzzleType type, string filename, Func<IList<string>, string> convertDefinition, User user){
+        private static List<Puzzle> LoadPuzzles(PuzzleType type, string filename, Func<IList<string>, Tuple<string, string>> convertDefinition, User user){
             var result = new List<Puzzle>();
             
             var buffer = new List<string>();
@@ -68,7 +68,9 @@ namespace Puzzles.API.Webrole.WebRole.Models
                 {
                     if (puzzle != null)
                     {
-                        puzzle.Definition = convertDefinition(buffer);
+                        var def = convertDefinition(buffer);
+                        puzzle.Definition = def.Item1;
+                        puzzle.InitialState = def.Item2;
                         result.Add(puzzle);
                     }
 
@@ -96,16 +98,20 @@ namespace Puzzles.API.Webrole.WebRole.Models
 
             if (puzzle != null)
             {
-                puzzle.Definition = convertDefinition(buffer);
+                var def = convertDefinition(buffer);
+                puzzle.Definition = def.Item1;
+                puzzle.InitialState = def.Item2;
                 result.Add(puzzle);
             }
 
             return result;
         }
 
-        private static string ConvertDefinition<T>(IList<string> def)
+        private static Tuple<string, string> ConvertDefinition<T>(IList<string> tutorDef)
         {
-            return JsonConvert.SerializeObject(typeof(T).GetMethod("FromTutor").Invoke(null, new[]{ def.ToArray() }));
+            var def = typeof(T).GetMethod("FromTutor").Invoke(null, new[]{ tutorDef.ToArray() });
+            var state = def.GetType().GetProperty("InitialState").GetValue(def, null);
+            return new Tuple<string,string>(JsonConvert.SerializeObject(def), JsonConvert.SerializeObject(state));
         }
 
         protected override void Seed(PuzzlesDb context)

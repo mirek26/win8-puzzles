@@ -177,8 +177,8 @@ function Puzzle(puzzle, controller) {
         var car = evt.currentTarget;
         var newpos = Math.round(car.car_position / constants.gridsize);
         if (newpos != car.position) {
-            controller.action("posun vole");
             car.position = newpos;
+            controller.action("posun vole");
         }
         var anim = WinJS.UI.Animation.createRepositionAnimation(car);
         updateCarPosition(car);

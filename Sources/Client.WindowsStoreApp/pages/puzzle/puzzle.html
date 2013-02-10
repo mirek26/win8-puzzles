@@ -33,6 +33,11 @@
             <button id="continueButton">Continue</button>
         </div>
 
+        <div id="appbar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'undoButton', label:'Undo', icon:'back'}" type="button"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'resetButton', label:'Reset', icon:'refresh'}" type="button"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'pauseButton', label:'Pause', icon:'pause'}" type="button"></button>
+        </div>
     </div>
 </body>
 </html>

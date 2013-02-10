@@ -39,5 +39,7 @@ namespace Puzzles.API.Webrole.WebRole.Models
         public DateTime Created { get; set; }
 
         public string Definition { get; set; }
+
+        public string InitialState { get; set; }
     }
 }

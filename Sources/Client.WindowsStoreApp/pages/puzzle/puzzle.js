@@ -5,8 +5,9 @@
     var ui = WinJS.UI;
 
     function Controller(element) {
-        var puzzle, solved = false;
-        var startTime;
+        var stack;
+        var puzzle, initialstate, solved = false, paused = true;
+        var startTime, totalTime;
         
         var rootElement = element; 
         var clockElement = document.getElementById("clock");
@@ -26,6 +27,7 @@
         function loadPuzzle(puzzledef) {
             var canvas = rootElement.querySelector("#canvas");
             canvas.className = puzzledef.type.toLowerCase();
+            initialstate = puzzledef.istate;
             puzzle = new Puzzle(puzzledef, this);
             puzzle.initializeUi(canvas);
 
@@ -36,23 +38,36 @@
             canvas.style.left = (scalebox.clientWidth - scale*canvas.clientWidth) / 2 + "px";
 
             solved = false;
+            stack = [initialstate];
+            document.getElementById("undoButton").disabled = true;
+            totalTime = 0;
             startClock();
         }
 
         function startClock() {
+            paused = false;
             startTime = Date.now();
             refreshClock();
         }
 
         function refreshClock() {
-            if (!solved) {
-                clockElement.textContent = formatTimeDiff(Date.now() - startTime);
+            if (!solved && !paused) {
+                clockElement.textContent = formatTimeDiff(totalTime + Date.now() - startTime);
                 window.setTimeout(refreshClock, 1000);
             }
         };
 
-        this.action = function(obj) {
-            console.log(obj);
+        function pauseClock() {
+            paused = true;
+            totalTime += Date.now() - startTime;
+        }
+
+        this.action = function (obj) {
+            if (stack.length === 1) {
+                document.getElementById("undoButton").disabled = false;
+            }
+            stack.push(puzzle.getState());
+            console.log("ACTION: " + JSON.stringify(obj));
         };
 
         this.action_solved = function() {
@@ -65,11 +80,33 @@
             }));
             dialog.showAsync().done(function() {
             });
-
-            //a.operation.start();
-            //document.getElementById("solvedFlyout").winControl.show(
-            //    this.rootElement, "top");
         };
+
+        this.reset = function () {
+            puzzle.setState(initialstate);
+            console.log("RESET");
+            stack = [initialstate];
+            document.getElementById("undoButton").disabled = true;
+        }
+
+        this.undo = function () {
+            stack.pop();
+            puzzle.setState(stack.last());
+            if (stack.length === 1) {
+                document.getElementById("undoButton").disabled = true;
+            }
+            console.log("UNDO");
+        }
+
+        this.pause = function () {
+            pauseClock();
+            var dialog = new Windows.UI.Popups.MessageDialog("Taking a break? That's fine, but don't dare cheat and think about the puzzle now! :-)", "Paused");
+            dialog.commands.append(new Windows.UI.Popups.UICommand("Continue", function () {
+                startClock();
+            }));
+            dialog.showAsync().done(function () {
+            });
+        }
 
         this.loadPuzzle = loadPuzzle;
     }
@@ -80,6 +117,9 @@
         ready: function(element, options) {
             this.controller = new Controller(element);
             this.rootElement = element;
+            document.getElementById("resetButton").addEventListener("click", this.controller.reset);
+            document.getElementById("undoButton").addEventListener("click", this.controller.undo);
+            document.getElementById("pauseButton").addEventListener("click", this.controller.pause);
             this.loaded = { "js": false, "css": false, "puzzle": false };
             if (options.puzzle) {
                 this.puzzle = options.puzzle;

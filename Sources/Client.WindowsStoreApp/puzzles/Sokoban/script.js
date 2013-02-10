@@ -2,8 +2,10 @@
 
 function Puzzle(puzzle, controller) {
     // PRIVATE FIELDS
-    var def, size, boxes, man, move = false, grid;
+    var def, istate;
+    var size, boxes, man, move = false, grid;
     var remaining;
+    var solved = false;
 
     // html elements
     var canvas, wrapper; 
@@ -11,12 +13,11 @@ function Puzzle(puzzle, controller) {
         gridsize: 100,
     };
 
-    // helper structures
-    var solved = false;
     
     function init() {
         def = puzzle.def;
-        size = [def.map.length, def.map[0].length];
+        istate = puzzle.istate;
+        size = [def.length, def[0].length];
     }
 
     function initializeUi (element) {
@@ -30,13 +31,10 @@ function Puzzle(puzzle, controller) {
         // generate grid
         generateGrid();
         boxes = [];
-        remaining = def.boxes.length;
-        def.boxes.forEach(function(box){
+        remaining = istate.boxes.length;
+        istate.boxes.forEach(function(box){
             var el = document.createElement("div");
             el.className = "box";
-            el.mapx = box[1];
-            el.mapy = box[0];
-            grid[el.mapy][el.mapx].box = el;
             el.addEventListener("MSPointerMove", pointerMove, true);
             wrapper.appendChild(el);
             boxes.push(el);
@@ -44,16 +42,13 @@ function Puzzle(puzzle, controller) {
 
         man = document.createElement("div");
         man.className = "man";
-        man.mapx = def.position[1];
-        man.mapy = def.position[0];
         wrapper.appendChild(man);
         man.addEventListener("MSPointerDown", pointerDown, false);
 
         document.body.addEventListener("MSPointerUp", pointerUpOutBody, false);
         document.addEventListener("keydown", keyDown, false);
 
-        // update positions and scaling
-        updateUi();
+        setState(istate);
     }
 
     function generateGrid() {        
@@ -68,7 +63,7 @@ function Puzzle(puzzle, controller) {
                 td.mapx = j; 
                 td.mapy = i;
                 td.box = null;
-                switch (def.map[i][j]){
+                switch (def[i][j]){
                     case "#":
                         td.className = "wall";
                         break;
@@ -94,7 +89,7 @@ function Puzzle(puzzle, controller) {
         boxes.forEach(function(box){
             box.style.top = box.mapy*constants.gridsize + "px";
             box.style.left = box.mapx*constants.gridsize + "px";
-            if (def.map[box.mapy][box.mapx] == '.') {
+            if (def[box.mapy][box.mapx] == '.') {
                 $(box).addClass("boxonpost");
                 remaining--;
             } else {
@@ -128,65 +123,87 @@ function Puzzle(puzzle, controller) {
 
 
     function pointerDown(evt){
-        console.log("down");
         move = true;
     }
 
     function pointerMove(evt){
         if (!move) return;
-        console.log(evt.clientY);
         moveMan(evt.target.mapy, evt.target.mapx);
     }
 
     function pointerUpOutBody(evt){
-        console.log("up");
         move = false;
     }
 
-    function moveBox(box, y, x) {
-        if (def.map[box.mapy][box.mapx] === '.'){
-            $(box).removeClass("boxonpost");    
-            remaining++;
-        }
+    function moveBox(box, y, x, animate) {
+        if (box.mapy === y && box.mapx === x) return;
+        // move out of previous location
+        if (box.mapy !== undefined) {
+            if (def[box.mapy][box.mapx] === '.') {
+                $(box).removeClass("boxonpost");
+                remaining++;
+            }
 
-        grid[box.mapy][box.mapx].box = null;
+            grid[box.mapy][box.mapx].box = null;
+        }
+        // move in the new one
         grid[y][x].box = box;
         box.mapx = x;
         box.mapy = y;
-        if (def.map[y][x] === '.') {
+        if (def[y][x] === '.') {
             $(box).addClass("boxonpost");
             remaining--;
         }
+        // transition
+        if (animate) {
+            box.moving = true;
+            $(box).animate({ top: box.mapy*constants.gridsize + "px", left: box.mapx*constants.gridsize + "px"}, 100, 'linear', function(){
+                box.moving = false;
+            });
 
-        box.moving = true;
-        $(box).animate({ top: box.mapy*constants.gridsize + "px", left: box.mapx*constants.gridsize + "px"}, 100, 'linear', function(){
-            box.moving = false;
-        });                
-        if (remaining === 0) {
-            controller.action_solved();
+            if (remaining === 0) {
+                controller.action_solved();
+            }
+        } else {
+            box.style.top = box.mapy*constants.gridsize;
+            box.style.left = box.mapx*constants.gridsize;    
         }
-        //box.style.top = box.mapy*constants.gridsize;
-        //box.style.left = box.mapx*constants.gridsize;
     }
 
     function moveMan(y, x) {
+        var action = false;
         var dx = - man.mapx + x, dy = - man.mapy + y;
         if (Math.abs(dx) + Math.abs(dy) !== 1) return;
-        if (def.map[y][x] === "#") return;
+        if (def[y][x] === "#") return;
         if (grid[y][x].box !== null) {
-            if (def.map[y+dy][x+dx] === "#" || grid[y+dy][x+dx].box !== null) return;
+            if (def[y+dy][x+dx] === "#" || grid[y+dy][x+dx].box !== null) return;
             if (grid[y][x].box.moving == true) return;
-            moveBox(grid[y][x].box, y+dy, x+dx);
+            moveBox(grid[y][x].box, y + dy, x + dx, true);
+            action = true;
         }
         man.mapx = x;
         man.mapy = y;
-        $(man).animate({ top: man.mapy*constants.gridsize + "px", left: man.mapx*constants.gridsize + "px"}, 100, 'linear');
+        $(man).animate({ top: man.mapy * constants.gridsize + "px", left: man.mapx * constants.gridsize + "px" }, 100, 'linear');
+        if (action) {
+            controller.action(null);
+        }
     }
 
     function getState () {
+        return {
+            boxes: boxes.map(function(box){ return [box.mapy, box.mapx]; }),
+            man: [man.mapy, man.mapx]
+        };
     }
 
     function setState (state) {
+        state.boxes.forEach(function(pos, index){
+            moveBox(boxes[index], pos[0], pos[1], false);
+        })
+
+        man.mapx = state.man[1];
+        man.mapy = state.man[0];
+        updateUi();
     }
 
     // PUBLIC FIELDS

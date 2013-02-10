@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RushHourState.cs" company="">
+// <copyright file="SokobanState.cs" company="">
 //   Copyright (c) Miroslav Klimos, myreggg@gmail.com. 
 // </copyright>
 // <summary>
@@ -7,15 +7,17 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Puzzles.Puzzle.RushHour
+namespace Puzzles.Puzzle.Sokoban
 {
     using System.Collections.Generic;
+    using Newtonsoft.Json;
 
-    public class RushHourState: List<int>
+    public class SokobanState
     {
-        public RushHourState(List<int> list)
-            : base(list)
-        {
-        }
+        [JsonProperty("man")]
+        public int[] Man { get; set; }
+
+        [JsonProperty("boxes")]
+        public List<int[]> Boxes { get; set; }
     }
 }

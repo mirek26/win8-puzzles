@@ -32,14 +32,8 @@ function Puzzle(puzzle, controller) {
 
         // generate grid
         var grid = generateGrid();
-
         document.body.addEventListener("MSPointerUp", pointerUpOutBody, false);
 
-        // update canvas dimensions
-        //canvas.style.width = (size[1]+2) * constants.gridsize + "px";
-        //canvas.style.height = (size[0]+2) * constants.gridsize + "px";
-        
-        // update positions and scaling
         updateUi();
     }
 
@@ -173,8 +167,10 @@ function Puzzle(puzzle, controller) {
             var el = all[i];
             if (el.celltype === "hsegment" || el.celltype === "vsegment") { 
                 el.nextOnPath = [];
-                fences += (el.state === 1 ? 1 : 0);
-                first = el;
+                if (el.state === 1) {
+                    fences += 1;
+                    first = el;
+                }
             }
         }
         // check all vertices
@@ -337,15 +333,32 @@ function Puzzle(puzzle, controller) {
     }
 
     function pointerUpOutBody(evt){
-        //console.log("Body: mouse up or out");
+        if (mode === null) return;
         mode = null;
-        //console.log(mode);
+        controller.action(getState());
     }
 
-    function getState () {
+    function getState() {
+        var state = "";
+        var all = document.querySelectorAll("td");
+        for (var i = 0; i < all.length; i++) {
+            var el = all[i];
+            if (el.celltype === "hsegment" || el.celltype === "vsegment") {
+                state += ["x"," ","-"][el.state + 1];
+            }
+        }
+        return { segm: state };
     }
 
     function setState (state) {
+        var all = document.querySelectorAll("td");
+        var j = 0;
+        var encode = {"x": -1, " ": 0, "-" : 1};
+        for (var i = 0; i < all.length; i++) {
+            if (all[i].celltype !== "hsegment" && all[i].celltype !== "vsegment") continue;
+            changeState(all[i], state.segm === null ? 0 : encode[state.segm[j]]);
+            j++;
+        }
     }
 
     // PUBLIC FIELDS

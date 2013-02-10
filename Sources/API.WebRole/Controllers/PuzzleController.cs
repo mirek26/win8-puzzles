@@ -45,6 +45,7 @@ namespace Puzzles.API.Webrole.WebRole.Controllers
                             AuthorId = puzzle.AuthorId,
                             Solved = false, 
                             Definition = JsonConvert.DeserializeObject(puzzle.Definition),
+                            InitialState = JsonConvert.DeserializeObject(puzzle.InitialState),
                             State = null,
                             ExpectedTime = TimeSpan.FromSeconds(123),
                             SpendTime = null, 

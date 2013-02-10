@@ -25,7 +25,9 @@ namespace Puzzles.API.Webrole.WebRole
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+#if DEBUG
             Database.SetInitializer(new SampleData());
+#endif
         }
     }
 }
