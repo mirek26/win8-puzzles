@@ -17,7 +17,11 @@
             element.querySelector(".rules").innerHTML = type.rules;
 
             var seeAllButton = element.querySelector(".seeall");
-            seeAllButton.onclick = function () { nav.navigate("pages/list/list.html", {type: type.id}); };
+            seeAllButton.onclick = function () { nav.navigate("pages/list/list.html", { type: type.id }); };
+
+            //var puzzlebox = document.getElementById("practice");
+            //this.controller = new PuzzleController(type.training, puzzlebox);
+            //this.controller.onSolved = this.solved;
         },
 
         unload: function () {

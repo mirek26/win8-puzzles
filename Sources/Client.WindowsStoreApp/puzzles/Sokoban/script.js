@@ -196,7 +196,7 @@ function Puzzle(puzzle, controller) {
         };
     }
 
-    function setState (state) {
+    function setState(state) {
         state.boxes.forEach(function(pos, index){
             moveBox(boxes[index], pos[0], pos[1], false);
         })

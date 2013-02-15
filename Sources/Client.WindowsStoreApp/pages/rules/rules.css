@@ -79,3 +79,8 @@
     margin: 20px;
     float: right;
 }
+
+#practice {
+    width: 100%;
+    height: 500px;
+}

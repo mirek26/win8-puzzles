@@ -3,6 +3,13 @@
     width: 100%;
 }
 
+
+.canvas {
+    display: inline-block;
+    transform-origin: 0 0;
+    position: absolute;
+}
+
 .fragment {
     /* Define a grid with rows for a banner and a body */
     background: -ms-linear-gradient(top, #7d7e7d 0%,#2e2e2e 100%);

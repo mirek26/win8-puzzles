@@ -20,6 +20,15 @@
         ready: function (element, options) {
             document.getElementById("refreshButton").addEventListener("click", this.refresh.bind(this));
             
+            //element.querySelector(".statistics").addEventListener("click", function () {
+            //});
+            element.querySelector(".settings").addEventListener("click", function () {
+                WinJS.UI.SettingsFlyout.show();
+            });
+            element.querySelector(".rateandreview").addEventListener("click", function () {
+                Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri("ms-windows-store:REVIEW?PFN=35158myreg.Alllogicpuzzles_5vpjqby3hhdkr"));
+            });
+
             // list of puzzles
             var grid = element.querySelector(".grid").winControl;
 
@@ -64,13 +73,13 @@
         refreshUser: function () {
             if (!app.user || app.user == {}) {
                 app.getUserData(this.loadUserInfo, function() {
-                    var el = document.getElementById("user");
-                    el.innerText = "Sign in here.";
-                    el.addEventListener("click", app.login.bind(this, function() {
-                        this.refreshUser();
-                    }, function() {
-                        el.innerText = "Sign in failed.";
-                    }));
+                    //var el = document.getElementById("user");
+                    //el.innerText = "Sign in here.";
+                    //el.addEventListener("click", app.login.bind(this, function() {
+                    //    this.refreshUser();
+                    //}, function() {
+                    //    el.innerText = "Sign in failed.";
+                    //}));
                 });
             } else {
                 this.loadUserInfo();
@@ -78,8 +87,8 @@
         },
         
         loadUserInfo: function() {
-            document.getElementById("user").innerText = app.user.name;
-            this.removeEventListener("click");
+            //document.getElementById("user").innerText = app.user.name;
+            //this.removeEventListener("click");
         }
     });
 })();

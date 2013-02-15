@@ -12,6 +12,7 @@
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/pages/puzzle/puzzle.css" rel="stylesheet" />
     <script src="/js/data.js"></script>
+    <script src="/js/puzzleController.js"></script>
     <script src="/puzzles/common.js"></script>
     <script src="/pages/puzzle/puzzle.js"></script>
 </head>
@@ -23,9 +24,7 @@
             <h1 class="titlearea win-type-ellipsis pagetitle"></h1>
         </header>
         <section aria-label="Main content" role="main">
-            <div id="scalebox">
-            <div id="canvas"></div>    
-            </div>
+            <div id="scalebox"></div>
             <div id="clock"></div>
         </section>
         <div id="solvedFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Congratulations! Puzzle solved in}">
