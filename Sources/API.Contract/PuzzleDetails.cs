@@ -10,6 +10,7 @@
 namespace Puzzles.API.Contract
 {
     using System;
+    using System.Collections.Generic;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -28,5 +29,17 @@ namespace Puzzles.API.Contract
 
         [JsonProperty(PropertyName = "state")] 
         public object State { get; set; }
+
+        [JsonProperty("median")]
+        public TimeSpan? MedianTime { get; set; }
+
+        [JsonProperty("mean")]
+        public TimeSpan? MeanTime { get; set; }
+
+        [JsonProperty("num")]
+        public int NumberOfUsers { get; set; }
+
+        [JsonProperty("hist")]
+        public Histogram Histogram { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace Puzzles.Puzzle.RushHour
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Newtonsoft.Json;
 
@@ -58,6 +59,7 @@ namespace Puzzles.Puzzle.RushHour
                 }
             }
             // set RedCar and Cars
+            Assert.IsNotNull(cars['x'], "No red car in given instance.");
             var redCar = new Car(cars['x']);
             cars['x'] = null;
 

@@ -9,7 +9,7 @@ function PuzzleController(puzzleMeta, element) {
 
     var stack;
     var solved = false, paused = true;
-    var startTime, totalTime;        
+    var startTime, totalTime = 0;        
     var self = this;
     init();
 
@@ -28,13 +28,6 @@ function PuzzleController(puzzleMeta, element) {
         }
         loadJS(puzzleMeta.type);
         loadCSS(puzzleMeta.type);
-    }
-
-    function formatTimeDiff(timediff) {
-        var seconds = Math.floor(timediff / 1000);
-        var minutes = Math.floor(seconds / 60);
-        seconds = seconds % 60;
-        return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     }
 
     function startClock() {
@@ -97,6 +90,9 @@ function PuzzleController(puzzleMeta, element) {
     function loadedEvent(what) {
         loaded[what] = true;
         if (loaded["js"] == true && loaded["css"] == true && loaded["puzzle"] == true) {
+            if (self.onLoad) {
+                self.onLoad();
+            }
             initialstate = puzzle.istate;
             puzzle = new Puzzle(puzzle, self);
             puzzle.initializeUi(canvas);
@@ -118,6 +114,8 @@ function PuzzleController(puzzleMeta, element) {
     this.pause = function () { pauseClock(); }
     this.unpause = function () { startClock(); }
     this.reset = reset;
-    this.getTime = function () { return formatTimeDiff(paused ? totalTime : totalTime + Date.now() - startTime); }
+    this.getTime = function () { return paused ? totalTime : totalTime + Date.now() - startTime; }
     this.onSolved = null;
+    this.onLoad = null;
+    Object.defineProperty(this, "puzzle", { get: function () { return puzzle; }});
 }

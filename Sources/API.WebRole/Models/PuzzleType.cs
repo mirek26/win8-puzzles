@@ -19,13 +19,14 @@ namespace Puzzles.API.Webrole.WebRole.Models
         [Key]
         public string Id { get; set; }
 
-        [Required]
         public string Title { get; set; }
 
         public string Subtitle { get; set; }
 
         public string Rules { get; set; }
 
-        public string JsFile { get; set; }
+        public int? TrainingPuzzleId { get; set; }
+
+        public virtual Puzzle TrainingPuzzle { get; set; }
     }
 }

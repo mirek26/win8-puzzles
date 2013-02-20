@@ -24,22 +24,30 @@ namespace Puzzles.API.Webrole.WebRole.Models
 
         public int? TutorId { get; set; }
 
+        [Required]
         public string TypeId { get; set; }
- 
+        
         public virtual PuzzleType Type { get; set; }
+
+        public bool Hidden { get; set; }
 
         public string Title { get; set; }
 
         public string Details { get; set; }
-
-        public int AuthorId { get; set; }
-        
-        public virtual User Author { get; set; }
 
         public DateTime Created { get; set; }
 
         public string Definition { get; set; }
 
         public string InitialState { get; set; }
+
+        // precomputed median time
+        public TimeSpan? MedianTime { get; set; }
+
+        // precomputed mean time
+        public TimeSpan? MeanTime { get; set; }
+
+        // precomputed histogram on solving times in JSON
+        public string Historgram { get; set; } 
     }
 }

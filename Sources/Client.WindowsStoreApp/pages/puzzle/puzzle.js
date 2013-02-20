@@ -10,16 +10,13 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             self = this;
-            document.getElementById("continueButton").onclick = function(evt) {
-                WinJS.Navigation.navigate("pages/home/home.html");
-            };
-
             this.rootElement = element;
             var puzzleMeta = options.puzzle ? options.puzzle : options.puzzleMeta;
             this.puzzleMeta = puzzleMeta;
             element.querySelector("header[role=banner] .pagetitle").textContent = puzzleMeta.title;
             var scalebox = document.getElementById("scalebox");
             this.controller = new PuzzleController(puzzleMeta, scalebox);
+            this.controller.onLoad = this.solved;
             this.controller.onSolved = this.solved;
             document.getElementById("resetButton").addEventListener("click", this.reset);
             document.getElementById("undoButton").addEventListener("click", this.undo);
@@ -27,13 +24,13 @@
             this.refreshClock();
         },
 
-        solved: function(){
-            var dialog = new Windows.UI.Popups.MessageDialog("Congratulations! Puzzle solved in " + self.controller.getTime(), "Finished!");
-            dialog.commands.append(new Windows.UI.Popups.UICommand("Continue", function() {
-                WinJS.Navigation.navigate("pages/list/list.html", { type: self.puzzleMeta.type });
-            }));
-            dialog.showAsync().done(function() {
-            });
+        solved: function () {
+            var puzzle = self.controller.puzzle;
+            $("#dialog .actualTime").text(formatTime(self.controller.getTime()));
+            $("#dialog .meanTime").text(puzzle.mean);
+            $("#dialog .medianTime").text(puzzle.median);
+            $("#dialog").show();
+            timehistogram($("#dialog .histogram")[0], puzzle.hist.len, puzzle.hist.values, self.controller.getTime()/1000);
         },
 
         refreshClock: function () {

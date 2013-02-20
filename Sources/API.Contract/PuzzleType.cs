@@ -28,7 +28,7 @@ namespace Puzzles.API.Contract
         [JsonProperty(PropertyName = "rules")] 
         public string Rules { get; set; }
 
-        [JsonProperty(PropertyName = "jsfile")] 
-        public string JsFile { get; set; }
+        [JsonProperty(PropertyName = "training")] 
+        public int? Training { get; set; }
     }
 }

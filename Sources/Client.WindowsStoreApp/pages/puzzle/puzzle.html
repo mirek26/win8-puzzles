@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,15 +28,18 @@
             <div id="scalebox"></div>
             <div id="clock"></div>
         </section>
-        <div id="solvedFlyout" data-win-control="WinJS.UI.Flyout" aria-label="{Congratulations! Puzzle solved in}">
-            <div>Congratulations! Puzzle solved in <span id="solvingTime"></span>!</div>
-            <button id="continueButton">Continue</button>
-        </div>
-
         <div id="appbar" data-win-control="WinJS.UI.AppBar">
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'undoButton', label:'Undo', icon:'back'}" type="button"></button>
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'resetButton', label:'Reset', icon:'refresh'}" type="button"></button>
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'pauseButton', label:'Pause', icon:'pause'}" type="button"></button>
+        </div>
+    </div>
+
+    <div id="dialog">
+        <div class="message">
+            <h2 class="win-type-ellipsis">Finished!</h2>
+            <p>Congratulations! Puzzle solved in <span class="actualTime"></span> (average <span class="meanTime"></span>, median <span class="medianTime"></span>).</p>
+            <div class="histogram"> </div>
         </div>
     </div>
 </body>

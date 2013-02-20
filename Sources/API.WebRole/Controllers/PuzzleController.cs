@@ -42,13 +42,15 @@ namespace Puzzles.API.Webrole.WebRole.Controllers
                             Id = puzzle.Id, 
                             Type = puzzle.TypeId, 
                             Title = puzzle.Title,
-                            AuthorId = puzzle.AuthorId,
                             Solved = false, 
                             Definition = JsonConvert.DeserializeObject(puzzle.Definition),
                             InitialState = JsonConvert.DeserializeObject(puzzle.InitialState),
                             State = null,
                             ExpectedTime = TimeSpan.FromSeconds(123),
                             SpendTime = null, 
+                            MeanTime = puzzle.MeanTime, 
+                            MedianTime = puzzle.MedianTime,
+                            Histogram = JsonConvert.DeserializeObject<Puzzles.API.Contract.Histogram>(puzzle.Historgram)
                     };
         }
 

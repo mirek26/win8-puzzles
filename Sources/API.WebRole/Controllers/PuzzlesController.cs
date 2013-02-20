@@ -15,7 +15,9 @@ namespace Puzzles.API.Webrole.WebRole.Controllers
     using System.Collections.Generic;
     using System.Data;
     using System.Data.Entity;
+    using System.Data.Entity.Validation;
     using System.Data.Entity.Infrastructure;
+    using System.Diagnostics;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -32,39 +34,46 @@ namespace Puzzles.API.Webrole.WebRole.Controllers
         // GET api/puzzles
         public IEnumerable<Contract.PuzzleType> GetPuzzles()
         {
-            return this.db.PuzzleTypes.AsEnumerable().Select(puzzle => new Contract.PuzzleType
+            try
             {
-                Id = puzzle.Id,
-                Title = puzzle.Title, 
-                Subtitle = puzzle.Subtitle, 
-                JsFile = puzzle.JsFile, 
-                Rules = puzzle.Rules
-            }); 
+                return this.db.PuzzleTypes.Select(puzzle => new Contract.PuzzleType
+                {
+                    Id = puzzle.Id,
+                    Title = puzzle.Title,
+                    Training = puzzle.TrainingPuzzleId,
+                    Subtitle = puzzle.Subtitle,
+                    Rules = puzzle.Rules
+                });
+            }
+            catch (DataException dbEx)
+            {
+                foreach (var validationErrors in (dbEx.InnerException as DbEntityValidationException).EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+            return null;
         }
 
         // GET api/puzzles/rushHour
         public IEnumerable<Contract.Puzzle> GetPuzzles(
-            string id,
-            int top = 0,
-            int skip = 0)
+            string id)
         {
-            var q = this.db.Puzzles.Where(p => p.Type.Id == id);
-            
-            q = q.OrderBy(p => p.Id).Skip(skip);
-            if (top != 0)
-            {
-                q = q.Take(top);
-            }
-
-            return q.AsEnumerable().Select(puzzle => new Contract.Puzzle
+            return this.db.Puzzles
+                    .Where(p => p.Type.Id == id && !p.Hidden)
+                    .Select(puzzle => new Contract.Puzzle
                     {
                             Id = puzzle.Id, 
                             Type = puzzle.TypeId, 
                             Title = puzzle.Title, 
                             Solved = false, 
-                            ExpectedTime = TimeSpan.FromSeconds(123),
+                            ExpectedTime = puzzle.MeanTime,
                             SpendTime = null, 
-                    });
+                    })
+                    .OrderBy(p => p.ExpectedTime);
         }
 
         protected override void Dispose(bool disposing)

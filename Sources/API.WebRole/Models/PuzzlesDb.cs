@@ -24,19 +24,13 @@ namespace Puzzles.API.Webrole.WebRole.Models
 
         public DbSet<ActionLog> ActionLogs { get; set; }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    //modelBuilder.Entity<Puzzle>()
-        //    //            .HasRequired(p => p.Author)
-        //    //            .WithMany()
-        //    //            .WillCascadeOnDelete(false);
-
-        //    //modelBuilder.Entity<UserData>()
-        //    //            .HasRequired(p => p.User)
-        //    //            .WithMany()
-        //    //            .WillCascadeOnDelete(false);
-
-        //    //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Puzzle>()
+                .HasRequired(t => t.Type).WithMany().HasForeignKey(p => p.TypeId).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<PuzzleType>()
+            //    .HasOptional(p => p.TrainingPuzzle).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<PuzzleType>().HasRequired(p => p.TrainingPuzzle).WithRequiredPrincipal().WillCascadeOnDelete(false);
+        }
     }
 }

@@ -46,9 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Histogram.cs" />
     <Compile Include="PuzzleDetails.cs" />
     <Compile Include="PuzzleType.cs" />
-    <Compile Include="User.cs" />
     <Compile Include="Action.cs" />
     <Compile Include="ActionLog.cs" />
     <Compile Include="Puzzle.cs" />
