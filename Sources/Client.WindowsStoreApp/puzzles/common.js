@@ -2,6 +2,10 @@ Array.prototype.last = function() {
 	return this[this.length-1];
 }
 
+Array.prototype.random = function () {
+    return this[random(0, this.length)];
+}
+
 function histogram(paper, x, y, width, height, values, emph) {
     var emphColor = "#f57900";
     var normalColor = "#3465a4";
@@ -39,4 +43,8 @@ function formatTime(time) {
     var minutes = Math.floor(seconds / 60);
     seconds = seconds % 60;
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+function random(min, max) {
+    return min + Math.floor(Math.random() * (max - min));
 }

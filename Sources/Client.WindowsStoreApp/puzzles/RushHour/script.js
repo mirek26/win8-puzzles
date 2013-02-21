@@ -287,7 +287,8 @@ function Puzzle(puzzle, controller) {
         return cars.map(function(car) { return car.position });
     }
 
-    function setState (state) {
+    function setState(state) {
+        solved = false;
         cars.forEach(function (car, index){
             car.position = state[index];
             updateCarPosition(car);

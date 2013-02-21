@@ -15,7 +15,6 @@ function Puzzle(puzzle, controller) {
     var lastclickTime, lastclickSegm;
     var mode = null, startSegment = null, stack = [];
     var unfulfilled  = 0;
-    var solved = false;
     
     function init() {
         def = puzzle.def;

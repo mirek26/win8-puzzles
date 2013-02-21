@@ -48,6 +48,6 @@ namespace Puzzles.API.Webrole.WebRole.Models
         public TimeSpan? MeanTime { get; set; }
 
         // precomputed histogram on solving times in JSON
-        public string Historgram { get; set; } 
+        public string Histogram { get; set; } 
     }
 }

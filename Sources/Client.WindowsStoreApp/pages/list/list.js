@@ -8,6 +8,7 @@
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
+            
             document.getElementById("refreshButton").addEventListener("click", this.refresh.bind(this));
             var listView = element.querySelector(".itemslist").winControl;
 
@@ -19,6 +20,10 @@
                 listView.oniteminvoked = this._itemInvoked.bind(this);
             }.bind(this));
             
+            document.getElementById("backbutton").addEventListener("click", function () {
+                WinJS.Navigation.navigate("/pages/rules/rules.html", options.type);
+            });
+
             this._initializeLayout(listView, Windows.UI.ViewManagement.ApplicationView.value);
             listView.element.focus();
         },

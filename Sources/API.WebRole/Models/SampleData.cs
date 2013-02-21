@@ -166,7 +166,7 @@ namespace Puzzles.API.Webrole.WebRole.Models
                     }
                 }
 
-                puzzle.Historgram = JsonConvert.SerializeObject(
+                puzzle.Histogram = JsonConvert.SerializeObject(
                     new Histogram
                     {
                         Length = length, 

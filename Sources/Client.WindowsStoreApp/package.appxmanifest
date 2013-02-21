@@ -15,8 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" StartPage="default.html">
-      <VisualElements DisplayName="Logic Puzzles" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="Collection of various logic puzzles." ForegroundText="light" BackgroundColor="#6a6a6a">
-        <DefaultTile ShowName="allLogos" />
+      <VisualElements DisplayName="Logic Puzzles" Logo="images/logo.png" SmallLogo="images\smalllogo.png" Description="Collection of various logic puzzles." ForegroundText="light" BackgroundColor="#4e9a06">
+        <DefaultTile ShowName="allLogos" ShortName="Puzzles" WideLogo="images/logo-wide.png" />
         <SplashScreen Image="images\splashscreen.png" />
         <InitialRotationPreference>
           <Rotation Preference="landscape" />

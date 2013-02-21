@@ -17,9 +17,9 @@
                 nav.onnavigated = this._navigated.bind(this);
                 window.onresize = this._resized.bind(this);
 
-                document.body.onkeyup = this._keyupHandler.bind(this);
-                document.body.onkeypress = this._keypressHandler.bind(this);
-                document.body.onmspointerup = this._mspointerupHandler.bind(this);
+                //document.body.onkeyup = this._keyupHandler.bind(this);
+                //document.body.onkeypress = this._keypressHandler.bind(this);
+                //document.body.onmspointerup = this._mspointerupHandler.bind(this);
 
                 Application.navigator = this;
             }, {
@@ -56,33 +56,33 @@
                     return this.pageElement;
                 },
 
-                // Navigates back whenever the backspace key is pressed and
-                // not captured by an input field.
-                _keypressHandler: function (args) {
-                    if (args.key === "Backspace") {
-                        nav.back();
-                    }
-                },
+                //// Navigates back whenever the backspace key is pressed and
+                //// not captured by an input field.
+                //_keypressHandler: function (args) {
+                //    if (args.key === "Backspace") {
+                //        nav.back();
+                //    }
+                //},
 
-                // Navigates back or forward when alt + left or alt + right
-                // key combinations are pressed.
-                _keyupHandler: function (args) {
-                    if ((args.key === "Left" && args.altKey) || (args.key === "BrowserBack")) {
-                        nav.back();
-                    } else if ((args.key === "Right" && args.altKey) || (args.key === "BrowserForward")) {
-                        nav.forward();
-                    }
-                },
+                //// Navigates back or forward when alt + left or alt + right
+                //// key combinations are pressed.
+                //_keyupHandler: function (args) {
+                //    if ((args.key === "Left" && args.altKey) || (args.key === "BrowserBack")) {
+                //        nav.back();
+                //    } else if ((args.key === "Right" && args.altKey) || (args.key === "BrowserForward")) {
+                //        nav.forward();
+                //    }
+                //},
 
-                // This function responds to clicks to enable navigation using
-                // back and forward mouse buttons.
-                _mspointerupHandler: function (args) {
-                    if (args.button === 3) {
-                        nav.back();
-                    } else if (args.button === 4) {
-                        nav.forward();
-                    }
-                },
+                //// This function responds to clicks to enable navigation using
+                //// back and forward mouse buttons.
+                //_mspointerupHandler: function (args) {
+                //    if (args.button === 3) {
+                //        nav.back();
+                //    } else if (args.button === 4) {
+                //        nav.forward();
+                //    }
+                //},
 
                 // Responds to navigation by adding new pages to the DOM.
                 _navigated: function (args) {
@@ -102,7 +102,7 @@
                         this._element.appendChild(newElement);
                         this._element.removeChild(oldElement);
                         oldElement.innerText = "";
-                        this._updateBackButton();
+                        //this._updateBackButton();
                         parentedComplete();
                         WinJS.UI.Animation.enterPage(this._getAnimationElements()).done();
                     }.bind(this));
@@ -119,20 +119,20 @@
                     this._lastViewstate = appView.value;
                 },
 
-                // Updates the back button state. Called after navigation has
-                // completed.
-                _updateBackButton: function () {
-                    var backButton = this.pageElement.querySelector("header[role=banner] .win-backbutton");
-                    if (backButton) {
-                        backButton.onclick = function () { nav.back(); };
+                //// Updates the back button state. Called after navigation has
+                //// completed.
+                //_updateBackButton: function () {
+                //    var backButton = this.pageElement.querySelector("header[role=banner] .win-backbutton");
+                //    if (backButton) {
+                //        backButton.onclick = function () { nav.back(); };
 
-                        if (nav.canGoBack) {
-                            backButton.removeAttribute("disabled");
-                        } else {
-                            backButton.setAttribute("disabled", "disabled");
-                        }
-                    }
-                },
+                //        if (nav.canGoBack) {
+                //            backButton.removeAttribute("disabled");
+                //        } else {
+                //            backButton.setAttribute("disabled", "disabled");
+                //        }
+                //    }
+                //},
             }
         )
     });

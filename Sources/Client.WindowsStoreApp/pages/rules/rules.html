@@ -20,8 +20,8 @@
     <!-- The content that will be loaded and displayed. -->
     <div class="homepage fragment">
         <header aria-label="Header content" role="banner">
-            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
-            <h1 class="titlearea win-type-ellipsis"></h1>
+            <button id="backbutton" class="win-backbutton"></button>
+            <h1 class="titlearea"></h1>
         </header>
         <section role="main">
         <div class="rulessection" aria-label="Rules column">
@@ -30,16 +30,19 @@
             </div>
         </div>
         <div class="trainingsection" aria-label="Puzzles column">
-            <h2>Training!</h2>
+            <div class="title"><h2>Training!</h2></div>
             <div id="practice"></div>
-            <br />
             <div class="finished">
-            <button class="playButton">PLAY!</button><br />
-            or<br />
-            <button class="seeallButton">See all puzzles</button>
+            <button class="playButton">PLAY!</button>
+            or &nbsp;&nbsp; <button class="seeallButton">See all puzzles</button>
             </div>
         </div>
         </section>
+    </div>
+
+    <div id="solvedFlyout" data-win-control="WinJS.UI.Flyout">
+        <div>Puzzle solved!</div>
+        <button id="resetButton">Reset</button>
     </div>
 </body>
 </html>

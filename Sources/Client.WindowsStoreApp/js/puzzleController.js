@@ -2,7 +2,7 @@
 
 function PuzzleController(puzzleMeta, element) {
     // the puzzle object
-    var puzzle, initialstate;
+    var puzzleUi, puzzle;
     
     var canvas;
     var loaded = { "js": false, "css": false, "puzzle": false };
@@ -41,7 +41,7 @@ function PuzzleController(puzzleMeta, element) {
     }
 
     this.action = function (obj) {
-        stack.push(puzzle.getState());
+        stack.push(puzzleUi.getState());
         console.log("ACTION: " + JSON.stringify(obj));
     };
 
@@ -56,15 +56,16 @@ function PuzzleController(puzzleMeta, element) {
 
     // reset the puzzle = start again
     function reset() {
-        puzzle.setState(initialstate);
+        solved = false;
+        puzzleUi.setState(puzzle.istate);
         console.log("RESET");
-        stack = [initialstate];
+        stack = [puzzle.istate];
     }
 
     // undo the last action
     function undo () {
         stack.pop();
-        puzzle.setState(stack.last());
+        puzzleUi.setState(stack.last());
         console.log("UNDO");
     }
     
@@ -90,12 +91,12 @@ function PuzzleController(puzzleMeta, element) {
     function loadedEvent(what) {
         loaded[what] = true;
         if (loaded["js"] == true && loaded["css"] == true && loaded["puzzle"] == true) {
+            self.puzzle = puzzle;
             if (self.onLoad) {
                 self.onLoad();
             }
-            initialstate = puzzle.istate;
-            puzzle = new Puzzle(puzzle, self);
-            puzzle.initializeUi(canvas);
+            puzzleUi = new Puzzle(puzzle, self);
+            puzzleUi.initializeUi(canvas);
 
             var scale = Math.min(element.clientHeight / canvas.clientHeight, element.clientWidth * 0.9 / canvas.clientWidth, 1.5);
             scale = Math.round(100 * scale) / 100;
@@ -103,19 +104,19 @@ function PuzzleController(puzzleMeta, element) {
             canvas.style.left = (element.clientWidth - scale*canvas.clientWidth) / 2 + "px";
 
             solved = false;
-            stack = [initialstate];
+            stack = [puzzle.istate];
             totalTime = 0;
             startClock();
         }
     }
 
     this.undo = undo;
-    this.undoEnabled = function () { return stack ? stack.length > 1 : false; }
-    this.pause = function () { pauseClock(); }
-    this.unpause = function () { startClock(); }
+    this.undoEnabled = function () { return stack ? stack.length > 1 : false; };
+    this.pause = function () { pauseClock(); };
+    this.unpause = function () { startClock(); };
     this.reset = reset;
-    this.getTime = function () { return paused ? totalTime : totalTime + Date.now() - startTime; }
+    this.getTime = function () { return paused ? totalTime : totalTime + Date.now() - startTime; };
     this.onSolved = null;
     this.onLoad = null;
-    Object.defineProperty(this, "puzzle", { get: function () { return puzzle; }});
+    this.puzzle = null;
 }

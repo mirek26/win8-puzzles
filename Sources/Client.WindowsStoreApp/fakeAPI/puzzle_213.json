@@ -1,0 +1,1 @@
+{"author":0,"def":["-#####--","-#   #--","##   ###","#      #","# .... #","##   ###","-#####--"],"istate":{"man":[5,3],"boxes":[[3,2],[3,3],[3,4],[3,5]]},"state":null,"median":"00:03:48","mean":"00:05:14","num":0,"hist":{"len":40,"values":[0,3,8,4,5,3,3,2,3,0,4,2,0,0]},"id":213,"type":"Sokoban","title":"Store 4d","solved":false,"spend":null,"expected":"00:03:48"}

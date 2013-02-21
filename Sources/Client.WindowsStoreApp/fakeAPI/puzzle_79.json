@@ -1,0 +1,1 @@
+{"author":0,"def":["1..121.0","..00..11","10.111..",".22.....","..1.1.33","01..3.2.",".2.01..2","32...3.2"],"istate":{"segm":null},"state":null,"median":"00:04:03","mean":"00:05:46","num":0,"hist":{"len":43,"values":[0,1,14,10,9,9,11,2,1,1,1,2,5,1]},"id":79,"type":"LoopFinder","title":"Loop Finder 1335","solved":false,"spend":null,"expected":"00:04:03"}

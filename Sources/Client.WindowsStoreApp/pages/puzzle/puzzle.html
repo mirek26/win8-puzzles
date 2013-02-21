@@ -12,6 +12,7 @@
 
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/pages/puzzle/puzzle.css" rel="stylesheet" />
+    <link href="puzzle.css" rel="stylesheet" />
     <script src="/js/data.js"></script>
     <script src="/js/puzzleController.js"></script>
     <script src="/puzzles/common.js"></script>
@@ -21,8 +22,8 @@
     <!-- The content that will be loaded and displayed. -->
     <div class="puzzlepage fragment">
         <header aria-label="Header content" role="banner">
-            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
-            <h1 class="titlearea win-type-ellipsis pagetitle"></h1>
+            <button id="backbutton" class="win-backbutton"></button>
+            <h1 class="titlearea pagetitle"></h1>
         </header>
         <section aria-label="Main content" role="main">
             <div id="scalebox"></div>
@@ -37,9 +38,21 @@
 
     <div id="dialog">
         <div class="message">
-            <h2 class="win-type-ellipsis">Finished!</h2>
-            <p>Congratulations! Puzzle solved in <span class="actualTime"></span> (average <span class="meanTime"></span>, median <span class="medianTime"></span>).</p>
-            <div class="histogram"> </div>
+            <div class="center">
+                <h2 class="win-type-ellipsis">Finished!</h2>
+                <p>Congratulations! Puzzle solved in <span class="actualTime"></span> (average <span class="meanTime"></span>, median <span class="medianTime"></span>).</p>
+                <div class="histogram"> </div>
+                <button class="seeAllButton">See all puzzles</button>
+                <div class="continueButtons">
+                Continue with:
+                <button class="easier">Easier</button>
+                <button class="harder">Harder</button>
+                </div>
+                <div class="allSolved">
+                All puzzles solved! 
+                <button class="home">Go home</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

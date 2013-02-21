@@ -16,7 +16,6 @@
 }
 
 
-
 #dialog {
     display: none;
     position: absolute;
@@ -32,15 +31,47 @@
     #dialog .message {
         text-align: center;
         position: absolute;
-        top: 40%;
+        top: 20%;
         color: #333;
-        width: 100%;
+        width: calc(100% - 200px);
         background-color: white;
         padding: 50px 100px;
+        min-width: 50%;
     }
+
+        #dialog .message .center {
+            display: inline-block;
+            margin: auto;
+        }
 
     #dialog .message .histogram {
         margin: 20px auto;
-        width: 300px;
-        height: 100px;
+        width: 350px;
+        height: 140px;
+    }
+
+    #dialog button {
+        background-color: #808080;
+        border: 2px solid #747474;
+        padding: 4px 10px;
+        margin: 5px;
+        color: white;
+    }
+
+        #dialog button:hover {
+            background-color: #b0b0b0;
+            border: 2px solid #808080;
+        }
+
+    #dialog .seeAllButton {
+        float: left;
+    }
+
+    #dialog .continueButtons {
+        float: right;
+    }
+
+    #dialog .allSolved {
+        float: right;
+        display: none;
     }

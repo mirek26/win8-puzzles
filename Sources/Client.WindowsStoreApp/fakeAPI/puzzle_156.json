@@ -1,0 +1,1 @@
+{"author":0,"def":["####--","# .#--","#  ###","#.   #","#    #","#  ###","####--"],"istate":{"man":[3,2],"boxes":[[3,1],[4,3]]},"state":null,"median":"00:01:06","mean":"00:01:46","num":0,"hist":{"len":11,"values":[2,44,88,68,55,58,51,33,42,35,33,15,17,16]},"id":156,"type":"Sokoban","title":"Store 2a","solved":false,"spend":null,"expected":"00:01:06"}

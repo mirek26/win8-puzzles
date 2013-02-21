@@ -70,7 +70,7 @@ namespace Puzzles.API.Webrole.WebRole.Controllers
                             Type = puzzle.TypeId, 
                             Title = puzzle.Title, 
                             Solved = false, 
-                            ExpectedTime = puzzle.MeanTime,
+                            ExpectedTime = puzzle.MedianTime,
                             SpendTime = null, 
                     })
                     .OrderBy(p => p.ExpectedTime);

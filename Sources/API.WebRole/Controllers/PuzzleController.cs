@@ -46,11 +46,11 @@ namespace Puzzles.API.Webrole.WebRole.Controllers
                             Definition = JsonConvert.DeserializeObject(puzzle.Definition),
                             InitialState = JsonConvert.DeserializeObject(puzzle.InitialState),
                             State = null,
-                            ExpectedTime = TimeSpan.FromSeconds(123),
+                            ExpectedTime = puzzle.MedianTime,
                             SpendTime = null, 
                             MeanTime = puzzle.MeanTime, 
                             MedianTime = puzzle.MedianTime,
-                            Histogram = JsonConvert.DeserializeObject<Puzzles.API.Contract.Histogram>(puzzle.Historgram)
+                            Histogram = puzzle.Histogram != null ? JsonConvert.DeserializeObject<Puzzles.API.Contract.Histogram>(puzzle.Histogram) : null
                     };
         }
 

@@ -1,0 +1,1 @@
+{"author":0,"def":["------####","####### .#","#        #","#     ...#","###   ####","--#####---"],"istate":{"man":[3,4],"boxes":[[2,2],[2,4],[2,6],[2,7]]},"state":null,"median":"00:04:21","mean":"00:11:38","num":0,"hist":{"len":46,"values":[2,5,5,1,4,2,0,1,1,1,1,1,0,0]},"id":219,"type":"Sokoban","title":"Store 4j","solved":false,"spend":null,"expected":"00:04:21"}

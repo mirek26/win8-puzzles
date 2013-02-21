@@ -1,0 +1,1 @@
+{"author":0,"def":["--####--","--#  #--","###  ###","#   .  #","# .  . #","##   ###","-#####--"],"istate":{"man":[4,3],"boxes":[[3,2],[3,4],[3,5]]},"state":null,"median":"00:03:31","mean":"00:06:48","num":0,"hist":{"len":37,"values":[0,2,4,7,10,5,5,3,3,2,1,2,1,1]},"id":196,"type":"Sokoban","title":"Store 3ax","solved":false,"spend":null,"expected":"00:03:31"}
