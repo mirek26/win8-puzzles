@@ -1,65 +1,66 @@
-﻿.homepage section[role=main] {
+﻿.rulespage section[role=main] {
     -ms-grid-columns: 2fr 3fr;
     -ms-grid-rows: 1fr;
     display: -ms-grid;
 }
 
-.homepage .rulessection {
+.rulespage .rulessection {
     -ms-grid-column: 1;
     margin-left: 128px;
 }
  
-    .homepage .rulessection ul{
+    .rulespage  .rulessection ul{
         margin: 20px 0px;
     }
 
-    .homepage .rulessection li{
+    .rulespage  .rulessection li{
         font-size: 130%;
         margin: 10px 0px;
     }
 
    
-.homepage .trainingsection {
-    display: -ms-grid;
-    -ms-grid-rows: 50px 1fr 200px;
-    -ms-grid-columns: 1fr;
+.rulespage .trainingsection {
     -ms-grid-column: 2;
     margin-left: 50px;
-    overflow-y: auto;
-    padding-right: 120px;
+    overflow: hidden;
+    padding-right: 10px;
+    padding-bottom: 10px;
     position: relative;
     z-index: 0;
 }
 
-.trainingsection .training {
-    -ms-grid-row: 1;
+.rulespage .buttons {
+    margin-top: 10px;
+    text-align: center;
 }
 
-#practice {
-    -ms-grid-row: 2;
+.rulespage .seeallButton {
+    padding: 7px 0;
+    margin: 10px 0;
+    width: 70%;
 }
 
-.finished {
-    -ms-grid-row: 3;
-    margin: 5px 20px;
-    text-align: right;
-}
-
-.seeallButton {
-    margin: 10px 0px;
-    width: 30%;
-}
-
-.playButton {
-    color: #fff;
-    width: 100%;
+.rulespage .playButton {
+    background-color: #666;
+    width: 70%;
     padding: 10px 0;
     margin-bottom: 10px;
     font-size: 200%;
     font-weight: bold;
 }
 
-#practice {
-    margin-top: 10px;
+.rulespage #practice {
+    margin-top: 20px;
+    height: calc(100% - 60px);
     width: 100%;
 }
+
+
+
+#solvedFlyout {
+    padding: 20px;
+}
+
+    #solvedFlyout button {
+        margin: 10px;
+    }

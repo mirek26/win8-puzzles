@@ -1,11 +1,14 @@
 ﻿.homepage section[role=main] {
-    -ms-grid-columns: 450px 1fr;
-    -ms-grid-rows: 1fr;
+    /*-ms-grid-columns: 450px 1fr;
+    -ms-grid-rows: 1fr;*/
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 1fr 50px;
     display: -ms-grid;
     width: 100%;
 }
 
 .homepage .menu {
+    display: none;
     margin: 15px 40px 15px 128px;
     height: 100%;
     -ms-grid-column: 1;
@@ -35,10 +38,18 @@
 
 .homepage .grid {
     height: 100%;
-    width: 100%;
-    -ms-grid-column: 2;
+    width: calc(100% - 128px);
+    padding-left: 128px;
+/*    -ms-grid-column: 2;*/
 }
 
+.homepage .note {
+    height: 100%;
+    padding-right: 30px;
+    font-size: 150%;
+    text-align: right;
+    -ms-grid-row: 2;
+}
 
 .homepage .puzzletype {
     width: 300px;

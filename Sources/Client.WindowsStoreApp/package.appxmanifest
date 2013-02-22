@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="35158myreg.Alllogicpuzzles" Version="1.0.0.0" Publisher="CN=96808417-8201-4B98-BD22-830BD3702B71" />
+  <Identity Name="35158myreg.Alllogicpuzzles" Version="1.0.0.1" Publisher="CN=96808417-8201-4B98-BD22-830BD3702B71" />
   <Properties>
     <DisplayName>Logic puzzle central</DisplayName>
     <PublisherDisplayName>myreg</PublisherDisplayName>
@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" StartPage="default.html">
       <VisualElements DisplayName="Logic Puzzles" Logo="images/logo.png" SmallLogo="images\smalllogo.png" Description="Collection of various logic puzzles." ForegroundText="light" BackgroundColor="#4e9a06">
-        <DefaultTile ShowName="allLogos" ShortName="Puzzles" WideLogo="images/logo-wide.png" />
+        <DefaultTile ShowName="allLogos" ShortName="Logic Puzzles" WideLogo="images/logo-wide.png" />
         <SplashScreen Image="images\splashscreen.png" />
         <InitialRotationPreference>
           <Rotation Preference="landscape" />

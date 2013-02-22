@@ -11,38 +11,38 @@
     var nav = WinJS.Navigation;
 
     app.getUserData = function (onSuccess, onFailure) {
-        app.user = {};
-        WL.api({
-            path: "me",
-            method: "GET"
-        }).then(
-            function (response) {
-                app.user.name = response.name;
-                app.user.email = response.emails.preferred;
-                if (onSuccess) {
-                    onSuccess();
-                }
-            },
-            onFailure);
+        //app.user = {};
+        //WL.api({
+        //    path: "me",
+        //    method: "GET"
+        //}).then(
+        //    function (response) {
+        //        app.user.name = response.name;
+        //        app.user.email = response.emails.preferred;
+        //        if (onSuccess) {
+        //            onSuccess();
+        //        }
+        //    },
+        //    onFailure);
     };
 
     app.login = function(onSuccess, onFailure) {
-        WL.login({
-            scope: ["wl.signin", "wl.basic", "wl.emails"]
-        }).done(function() {
-            WinJS.Application.getUserData();
-            if (onSuccess) {
-                onSuccess();
-            }
-        }, onFailure);
+        //WL.login({
+        //    scope: ["wl.signin", "wl.basic", "wl.emails"]
+        //}).done(function() {
+        //    WinJS.Application.getUserData();
+        //    if (onSuccess) {
+        //        onSuccess();
+        //    }
+        //}, onFailure);
     };
 
     app.addEventListener("activated", function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
             if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {
-                WL.init({
-                    scope: ["wl.signin", "wl.basic", "wl.emails"]
-                });
+                //WL.init({
+                //    scope: ["wl.signin", "wl.basic", "wl.emails"]
+                //});
                 // TODO: This application has been newly launched. Initialize
                 // your application here.
             } else {

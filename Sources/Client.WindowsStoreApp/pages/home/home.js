@@ -18,7 +18,7 @@
         },
 
         ready: function (element, options) {
-            document.getElementById("refreshButton").addEventListener("click", this.refresh.bind(this));
+            //document.getElementById("refreshButton").addEventListener("click", this.refresh.bind(this));
             
             //element.querySelector(".statistics").addEventListener("click", function () {
             //});

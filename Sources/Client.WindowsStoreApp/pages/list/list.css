@@ -23,14 +23,25 @@
         width: 200px;
     }
 
-        .itemspage .itemslist .puzzle .state {
+        .itemspage .itemslist .puzzle .stateg {
             width: 40px;
-            background-color: #ffd800;
+            background: #73d216 url('///images/icons/check.png') no-repeat 60% 50%;
             -ms-grid-column: 1;
         }
 
+        .itemspage .itemslist .puzzle .stater {
+            width: 40px;
+            background-color: #f57900;
+            -ms-grid-column: 1;
+        }
+        
+        .itemspage .itemslist .puzzle .stateo {
+            width: 40px;
+            background-color: #edd400;
+            -ms-grid-column: 1;
+        }
 
         .itemspage .itemslist .puzzle .title {
-            padding: 5px;
+            padding: 5px 10px;
             -ms-grid-column: 2;
         }

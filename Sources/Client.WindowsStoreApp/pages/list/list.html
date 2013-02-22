@@ -18,10 +18,10 @@
     <!-- This template is used to display each item in the ListView declared below. -->
     <div class="itemtemplate" data-win-control="WinJS.Binding.Template">
         <div class="puzzle">
-            <div class="state"></div>
+            <div data-win-bind="className: stateclass"></div>
             <div class="title">
                 <h4 data-win-bind="textContent: title"></h4>
-                <h6>Average: <span data-win-bind="textContent: expected"></span></h6>
+                <h6><span data-win-bind="textContent: statetext"></span></h6>
             </div>
         </div>
     </div>
@@ -39,8 +39,9 @@
         </section>
     </div>
 
+    <!--
     <div id="appbar" data-win-control="WinJS.UI.AppBar">
     <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'refreshButton', label:'Refresh', icon:'refresh'}" type="button"></button>
-    </div>
+    </div>-->
 </body>
 </html>

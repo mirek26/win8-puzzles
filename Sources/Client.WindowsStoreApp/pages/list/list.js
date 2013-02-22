@@ -9,7 +9,7 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             
-            document.getElementById("refreshButton").addEventListener("click", this.refresh.bind(this));
+            //document.getElementById("refreshButton").addEventListener("click", this.refresh.bind(this));
             var listView = element.querySelector(".itemslist").winControl;
 
             this.type = options.type;

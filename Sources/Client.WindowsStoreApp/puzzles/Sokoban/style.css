@@ -3,11 +3,14 @@
 }
 
 .sokoban table{
+    table-layout: fixed;
 	border-spacing: 0px;
 }
 
 .sokoban td {
+    min-width: 100px;
 	width: 100px;
+    min-height: 100px;
 	height: 100px;	
 	margin: 0;
 	padding: 0;

@@ -296,6 +296,7 @@
     <Content Include="fakeAPI\puzzle_97.json" />
     <Content Include="fakeAPI\puzzle_98.json" />
     <Content Include="fakeAPI\puzzle_99.json" />
+    <Content Include="images\icons\check.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\logo-wide.png" />
     <Content Include="images\smalllogo.png" />
@@ -307,6 +308,7 @@
     <Content Include="js\puzzleController.js" />
     <Content Include="js\raphael-min.js" />
     <Content Include="packages.config" />
+    <Content Include="pages\list\list.js" />
     <Content Include="puzzles\Sokoban\images\box.png" />
     <Content Include="puzzles\Sokoban\images\boxonpost.png" />
     <Content Include="puzzles\Sokoban\images\man.png" />
@@ -329,7 +331,6 @@
     <Content Include="pages\home\home.js" />
     <Content Include="pages\list\list.css" />
     <Content Include="pages\list\list.html" />
-    <Content Include="pages\list\list.js" />
     <Content Include="pages\rules\rules.css" />
     <Content Include="pages\rules\rules.html" />
     <Content Include="pages\rules\rules.js" />

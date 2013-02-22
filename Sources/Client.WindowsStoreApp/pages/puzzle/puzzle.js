@@ -75,6 +75,10 @@
                     WinJS.Navigation.navigate("/pages/puzzle/puzzle.html", { puzzleMeta: h });
                 });
             });
+
+            puzzle.solved = true;
+            puzzle.spend = formatTime(self.controller.getTime());
+            DAL.updatePuzzle(puzzle);
         },
 
         refreshClock: function () {

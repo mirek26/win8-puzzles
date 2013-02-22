@@ -23,14 +23,18 @@ body{
 }
 
 .loopfinder td.vvborder, td.svborder{
+    min-width: 30px;
 	width: 30px;
 }
 
 .loopfinder td.vhborder, td.shborder{
+    min-height: 30px;
 	height: 30px;
 }
 
 .loopfinder td.vertex{
+    min-width: 20px;
+    min-height: 20px;
 	width: 20px;
 	height: 20px;
 	background-color: #462400;
@@ -38,6 +42,8 @@ body{
 }
 
 .loopfinder td.cell{
+    min-width: 80px;
+    min-height: 80px;
 	width: 80px;
 	height: 80px;
 	color: black;
