@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="35158myreg.Alllogicpuzzles" Version="1.0.0.1" Publisher="CN=96808417-8201-4B98-BD22-830BD3702B71" />
+  <Identity Name="35158myreg.Alllogicpuzzles" Version="1.0.0.5" Publisher="CN=96808417-8201-4B98-BD22-830BD3702B71" />
   <Properties>
     <DisplayName>Logic puzzle central</DisplayName>
     <PublisherDisplayName>myreg</PublisherDisplayName>
@@ -24,7 +24,4 @@
       </VisualElements>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>

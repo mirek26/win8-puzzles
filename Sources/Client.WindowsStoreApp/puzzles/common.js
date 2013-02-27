@@ -1,4 +1,4 @@
-Array.prototype.last = function() {
+﻿Array.prototype.last = function() {
 	return this[this.length-1];
 }
 
@@ -22,7 +22,7 @@ function histogram(paper, x, y, width, height, values, emph) {
 function timehistogram(element, length, values, actualTime) {
     var r = Raphael(element);
     var height = element.offsetHeight - 20;
-    var width = element.offsetWidth - 10;
+    var width = element.offsetWidth - 10; 
     var emph = Math.floor((actualTime - 1) / length);
     if (emph < values.length) values[emph]++;
     histogram(r, 10, 0, width, height, values, emph);
